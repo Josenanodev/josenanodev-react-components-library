@@ -1,4 +1,31 @@
 .multicalendario {
-    display: grid;
-    grid-template-areas: "";
+  display: grid;
+  grid-template-areas:
+    "v h"
+    "v c";
+    grid-template-columns: 280px calc(100% - 280px);
+    grid-template-rows: 132px calc(100vh - 132px);
 }
+
+.multicalendario .eje-vertical{
+    grid-area: v;
+    background-color: rgba(0, 255, 255, 0.2);
+    width: 100%;
+    height: 100%;
+}
+
+.multicalendario .eje-horizontal{
+    grid-area: h;
+    background-color: rgba(212, 0, 255, 0.2);
+    width: 100%;
+    height: 100%;
+}
+
+.multicalendario .contendor-principal{
+    grid-area: c;
+    background-color: rgb(51, 255, 0, 0.2);
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+}
+
