@@ -1,0 +1,4 @@
+.multicalendario {
+    display: grid;
+    grid-template-areas: "";
+}
