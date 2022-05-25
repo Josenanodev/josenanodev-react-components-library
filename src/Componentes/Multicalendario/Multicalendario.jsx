@@ -23,7 +23,8 @@ const Multicalendario = () => {
   const [paginacionIzquierda, setPaginacionIzquierda] = useState(30);
   const [paginacion, setPaginacion] = useState(60);
   useEffect(() => {
-    contenedorRef.current.scrollLeft = (paginacionIzquierda - 1) * anchoDeCeldas
+    contenedorRef.current.scrollLeft =
+      (paginacionIzquierda - 1) * anchoDeCeldas;
     // document.getElementById("div-fila-fechas").onscroll(function(e)  {
     //   e.target.scroll
     // })
@@ -58,10 +59,24 @@ const Multicalendario = () => {
       <div className="eje-vertical"></div>
       <div className="eje-horizontal">
         <div className="div-botones-fechas">
-          <button className="boton-semana-pasada">
+          <button
+            className="boton-semana-pasada"
+            onClick={() =>
+              filaFechasRef.current.scroll({
+                left: filaFechasRef.current.scrollLeft - anchoDeCeldas * 7,
+              })
+            }
+          >
             <BootstrapIcons.BsChevronLeft />
           </button>
-          <button className="boton-semana-siguiente">
+          <button
+            onClick={() =>
+              filaFechasRef.current.scroll({
+                left: filaFechasRef.current.scrollLeft + anchoDeCeldas * 7,
+              })
+            }
+            className="boton-semana-siguiente"
+          >
             <BootstrapIcons.BsChevronRight />
           </button>
         </div>
@@ -87,11 +102,7 @@ const Multicalendario = () => {
         ref={contenedorRef}
         className="contendor-principal"
         onScroll={(e) => {
-          console.log(
-            "scroll",
-            e.target.scrollTop,
-            e.target.scrollLeft
-          );
+          console.log("scroll", e.target.scrollTop, e.target.scrollLeft);
           filaFechasRef.current.scrollLeft = e.target.scrollLeft;
           if (
             e.target.scrollLeft + e.target.offsetWidth >
@@ -101,11 +112,10 @@ const Multicalendario = () => {
           }
           if (e.target.scrollLeft < 100) {
             setPaginacionIzquierda(paginacionIzquierda + 30);
-            e.target.scrollLeft = (paginacionIzquierda) * anchoDeCeldas
+            e.target.scrollLeft = paginacionIzquierda * anchoDeCeldas;
           }
           // listaAnunciosRef.current.scrollTop = e.target.scrollTop;
         }}
-        onLoad={(e)=> e.target.scrollLeft = (paginacionIzquierda) * anchoDeCeldas}
       >
         <div
           id="div-contendor-celdas"
