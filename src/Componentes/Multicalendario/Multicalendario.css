@@ -1,31 +1,101 @@
 .multicalendario {
   display: grid;
   grid-template-areas:
-    "v h"
+    "f h"
     "v c";
-    grid-template-columns: 280px calc(100% - 280px);
-    grid-template-rows: 132px calc(100vh - 132px);
+  grid-template-columns: 280px calc(100% - 280px);
+  grid-template-rows: 132px calc(100vh - 132px);
 }
 
-.multicalendario .eje-vertical{
-    grid-area: v;
-    background-color: rgba(0, 255, 255, 0.2);
-    width: 100%;
-    height: 100%;
+.multicalendario .filtros {
+  grid-area: f;
+  position: relative;
+  background-color: rgba(255, 251, 0, 0.2);
+  width: 100%;
+  height: 100%;
 }
 
-.multicalendario .eje-horizontal{
-    grid-area: h;
-    background-color: rgba(212, 0, 255, 0.2);
-    width: 100%;
-    height: 100%;
+.multicalendario .eje-vertical {
+  grid-area: v;
+  position: relative;
+  background-color: rgba(0, 255, 255, 0.2);
+  width: 100%;
+  height: 100%;
 }
 
-.multicalendario .contendor-principal{
-    grid-area: c;
-    background-color: rgb(51, 255, 0, 0.2);
-    width: 100%;
-    height: 100%;
-    overflow: scroll;
+.multicalendario .eje-horizontal {
+  grid-area: h;
+  position: relative;
+  background-color: rgba(212, 0, 255, 0.2);
+  min-width: 100%;
+  height: 100%;
 }
 
+.multicalendario .contendor-principal {
+  grid-area: c;
+  position: relative;
+  background-color: rgb(51, 255, 0, 0.2);
+  min-width: 100%;
+  height: 100%;
+  overflow-x: scroll;
+
+}
+
+.multicalendario .eje-horizontal .div-botones-fechas {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 87px;
+}
+
+.multicalendario .eje-horizontal .div-botones-fechas .boton-semana-pasada,
+.multicalendario .eje-horizontal .div-botones-fechas .boton-semana-siguiente {
+  position: absolute;
+  background-color: transparent;
+  border: none;
+  height: 100%;
+  width: 32px;
+  font-size: 1em;
+  color: rgb(0, 132, 137);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.multicalendario .eje-horizontal .div-botones-fechas .boton-semana-pasada:hover,
+.multicalendario
+  .eje-horizontal
+  .div-botones-fechas
+  .boton-semana-siguiente:hover {
+  background: rgb(247, 247, 247, 0.4);
+}
+
+.multicalendario
+  .eje-horizontal
+  .div-botones-fechas
+  .boton-semana-pasada:active,
+.multicalendario
+  .eje-horizontal
+  .div-botones-fechas
+  .boton-semana-siguiente:active {
+  background: rgb(247, 247, 247, 0.8);
+}
+
+.multicalendario .eje-horizontal .div-botones-fechas .boton-semana-pasada {
+  left: 5px;
+}
+
+.multicalendario .eje-horizontal .div-botones-fechas .boton-semana-siguiente {
+  right: 5px;
+}
+
+.multicalendario .eje-horizontal .fila-fechas {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  overflow-x: scroll;
+}
+
+.multicalendario .eje-horizontal .fila-fechas .div-ancho-dinamico {
+  display: flex;
+}
