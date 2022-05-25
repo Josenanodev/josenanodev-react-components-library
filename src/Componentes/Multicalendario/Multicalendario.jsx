@@ -23,6 +23,7 @@ const Multicalendario = () => {
   const [paginacionIzquierda, setPaginacionIzquierda] = useState(30);
   const [paginacion, setPaginacion] = useState(60);
   useEffect(() => {
+    contenedorRef.current.scrollLeft = (paginacionIzquierda - 1) * anchoDeCeldas
     // document.getElementById("div-fila-fechas").onscroll(function(e)  {
     //   e.target.scroll
     // })
@@ -100,10 +101,11 @@ const Multicalendario = () => {
           }
           if (e.target.scrollLeft < 100) {
             setPaginacionIzquierda(paginacionIzquierda + 30);
-            e.target.scrollLeft = 200
+            e.target.scrollLeft = (paginacionIzquierda) * anchoDeCeldas
           }
           // listaAnunciosRef.current.scrollTop = e.target.scrollTop;
         }}
+        onLoad={(e)=> e.target.scrollLeft = (paginacionIzquierda) * anchoDeCeldas}
       >
         <div
           id="div-contendor-celdas"
