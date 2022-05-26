@@ -1,0 +1,11 @@
+.fecha{
+    position: absolute;
+    bottom: 0;
+}
+
+.fecha div{
+}
+
+.fecha p{
+    margin: 0;
+}
