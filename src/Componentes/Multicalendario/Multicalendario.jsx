@@ -71,17 +71,16 @@ const Multicalendario = () => {
     }
   }, [width, height, contenedorRef]);
   return (
-    <div
-      className="multicalendario"
-      style={{
-        "grid-template-columns": `${anchoListaAnuncios}px calc(100% - ${anchoListaAnuncios}px)`,
-      }}
-    >
+    <div className="multicalendario">
       <div className="filtros"></div>
       <div className="eje-vertical">
-        <div ref={listaAnunciosRef} className="lista-anuncios" onScroll={(e) =>
-            (contenedorRef.current.scrollTop = e.target.scrollLeft)
-          }>
+        <div
+          ref={listaAnunciosRef}
+          className="lista-anuncios"
+          onScroll={(e) =>
+            (contenedorRef.current.scrollTop = e.target.scrollTop)
+          }
+        >
           {listadoIds &&
             listadoIds.map((_id, index) => (
               <div
