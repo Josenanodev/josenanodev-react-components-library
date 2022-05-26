@@ -1,4 +1,6 @@
 .fecha{
+    position: absolute;
+    bottom: 0;
 }
 
 .fecha div{

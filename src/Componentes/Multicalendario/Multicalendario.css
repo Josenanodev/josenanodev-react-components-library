@@ -97,5 +97,5 @@
 }
 
 .multicalendario .eje-horizontal .fila-fechas .div-ancho-dinamico {
-  display: flex;
+  /* display: flex; */
 }
