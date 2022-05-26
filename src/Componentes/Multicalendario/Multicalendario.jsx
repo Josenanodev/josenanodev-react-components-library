@@ -5,7 +5,7 @@ import "./Multicalendario.css";
 import * as BootstrapIcons from "react-icons/bs";
 
 //Componentes
-// import FilaFechas from "../FilaFechas/FilaFechas";
+import FilaFechas from "../FilaFechas/FilaFechas";
 import Fecha from "../Fecha/Fecha";
 
 //Hooks
@@ -26,15 +26,18 @@ const Multicalendario = () => {
   const listaAnunciosRef = useRef();
   const contenedorRef = useRef();
   const [width, height] = useWindowSize();
-  // const [paginacionDerecha, setPaginacionDerecha] = useState(30);
-  // const [paginacionIzquierda, setPaginacionIzquierda] = useState(30);
-  const [paginacion, setPaginacion] = useState(-1);
-  const [anchoPaginacion, setAnchoPaginacion] = useState(factorSobredimension);
+  const [paginacionDerecha, setPaginacionDerecha] = useState(
+    Math.ceil(factorSobredimension / 2)
+  );
+  const [paginacionIzquierda, setPaginacionIzquierda] = useState(
+    Math.ceil(factorSobredimension / 2)
+  );
+  // const [paginacion, setPaginacion] = useState(-1);
+  const [anchoPaginacion, setAnchoPaginacion] = useState();
   const [posicionX, setPosicionX] = useState(0);
   useEffect(() => {
     contenedorRef.current.scrollLeft =
-      ((Math.ceil(width / anchoDeCeldas) + factorSobredimension) / 2) *
-      anchoDeCeldas;
+      (paginacionIzquierda - 3) * anchoDeCeldas;
     setPosicionX(contenedorRef.current.scrollLeft);
     // document.getElementById("div-fila-fechas").onscroll(function(e)  {
     //   e.target.scroll
@@ -42,45 +45,40 @@ const Multicalendario = () => {
   }, []);
 
   useEffect(() => {
-    setAnchoPaginacion(Math.ceil(width / anchoDeCeldas) + factorSobredimension);
+    setAnchoPaginacion(Math.ceil(width / anchoDeCeldas));
     if (contenedorRef.current.scrollLeft) {
       contenedorRef.current.scrollLeft =
-        ((Math.ceil(width / anchoDeCeldas) + factorSobredimension) / 2) *
-        anchoDeCeldas;
+        (paginacionIzquierda - 3) * anchoDeCeldas;
       setPosicionX(contenedorRef.current.scrollLeft);
     }
   }, [width, height, contenedorRef]);
 
-  const pobladorFilaFechas = () => {
-    let fechas = [];
-    const fechaMinimaMilisegundos =
-      Date.parse(fechaHoy) +
-      milisegundosDeUnDia *
-        ((paginacion * anchoPaginacion - factorSobredimension) / 2);
-    for (
-      let index = 0;
-      index < anchoPaginacion - factorSobredimension;
-      index++
-    ) {
-      fechas[index] = new Date(
-        fechaMinimaMilisegundos + milisegundosDeUnDia * (index + 1)
-      );
-    }
-    return (
-      <Fragment>
-        {fechas.map((fecha, index) => (
-          <Fecha
-            key={index}
-            fecha={fecha}
-            ancho={anchoDeCeldas}
-            alto={altoDeCeldas}
-            posicion={index}
-            desfase={Math.floor(posicionX / anchoDeCeldas)}
-          />
-        ))}
-      </Fragment>
-    );
-  };
+  // const pobladorFilaFechas = () => {
+  //   let fechas = [];
+  //   const fechaMinimaMilisegundos =
+  //     Date.parse(fechaHoy) -
+  //     milisegundosDeUnDia * paginacionIzquierda +
+  //     milisegundosDeUnDia * Math.floor(posicionX / anchoDeCeldas);
+  //   for (let index = 0; index < anchoPaginacion; index++) {
+  //     fechas[index] = new Date(
+  //       fechaMinimaMilisegundos + milisegundosDeUnDia * (index + 1)
+  //     );
+  //   }
+  //   return (
+  //     <Fragment>
+  //       {fechas.map((fecha, index) => (
+  //         <Fecha
+  //           key={index}
+  //           fecha={fecha}
+  //           ancho={anchoDeCeldas}
+  //           alto={altoDeCeldas}
+  //           posicion={index}
+  //           desfase={Math.floor(posicionX / anchoDeCeldas)}
+  //         />
+  //       ))}
+  //     </Fragment>
+  //   );
+  // };
   return (
     <div
       className="multicalendario"
@@ -120,25 +118,27 @@ const Multicalendario = () => {
             (contenedorRef.current.scrollLeft = e.target.scrollLeft)
           }
         >
-          <div
+          {/* <div
             id="div-fila-fechas"
             style={{
-              width: anchoPaginacion * anchoDeCeldas,
+              width: (paginacionIzquierda + paginacionDerecha) * anchoDeCeldas,
               height: altoDeCeldas,
             }}
-            className="div-ancho-dinamico"
           >
             {pobladorFilaFechas()}
-          </div>
-          {/* <FilaFechas
-            IdFila="eje-de-fechas"
-            paginacion={paginacion}
-            anchoPaginacion={anchoPaginacion}
-            factorSobredimension={factorSobredimension}
-            anchoDeCeldas={anchoDeCeldas}
-            altoDeCeldas={altoDeCeldas}
-            desfase={Math.floor(posicionX / anchoDeCeldas)}
-          /> */}
+          </div> */}
+            <FilaFechas
+              IdFila="eje-de-fechas"
+              fechaMinima={
+                new Date(Date.parse(fechaHoy) - milisegundosDeUnDia * paginacionIzquierda)
+              }
+              ancho={(paginacionIzquierda + paginacionDerecha) * anchoDeCeldas}
+              alto={altoDeCeldas}
+              anchoPaginacion={anchoPaginacion}
+              anchoDeCeldas={anchoDeCeldas}
+              altoDeCeldas={altoDeCeldas}
+              desfase={Math.floor(posicionX / anchoDeCeldas)}
+            />
         </div>
       </div>
       <div
@@ -149,16 +149,14 @@ const Multicalendario = () => {
           setPosicionX(e.target.scrollLeft);
           if (
             e.target.scrollLeft + e.target.offsetWidth >
-            anchoPaginacion * anchoDeCeldas - 100
+            (paginacionIzquierda + paginacionDerecha) * anchoDeCeldas -
+              anchoDeCeldas
           ) {
-            // setPaginacionDerecha(paginacionDerecha + 30);
-            setPaginacion(paginacion + 1);
-            e.target.scrollLeft = (anchoPaginacion / 2) * anchoDeCeldas;
+            setPaginacionDerecha(paginacionDerecha + 1);
           }
-          if (e.target.scrollLeft < 100) {
-            // setPaginacionIzquierda(paginacionIzquierda + 30);
-            setPaginacion(paginacion - 1);
-            e.target.scrollLeft = (anchoPaginacion / 2) * anchoDeCeldas;
+          if (e.target.scrollLeft < anchoDeCeldas) {
+            setPaginacionIzquierda(paginacionIzquierda + 1);
+            e.target.scrollLeft = anchoDeCeldas * 3;
           }
           // listaAnunciosRef.current.scrollTop = e.target.scrollTop;
         }}
@@ -166,10 +164,12 @@ const Multicalendario = () => {
         <div
           id="div-contendor-celdas"
           style={{
-            width: anchoPaginacion * anchoDeCeldas,
+            width: (paginacionIzquierda + paginacionDerecha) * anchoDeCeldas,
           }}
           className="div-ancho-dinamico"
-        ></div>
+        >
+          {/* {pobladorFilaFechas()} */}
+        </div>
       </div>
     </div>
   );
