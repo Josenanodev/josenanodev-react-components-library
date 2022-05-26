@@ -6,7 +6,7 @@ import * as BootstrapIcons from "react-icons/bs";
 
 //Componentes
 import FilaFechas from "../FilaFechas/FilaFechas";
-import Fecha from "../Fecha/Fecha";
+import FilaCeldas from "../FilaCeldas/FilaCeldas";
 
 //Hooks
 import useWindowSize from "../../Hooks/useWindowsSize";
@@ -17,9 +17,31 @@ const anchoDeCeldas = 80;
 const altoDeCeldas = 48;
 const factorSobredimension = 60;
 const anchoListaAnuncios = 280;
-// const rangoPaginacionSuperior = 30;
-// const rangoPaginacionInferior = 30;
 const fechaHoy = new Date();
+
+//Dummy
+const listadoIds = [
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
+  "11",
+  "12",
+  "13",
+  "14",
+  "15",
+  "16",
+  "17",
+  "18",
+  "19",
+  "20",
+];
 
 const Multicalendario = () => {
   const filaFechasRef = useRef();
@@ -32,16 +54,12 @@ const Multicalendario = () => {
   const [paginacionIzquierda, setPaginacionIzquierda] = useState(
     Math.ceil(factorSobredimension / 2)
   );
-  // const [paginacion, setPaginacion] = useState(-1);
   const [anchoPaginacion, setAnchoPaginacion] = useState();
   const [posicionX, setPosicionX] = useState(0);
   useEffect(() => {
     contenedorRef.current.scrollLeft =
       (paginacionIzquierda - 3) * anchoDeCeldas;
     setPosicionX(contenedorRef.current.scrollLeft);
-    // document.getElementById("div-fila-fechas").onscroll(function(e)  {
-    //   e.target.scroll
-    // })
   }, []);
 
   useEffect(() => {
@@ -52,33 +70,6 @@ const Multicalendario = () => {
       setPosicionX(contenedorRef.current.scrollLeft);
     }
   }, [width, height, contenedorRef]);
-
-  // const pobladorFilaFechas = () => {
-  //   let fechas = [];
-  //   const fechaMinimaMilisegundos =
-  //     Date.parse(fechaHoy) -
-  //     milisegundosDeUnDia * paginacionIzquierda +
-  //     milisegundosDeUnDia * Math.floor(posicionX / anchoDeCeldas);
-  //   for (let index = 0; index < anchoPaginacion; index++) {
-  //     fechas[index] = new Date(
-  //       fechaMinimaMilisegundos + milisegundosDeUnDia * (index + 1)
-  //     );
-  //   }
-  //   return (
-  //     <Fragment>
-  //       {fechas.map((fecha, index) => (
-  //         <Fecha
-  //           key={index}
-  //           fecha={fecha}
-  //           ancho={anchoDeCeldas}
-  //           alto={altoDeCeldas}
-  //           posicion={index}
-  //           desfase={Math.floor(posicionX / anchoDeCeldas)}
-  //         />
-  //       ))}
-  //     </Fragment>
-  //   );
-  // };
   return (
     <div
       className="multicalendario"
@@ -87,7 +78,22 @@ const Multicalendario = () => {
       }}
     >
       <div className="filtros"></div>
-      <div className="eje-vertical"></div>
+      <div className="eje-vertical">
+        <div ref={listaAnunciosRef} className="lista-anuncios" onScroll={(e) =>
+            (contenedorRef.current.scrollTop = e.target.scrollLeft)
+          }>
+          {listadoIds &&
+            listadoIds.map((_id, index) => (
+              <div
+                key={index}
+                className="anuncio"
+                style={{ height: altoDeCeldas }}
+              >
+                <p>Anuncio {_id}</p>
+              </div>
+            ))}
+        </div>
+      </div>
       <div className="eje-horizontal">
         <div className="div-botones-fechas">
           <button
@@ -118,27 +124,20 @@ const Multicalendario = () => {
             (contenedorRef.current.scrollLeft = e.target.scrollLeft)
           }
         >
-          {/* <div
-            id="div-fila-fechas"
-            style={{
-              width: (paginacionIzquierda + paginacionDerecha) * anchoDeCeldas,
-              height: altoDeCeldas,
-            }}
-          >
-            {pobladorFilaFechas()}
-          </div> */}
-            <FilaFechas
-              IdFila="eje-de-fechas"
-              fechaMinima={
-                new Date(Date.parse(fechaHoy) - milisegundosDeUnDia * paginacionIzquierda)
-              }
-              ancho={(paginacionIzquierda + paginacionDerecha) * anchoDeCeldas}
-              alto={altoDeCeldas}
-              anchoPaginacion={anchoPaginacion}
-              anchoDeCeldas={anchoDeCeldas}
-              altoDeCeldas={altoDeCeldas}
-              desfase={Math.floor(posicionX / anchoDeCeldas)}
-            />
+          <FilaFechas
+            IdFila="eje-de-fechas"
+            fechaMinima={
+              new Date(
+                Date.parse(fechaHoy) - milisegundosDeUnDia * paginacionIzquierda
+              )
+            }
+            ancho={(paginacionIzquierda + paginacionDerecha) * anchoDeCeldas}
+            alto={altoDeCeldas}
+            anchoPaginacion={anchoPaginacion}
+            anchoDeCeldas={anchoDeCeldas}
+            altoDeCeldas={altoDeCeldas}
+            desfase={Math.floor(posicionX / anchoDeCeldas)}
+          />
         </div>
       </div>
       <div
@@ -146,6 +145,7 @@ const Multicalendario = () => {
         className="contendor-principal"
         onScroll={(e) => {
           filaFechasRef.current.scrollLeft = e.target.scrollLeft;
+          listaAnunciosRef.current.scrollTop = e.target.scrollTop;
           setPosicionX(e.target.scrollLeft);
           if (
             e.target.scrollLeft + e.target.offsetWidth >
@@ -158,7 +158,6 @@ const Multicalendario = () => {
             setPaginacionIzquierda(paginacionIzquierda + 1);
             e.target.scrollLeft = anchoDeCeldas * 3;
           }
-          // listaAnunciosRef.current.scrollTop = e.target.scrollTop;
         }}
       >
         <div
@@ -166,9 +165,28 @@ const Multicalendario = () => {
           style={{
             width: (paginacionIzquierda + paginacionDerecha) * anchoDeCeldas,
           }}
-          className="div-ancho-dinamico"
         >
-          {/* {pobladorFilaFechas()} */}
+          {listadoIds &&
+            listadoIds.map((_id, index) => (
+              <FilaCeldas
+                key={index}
+                IdFila={_id}
+                fechaMinima={
+                  new Date(
+                    Date.parse(fechaHoy) -
+                      milisegundosDeUnDia * paginacionIzquierda
+                  )
+                }
+                ancho={
+                  (paginacionIzquierda + paginacionDerecha) * anchoDeCeldas
+                }
+                alto={altoDeCeldas}
+                anchoPaginacion={anchoPaginacion}
+                anchoDeCeldas={anchoDeCeldas}
+                altoDeCeldas={altoDeCeldas}
+                desfase={Math.floor(posicionX / anchoDeCeldas)}
+              />
+            ))}
         </div>
       </div>
     </div>

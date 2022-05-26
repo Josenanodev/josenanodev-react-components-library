@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import "./FilaFechas.css";
+import "./FilaCeldas.css";
 
 //Componentes
-import Fecha from "../Fecha/Fecha";
+import Celda from "../Celda/Celda";
 
 //Variables
 const milisegundosDeUnDia = 86400000; //No modificar
@@ -20,7 +20,7 @@ const milisegundosDeUnDia = 86400000; //No modificar
  * }}
  */
 
-const FilaFechas = ({
+const FilaCeldas = ({
   IdFila,
   fechaMinima,
   ancho,
@@ -49,7 +49,7 @@ const FilaFechas = ({
 
   return (
     <div
-      className="fila-de-fechas"
+      className="fila-de-celdas"
       style={{
         width: ancho,
         height: alto,
@@ -57,7 +57,7 @@ const FilaFechas = ({
     >
       {fechas.length > 0 &&
         fechas.map((fecha, index) => (
-          <Fecha
+          <Celda
             key={index}
             style={{
               width: anchoPaginacion * anchoDeCeldas,
@@ -75,4 +75,4 @@ const FilaFechas = ({
   );
 };
 
-export default FilaFechas;
+export default FilaCeldas;
