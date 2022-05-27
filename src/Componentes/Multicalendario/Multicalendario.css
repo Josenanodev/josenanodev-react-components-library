@@ -174,9 +174,11 @@
   right: 5px;
 }
 
-.multicalendario .eje-horizontal .fila-fechas {
+.multicalendario .eje-horizontal .div-fila-fechas {
   position: absolute;
   bottom: 0;
   width: 100%;
   overflow-x: scroll;
+  border-bottom: 1px solid rgb(235, 235, 235);
+  box-sizing: border-box;
 }
