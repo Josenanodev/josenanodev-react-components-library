@@ -1,5 +1,6 @@
 {
   "name": "multicalendario",
+  "author": "Jose Carlos Cardenas Martinez",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
