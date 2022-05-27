@@ -30,23 +30,22 @@ const FilaCeldas = ({
   altoDeCeldas,
   desfase,
 }) => {
+  //Estados
   const [fechas, setFechas] = useState([]);
+  //UseEffect
   useEffect(() => {
+    // Definicion de visibilidad y renderizacion del Eje X
     let array = [...fechas];
     const fechaMinimaMilisegundos =
       Date.parse(fechaMinima) + milisegundosDeUnDia * desfase;
-    for (
-      let index = 0;
-      index < anchoPaginacion;
-      index++
-    ) {
+    for (let index = 0; index < anchoPaginacion; index++) {
       array[index] = new Date(
         fechaMinimaMilisegundos + milisegundosDeUnDia * (index + 1)
       );
     }
     setFechas(array);
   }, [fechaMinima, anchoPaginacion, desfase]);
-
+  //Render
   return (
     <div
       className="fila-de-celdas"

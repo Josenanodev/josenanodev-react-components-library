@@ -12,6 +12,23 @@ import "./Fecha.css";
  * }}
  */
 
+//Variables
+const abreviacionesDiaDeSemana = ["do", "lu", "ma", "mi", "ju", "vi", "sá"];
+const nombresDeMeses = [
+  "enero",
+  "febrero",
+  "marzo",
+  "abril",
+  "mayo",
+  "junio",
+  "julio",
+  "agosto",
+  "septiembre",
+  "octubre",
+  "noviembre",
+  "diciembre",
+];
+
 const Fecha = ({
   fecha,
   idFila,
@@ -20,21 +37,7 @@ const Fecha = ({
   posicion,
   desfase,
 }) => {
-  const abreviacionesDiaDeSemana = ["do", "lu", "ma", "mi", "ju", "vi", "sá"];
-  const nombresDeMeses = [
-    "enero",
-    "febrero",
-    "marzo",
-    "abril",
-    "mayo",
-    "junio",
-    "julio",
-    "agosto",
-    "septiembre",
-    "octubre",
-    "noviembre",
-    "diciembre",
-  ];
+  //Render
   return (
     <div
       fecha={fecha}

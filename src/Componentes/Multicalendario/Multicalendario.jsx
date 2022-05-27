@@ -68,9 +68,11 @@ const listadoIds = [
 ];
 
 const Multicalendario = () => {
+  //Refs 
   const filaFechasRef = useRef();
   const listaAnunciosRef = useRef();
   const contenedorRef = useRef();
+  //Estados
   const [width, height] = useWindowSize();
   const [paginacionDerecha, setPaginacionDerecha] = useState(
     Math.ceil(factorSobredimension / 2)
@@ -83,15 +85,18 @@ const Multicalendario = () => {
   const [listadoVisible, setlistadoVisible] = useState([]);
   const [posicionX, setPosicionX] = useState(0);
   const [posicionY, setPosicionY] = useState(0);
+  //UseEffects
   useEffect(() => {
+    // Posicionamiento inicial en X
     contenedorRef.current.scrollLeft =
       (paginacionIzquierda - 3) * anchoDeCeldas;
     setPosicionX(contenedorRef.current.scrollLeft);
   }, []);
-
   useEffect(() => {
+    // Dimensiones de paginacion
     setAnchoPaginacion(Math.ceil(width / anchoDeCeldas));
     setAltoPaginacion(Math.floor(height / altoDeCeldas));
+    // Redefinicion de posicion X ante cambios en el tamaño de la ventana
     if (contenedorRef.current.scrollLeft) {
       contenedorRef.current.scrollLeft =
         (paginacionIzquierda - 3) * anchoDeCeldas;
@@ -99,6 +104,7 @@ const Multicalendario = () => {
     }
   }, [width, height, contenedorRef]);
   useEffect(() => {
+    // Definicion de visibilidad y renderizacion del Eje Y
     let array = [];
     let desfase = Math.floor(posicionY / altoDeCeldas);
     for (let index = 0; index < altoPaginacion; index++) {
@@ -107,6 +113,7 @@ const Multicalendario = () => {
     }
     setlistadoVisible(array);
   }, [posicionY, altoPaginacion, listadoIds]);
+  //Render
   return (
     <div className="multicalendario">
       <div className="filtros"></div>
