@@ -4,23 +4,69 @@
     "f h"
     "v c";
   grid-template-columns: 280px calc(100% - 280px);
-  grid-template-rows: 132px calc(100vh - 132px);
+  grid-template-rows: 148px calc(100vh - 148px);
 }
 
 .multicalendario .filtros {
   grid-area: f;
   position: relative;
-  background-color: rgba(255, 251, 0, 0.2);
   width: 100%;
   height: 100%;
+  z-index: 2;
+  background-color: white;
+  border-bottom: 1px solid rgb(235, 235, 235);
+  border-right: 1px solid rgb(235, 235, 235);
+  box-sizing: border-box;
+}
+
+.multicalendario .filtros .cantidad-anuncios {
+  font-size: 24px;
+  line-height: 30px;
+  margin: 0px;
+  white-space: nowrap;
+  color: #484848;
+  font-weight: bold;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 102px;
+  padding: 0px 16px;
+  box-sizing: border-box;
+}
+
+.multicalendario .filtros form .div-buscador-anuncios {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgb(235, 235, 235);
+  box-sizing: border-box;
+  width: fit-content;
+  margin: auto;
+  padding: 5px 0px;
+  border-radius: 6px;
+}
+
+.multicalendario .filtros form .div-buscador-anuncios input {
+  border: none;
+}
+
+.multicalendario .filtros form .div-buscador-anuncios input:focus {
+  border: none;
+  outline: none;
+}
+
+.multicalendario .filtros form .div-buscador-anuncios svg {
+  padding: 0px 10px;
 }
 
 .multicalendario .eje-vertical {
   grid-area: v;
   position: relative;
-  background-color: rgba(0, 255, 255, 0.2);
   width: 100%;
   height: 100%;
+  box-shadow: rgb(0 0 0 / 15%) 0px 0px 16px 5px;
+  z-index: 1;
 }
 
 .multicalendario .eje-horizontal {
@@ -30,10 +76,16 @@
   height: 100%;
 }
 
-.multicalendario .contendor-principal {
+.multicalendario .div-contenedor-principal {
   grid-area: c;
+  height: 100%;
   position: relative;
-  background-color: rgb(51, 255, 0, 0.2);
+  width: 100%;
+  overflow: hidden;
+}
+
+.multicalendario .contendor-principal {
+  position: relative;
   min-width: 100%;
   height: 100%;
   overflow-x: scroll;
@@ -43,7 +95,10 @@
   box-sizing: border-box;
 }
 
-.multicalendario .contendor-principal .div-filas-celdas .div-altura-filas-celdas{
+.multicalendario
+  .contendor-principal
+  .div-filas-celdas
+  .div-altura-filas-celdas {
   box-sizing: border-box;
 }
 

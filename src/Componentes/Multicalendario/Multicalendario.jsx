@@ -7,6 +7,7 @@ import * as BootstrapIcons from "react-icons/bs";
 //Componentes
 import FilaFechas from "../FilaFechas/FilaFechas";
 import FilaCeldas from "../FilaCeldas/FilaCeldas";
+import VisualizadorInformacion from "../VisualizadorInformacion/VisualizadorInformacion";
 
 //Hooks
 import useWindowSize from "../../Hooks/useWindowsSize";
@@ -67,7 +68,7 @@ const listadoIds = [
 ];
 
 const Multicalendario = () => {
-  //Refs 
+  //Refs
   const filaFechasRef = useRef();
   const listaAnunciosRef = useRef();
   const contenedorRef = useRef();
@@ -115,7 +116,24 @@ const Multicalendario = () => {
   //Render
   return (
     <div className="multicalendario">
-      <div className="filtros"></div>
+      <div className="filtros">
+        {listadoIds.length > 0 && (
+          <p className="cantidad-anuncios">
+            {listadoIds.length} anuncio{listadoIds.length > 0 ? "s" : ""}
+          </p>
+        )}
+        <form>
+          <div className="div-buscador-anuncios">
+            <div>
+              <BootstrapIcons.BsSearch />
+            </div>
+            <input type="text" placeholder="Buscar anuncios..." />
+            <div>
+              <BootstrapIcons.BsSliders />
+            </div>
+          </div>
+        </form>
+      </div>
       <div className="eje-vertical">
         <div
           ref={listaAnunciosRef}
@@ -191,62 +209,65 @@ const Multicalendario = () => {
           />
         </div>
       </div>
-      <div
-        ref={contenedorRef}
-        className="contendor-principal"
-        onScroll={(e) => {
-          filaFechasRef.current.scrollLeft = e.target.scrollLeft;
-          listaAnunciosRef.current.scrollTop = e.target.scrollTop;
-          setPosicionX(e.target.scrollLeft);
-          setPosicionY(e.target.scrollTop);
-          if (
-            e.target.scrollLeft + e.target.offsetWidth >
-            (paginacionIzquierda + paginacionDerecha) * anchoDeCeldas -
-              anchoDeCeldas
-          ) {
-            setPaginacionDerecha(paginacionDerecha + 1);
-          }
-          if (e.target.scrollLeft < anchoDeCeldas) {
-            setPaginacionIzquierda(paginacionIzquierda + 1);
-            e.target.scrollLeft = anchoDeCeldas * 3;
-          }
-        }}
-      >
+      <div className="div-contenedor-principal">
         <div
-          className="div-filas-celdas"
-          style={{
-            width: (paginacionIzquierda + paginacionDerecha) * anchoDeCeldas,
+          ref={contenedorRef}
+          className="contendor-principal"
+          onScroll={(e) => {
+            filaFechasRef.current.scrollLeft = e.target.scrollLeft;
+            listaAnunciosRef.current.scrollTop = e.target.scrollTop;
+            setPosicionX(e.target.scrollLeft);
+            setPosicionY(e.target.scrollTop);
+            if (
+              e.target.scrollLeft + e.target.offsetWidth >
+              (paginacionIzquierda + paginacionDerecha) * anchoDeCeldas -
+                anchoDeCeldas
+            ) {
+              setPaginacionDerecha(paginacionDerecha + 1);
+            }
+            if (e.target.scrollLeft < anchoDeCeldas) {
+              setPaginacionIzquierda(paginacionIzquierda + 1);
+              e.target.scrollLeft = anchoDeCeldas * 3;
+            }
           }}
         >
           <div
-            className="div-altura-filas-celdas"
+            className="div-filas-celdas"
             style={{
-              height: altoDeCeldas * listadoIds.length,
-              paddingTop: Math.floor(posicionY / altoDeCeldas) * altoDeCeldas,
+              width: (paginacionIzquierda + paginacionDerecha) * anchoDeCeldas,
             }}
           >
-            {listadoVisible.map((_id, index) => (
-              <FilaCeldas
-                key={index}
-                IdFila={_id}
-                fechaMinima={
-                  new Date(
-                    Date.parse(fechaHoy) -
-                      milisegundosDeUnDia * paginacionIzquierda
-                  )
-                }
-                ancho={
-                  (paginacionIzquierda + paginacionDerecha) * anchoDeCeldas
-                }
-                alto={altoDeCeldas}
-                anchoPaginacion={anchoPaginacion}
-                anchoDeCeldas={anchoDeCeldas}
-                altoDeCeldas={altoDeCeldas}
-                desfase={Math.floor(posicionX / anchoDeCeldas)}
-              />
-            ))}
+            <div
+              className="div-altura-filas-celdas"
+              style={{
+                height: altoDeCeldas * listadoIds.length,
+                paddingTop: Math.floor(posicionY / altoDeCeldas) * altoDeCeldas,
+              }}
+            >
+              {listadoVisible.map((_id, index) => (
+                <FilaCeldas
+                  key={index}
+                  IdFila={_id}
+                  fechaMinima={
+                    new Date(
+                      Date.parse(fechaHoy) -
+                        milisegundosDeUnDia * paginacionIzquierda
+                    )
+                  }
+                  ancho={
+                    (paginacionIzquierda + paginacionDerecha) * anchoDeCeldas
+                  }
+                  alto={altoDeCeldas}
+                  anchoPaginacion={anchoPaginacion}
+                  anchoDeCeldas={anchoDeCeldas}
+                  altoDeCeldas={altoDeCeldas}
+                  desfase={Math.floor(posicionX / anchoDeCeldas)}
+                />
+              ))}
+            </div>
           </div>
         </div>
+      <VisualizadorInformacion />
       </div>
     </div>
   );
