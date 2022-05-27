@@ -188,7 +188,7 @@ const Multicalendario = () => {
         </div>
         <div
           ref={filaFechasRef}
-          className="fila-fechas"
+          className="div-fila-fechas"
           onScroll={(e) =>
             (contenedorRef.current.scrollLeft = e.target.scrollLeft)
           }
