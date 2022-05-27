@@ -1,11 +1,53 @@
-.fecha{
-    position: absolute;
-    bottom: 0;
+.fecha {
+  position: absolute;
+  bottom: 0;
 }
 
-.fecha div{
+.fecha .div-fecha,
+.fecha .div-fecha-hoy {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 48px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.fecha p{
-    margin: 0;
+.fecha .div-fecha-hoy div {
+  border-radius: 4px;
+  background: rgb(0, 132, 137);
+  color: rgb(255, 255, 255);
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 800;
+  width: 40px;
+  height: 40px;
+  padding: 1px 0;
+}
+
+.fecha .div-fecha p,
+.fecha .div-fecha-hoy p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.fecha .inicio-mes {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  box-sizing: border-box;
+  border-left: 1px solid rgb(235, 235, 235);
+}
+
+.fecha .inicio-mes p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 600;
+  white-space: nowrap;
+  padding-left: 8px;
+  padding-top: 8px;
 }

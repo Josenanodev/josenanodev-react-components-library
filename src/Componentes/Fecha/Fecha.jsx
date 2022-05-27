@@ -12,8 +12,29 @@ import "./Fecha.css";
  * }}
  */
 
-const Fecha = ({ fecha, idFila, ancho = "auto", alto = "auto", posicion, desfase }) => {
+const Fecha = ({
+  fecha,
+  idFila,
+  ancho = "auto",
+  alto = "auto",
+  posicion,
+  desfase,
+}) => {
   const abreviacionesDiaDeSemana = ["do", "lu", "ma", "mi", "ju", "vi", "sá"];
+  const nombresDeMeses = [
+    "enero",
+    "febrero",
+    "marzo",
+    "abril",
+    "mayo",
+    "junio",
+    "julio",
+    "agosto",
+    "septiembre",
+    "octubre",
+    "noviembre",
+    "diciembre",
+  ];
   return (
     <div
       fecha={fecha}
@@ -25,10 +46,27 @@ const Fecha = ({ fecha, idFila, ancho = "auto", alto = "auto", posicion, desfase
         left: ancho * posicion + desfase * ancho,
       }}
     >
-      <div>
-        <p>{abreviacionesDiaDeSemana[fecha.getDay()]}</p>
-        <p>{fecha.getDate()}</p>
+      <div
+        className={
+          fecha.getDate() === new Date().getDate() &&
+          fecha.getMonth() === new Date().getMonth() &&
+          fecha.getFullYear() === new Date().getFullYear()
+            ? "div-fecha-hoy"
+            : "div-fecha"
+        }
+      >
+        <div>
+          <p>{abreviacionesDiaDeSemana[fecha.getDay()]}</p>
+          <p>{fecha.getDate()}</p>
+        </div>
       </div>
+      {fecha.getDate() === 1 && (
+        <div className="inicio-mes">
+          <p className="texto-inicio-mes">
+            {nombresDeMeses[fecha.getMonth()]} {fecha.getFullYear()}
+          </p>
+        </div>
+      )}
     </div>
   );
 };

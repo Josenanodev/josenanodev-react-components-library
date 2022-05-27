@@ -41,6 +41,30 @@ const listadoIds = [
   "18",
   "19",
   "20",
+  "21",
+  "22",
+  "23",
+  "24",
+  "25",
+  "26",
+  "27",
+  "28",
+  "29",
+  "30",
+  "31",
+  "32",
+  "33",
+  "34",
+  "35",
+  "36",
+  "37",
+  "38",
+  "39",
+  "40",
+  "41",
+  "42",
+  "43",
+  "44",
 ];
 
 const Multicalendario = () => {
@@ -55,7 +79,10 @@ const Multicalendario = () => {
     Math.ceil(factorSobredimension / 2)
   );
   const [anchoPaginacion, setAnchoPaginacion] = useState();
+  const [altoPaginacion, setAltoPaginacion] = useState();
+  const [listadoVisible, setlistadoVisible] = useState([]);
   const [posicionX, setPosicionX] = useState(0);
+  const [posicionY, setPosicionY] = useState(0);
   useEffect(() => {
     contenedorRef.current.scrollLeft =
       (paginacionIzquierda - 3) * anchoDeCeldas;
@@ -64,12 +91,22 @@ const Multicalendario = () => {
 
   useEffect(() => {
     setAnchoPaginacion(Math.ceil(width / anchoDeCeldas));
+    setAltoPaginacion(Math.floor(height / altoDeCeldas));
     if (contenedorRef.current.scrollLeft) {
       contenedorRef.current.scrollLeft =
         (paginacionIzquierda - 3) * anchoDeCeldas;
       setPosicionX(contenedorRef.current.scrollLeft);
     }
   }, [width, height, contenedorRef]);
+  useEffect(() => {
+    let array = [];
+    let desfase = Math.floor(posicionY / altoDeCeldas);
+    for (let index = 0; index < altoPaginacion; index++) {
+      if (listadoIds[index + desfase])
+        array[index] = listadoIds[index + desfase];
+    }
+    setlistadoVisible(array);
+  }, [posicionY, altoPaginacion, listadoIds]);
   return (
     <div className="multicalendario">
       <div className="filtros"></div>
@@ -81,16 +118,25 @@ const Multicalendario = () => {
             (contenedorRef.current.scrollTop = e.target.scrollTop)
           }
         >
-          {listadoIds &&
-            listadoIds.map((_id, index) => (
+          <div
+            className="div-altura-lista-anuncios"
+            style={{
+              height: altoDeCeldas * listadoIds.length,
+              paddingTop: Math.floor(posicionY / altoDeCeldas) * altoDeCeldas,
+            }}
+          >
+            {listadoVisible.map((_id, index) => (
               <div
                 key={index}
                 className="anuncio"
-                style={{ height: altoDeCeldas }}
+                style={{
+                  height: altoDeCeldas,
+                }}
               >
                 <p>Anuncio {_id}</p>
               </div>
             ))}
+          </div>
         </div>
       </div>
       <div className="eje-horizontal">
@@ -131,10 +177,10 @@ const Multicalendario = () => {
               )
             }
             ancho={(paginacionIzquierda + paginacionDerecha) * anchoDeCeldas}
-            alto={altoDeCeldas}
+            alto={87}
             anchoPaginacion={anchoPaginacion}
             anchoDeCeldas={anchoDeCeldas}
-            altoDeCeldas={altoDeCeldas}
+            altoDeCeldas={87}
             desfase={Math.floor(posicionX / anchoDeCeldas)}
           />
         </div>
@@ -146,6 +192,7 @@ const Multicalendario = () => {
           filaFechasRef.current.scrollLeft = e.target.scrollLeft;
           listaAnunciosRef.current.scrollTop = e.target.scrollTop;
           setPosicionX(e.target.scrollLeft);
+          setPosicionY(e.target.scrollTop);
           if (
             e.target.scrollLeft + e.target.offsetWidth >
             (paginacionIzquierda + paginacionDerecha) * anchoDeCeldas -
@@ -160,13 +207,19 @@ const Multicalendario = () => {
         }}
       >
         <div
-          id="div-contendor-celdas"
+          className="div-filas-celdas"
           style={{
             width: (paginacionIzquierda + paginacionDerecha) * anchoDeCeldas,
           }}
         >
-          {listadoIds &&
-            listadoIds.map((_id, index) => (
+          <div
+            className="div-altura-filas-celdas"
+            style={{
+              height: altoDeCeldas * listadoIds.length,
+              paddingTop: Math.floor(posicionY / altoDeCeldas) * altoDeCeldas,
+            }}
+          >
+            {listadoVisible.map((_id, index) => (
               <FilaCeldas
                 key={index}
                 IdFila={_id}
@@ -186,6 +239,7 @@ const Multicalendario = () => {
                 desfase={Math.floor(posicionX / anchoDeCeldas)}
               />
             ))}
+          </div>
         </div>
       </div>
     </div>

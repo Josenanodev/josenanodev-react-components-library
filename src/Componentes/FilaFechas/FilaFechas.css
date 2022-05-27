@@ -1,3 +1,4 @@
-.fila-de-fechas{
-
+.fila-de-fechas {
+  box-sizing: border-box;
+  border-top: 1px solid rgb(235, 235, 235);
 }
