@@ -16,7 +16,6 @@ const milisegundosDeUnDia = 86400000; //No modificar
 const anchoDeCeldas = 80;
 const altoDeCeldas = 48;
 const factorSobredimension = 60;
-const anchoListaAnuncios = 280;
 const fechaHoy = new Date();
 
 //Dummy
