@@ -76,6 +76,47 @@
   height: 100%;
 }
 
+.multicalendario .eje-horizontal .div-dropdown-fechas-boton-hoy {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: 8px;
+  height: 28px;
+}
+
+.multicalendario .eje-horizontal .div-dropdown-fechas-boton-hoy select {
+  position: relative;
+  display: flex;
+  width: 200px;
+  margin: 0px 10px;
+  border: 1px solid rgb(216, 216, 216);
+  color: black;
+  background-color: white;
+  border-radius: 6px;
+  white-space: nowrap;
+  font-size: 14px;
+  line-height: 18px;
+  height: 100%;
+}
+
+.multicalendario .eje-horizontal .div-dropdown-fechas-boton-hoy button {
+  cursor: pointer;
+  margin: 0px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  border: 1px solid rgb(216, 216, 216);
+  padding: 4px 8px;
+  box-sizing: border-box;
+  color: black;
+  font-size: 14px;
+  touch-action: manipulation;
+  border-radius: 6px;
+  background: rgb(255, 255, 255);
+  font-weight: normal;
+  height: 100%;
+}
+
 .multicalendario .div-contenedor-principal {
   grid-area: c;
   height: 100%;
@@ -110,19 +151,6 @@
 
 .multicalendario .eje-vertical .lista-anuncios .div-altura-lista-anuncios {
   box-sizing: border-box;
-}
-
-.multicalendario .eje-vertical .lista-anuncios .anuncio {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-bottom: 1px solid rgb(235, 235, 235);
-  box-sizing: border-box;
-  background-color: white;
-}
-
-.multicalendario .eje-vertical .lista-anuncios .anuncio p {
-  margin: 0;
 }
 
 .multicalendario .eje-horizontal .div-botones-fechas {

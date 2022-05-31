@@ -29,49 +29,41 @@ const nombresDeMeses = [
   "diciembre",
 ];
 
-const Fecha = ({
-  fecha,
-  idFila,
-  ancho = "auto",
-  alto = "auto",
-  posicion,
-  desfase,
-}) => {
-  //Render
-  return (
-    <div
-      fecha={fecha}
-      fila={idFila}
-      className="fecha"
-      style={{
-        width: ancho,
-        height: alto,
-        left: ancho * posicion + desfase * ancho,
-      }}
-    >
+const Fecha = React.memo(
+  ({ fecha, ancho = "auto", alto = "auto", posicion, desfase }) => {
+    //Render
+    return (
       <div
-        className={
-          fecha.getDate() === new Date().getDate() &&
-          fecha.getMonth() === new Date().getMonth() &&
-          fecha.getFullYear() === new Date().getFullYear()
-            ? "div-fecha-hoy"
-            : "div-fecha"
-        }
+        className="fecha"
+        style={{
+          width: ancho,
+          height: alto,
+          left: ancho * posicion + desfase * ancho,
+        }}
       >
-        <div>
-          <p>{abreviacionesDiaDeSemana[fecha.getDay()]}</p>
-          <p>{fecha.getDate()}</p>
+        <div
+          className={
+            fecha.getDate() === new Date().getDate() &&
+            fecha.getMonth() === new Date().getMonth() &&
+            fecha.getFullYear() === new Date().getFullYear()
+              ? "div-fecha-hoy"
+              : "div-fecha"
+          }
+        >
+          <div>
+            <p>{abreviacionesDiaDeSemana[fecha.getDay()]}</p>
+            <p>{fecha.getDate()}</p>
+          </div>
         </div>
+        {fecha.getDate() === 1 && (
+          <div className="inicio-mes">
+            <p className="texto-inicio-mes">
+              {nombresDeMeses[fecha.getMonth()]} {fecha.getFullYear()}
+            </p>
+          </div>
+        )}
       </div>
-      {fecha.getDate() === 1 && (
-        <div className="inicio-mes">
-          <p className="texto-inicio-mes">
-            {nombresDeMeses[fecha.getMonth()]} {fecha.getFullYear()}
-          </p>
-        </div>
-      )}
-    </div>
-  );
-};
-
+    );
+  }
+);
 export default Fecha;

@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./FilaFechas.css";
 
 //Componentes
 import Fecha from "../Fecha/Fecha";
 
-//Variables
-const milisegundosDeUnDia = 86400000; //No modificar
 
 /**
  * @param {{
  * IdFila: String,
- * fechaMinima: Date,
+ * fechasVisibles: Array,
  * ancho: Number,
  * alto: Number,
  * anchoPaginacion: Number,
@@ -20,9 +18,9 @@ const milisegundosDeUnDia = 86400000; //No modificar
  * }}
  */
 
-const FilaFechas = ({
+const FilaFechas = React.memo(({
   IdFila,
-  fechaMinima,
+  fechasVisibles,
   ancho,
   alto,
   anchoPaginacion,
@@ -30,21 +28,6 @@ const FilaFechas = ({
   altoDeCeldas,
   desfase,
 }) => {
-  //Estados
-  const [fechas, setFechas] = useState([]);
-  //UseEffect
-  useEffect(() => {
-    // Definicion de visibilidad y renderizacion del Eje X
-    let array = [...fechas];
-    const fechaMinimaMilisegundos =
-      Date.parse(fechaMinima) + milisegundosDeUnDia * desfase;
-    for (let index = 0; index < anchoPaginacion; index++) {
-      array[index] = new Date(
-        fechaMinimaMilisegundos + milisegundosDeUnDia * (index + 1)
-      );
-    }
-    setFechas(array);
-  }, [fechaMinima, anchoPaginacion, desfase]);
   //Render
   return (
     <div
@@ -54,10 +37,10 @@ const FilaFechas = ({
         height: alto,
       }}
     >
-      {fechas.length > 0 &&
-        fechas.map((fecha, index) => (
+      {fechasVisibles.length > 0 &&
+        fechasVisibles.map((fecha, index) => (
           <Fecha
-            key={index}
+            key={fecha}
             style={{
               width: anchoPaginacion * anchoDeCeldas,
               height: altoDeCeldas,
@@ -72,6 +55,6 @@ const FilaFechas = ({
         ))}
     </div>
   );
-};
+})
 
 export default FilaFechas;

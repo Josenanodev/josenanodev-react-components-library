@@ -1,6 +1,7 @@
 .visualizador-informacion {
   width: 368px;
   height: 100%;
+  box-sizing: border-box;
   position: absolute;
   right: 0px;
   bottom: 0px;
@@ -19,16 +20,26 @@
   transform: translateX(318px);
 }
 
+.visualizador-informacion .div-visualizador-boton{
+  width: 100%;
+  height: fit-content;
+  display: flex;
+}
+
+
 .visualizador-informacion .boton-abrir-visualizador-informacion {
-  position: absolute;
-  top: 0px;
-  left: 0px;
   box-sizing: border-box;
   margin: 10px;
   font-size: 30px;
   transition: all 0.5s;
   cursor: pointer;
+  border-radius: 100%;
 }
+
+.visualizador-informacion .boton-abrir-visualizador-informacion:hover{
+  background-color: rgb(233, 233, 233);
+}
+
 
 .visualizador-informacion .boton-abrir-visualizador-informacion-abierto {
   transform: rotateX(0deg);
@@ -37,3 +48,4 @@
 .visualizador-informacion .boton-abrir-visualizador-informacion-cerrado {
   transform: rotateY(180deg);
 }
+

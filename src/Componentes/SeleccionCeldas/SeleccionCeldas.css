@@ -1,0 +1,12 @@
+.seleccion-celdas-visible {
+  position: absolute;
+  box-shadow: rgb(0 0 0) 0px 0px 0px 2px inset;
+  border-color: transparent;
+  border-radius: 4px;
+}
+
+.seleccion-celdas-oculto {
+  box-shadow: transparent 0px 0px 0px 2px inset;
+  border-color: transparent;
+  z-index: -1;
+}
