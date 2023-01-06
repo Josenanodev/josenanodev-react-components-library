@@ -3,9 +3,6 @@
 # Learn more about .gitignore:
 #     https://www.atlassian.com/git/tutorials/saving-changes/gitignore
 
-# Node artifact files
-dist/
-
 # dependencies
 /node_modules
 /.pnp
@@ -42,7 +39,6 @@ yarn-error.log*
 
 # Maven
 target/
-dist/
 
 # JetBrains IDE
 .idea/
