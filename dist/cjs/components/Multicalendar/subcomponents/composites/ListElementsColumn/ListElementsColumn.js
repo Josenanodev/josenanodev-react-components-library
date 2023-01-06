@@ -13,4 +13,3 @@ const ListElementsColumn = ({ ReactListElementChildren, listHeight, yOffset, ele
         } }, idsArray.map((listElementId) => (react_1.default.createElement(ListElement_1.default, { key: listElementId, height: elementsHeight, listElementId: listElementId, ReactListElementChildren: ReactListElementChildren })))));
 };
 exports.default = ListElementsColumn;
-//# sourceMappingURL=ListElementsColumn.js.map

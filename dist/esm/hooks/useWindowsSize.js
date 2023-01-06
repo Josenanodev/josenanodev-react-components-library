@@ -16,4 +16,3 @@ function useWindowSize() {
     return size;
 }
 export default useWindowSize;
-//# sourceMappingURL=useWindowsSize.js.map

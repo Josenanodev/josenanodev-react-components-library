@@ -288,4 +288,3 @@ const Multicalendar = ({ multicalendarId, ReactCellChildren, ReactListElementChi
                 react_1.default.createElement(DatesGrid_1.default, { gridWidth: (leftPagination + rightPagination) * cellsWidth, gridHeight: cellsHeight * listElementsIdsArray.length, xOffset: xOffset, yOffset: yOffset, cellsWidth: cellsWidth, cellsHeight: cellsHeight, visibleListElementsIdsArray: visibleListElementsIds, visibleDates: visibleDates, ReactCellChildren: ReactCellChildren })))));
 };
 exports.default = Multicalendar;
-//# sourceMappingURL=Multicalendar.js.map

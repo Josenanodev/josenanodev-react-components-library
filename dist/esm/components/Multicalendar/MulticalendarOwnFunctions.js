@@ -174,4 +174,3 @@ export function authomaticScrollInGrid(holdingClic, xClientPosition, yClientPosi
         }
     }
 }
-//# sourceMappingURL=MulticalendarOwnFunctions.js.map

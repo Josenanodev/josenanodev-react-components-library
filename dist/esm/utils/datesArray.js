@@ -19,4 +19,3 @@ function datesArray(startDate, endDate) {
     return array;
 }
 export default datesArray;
-//# sourceMappingURL=datesArray.js.map

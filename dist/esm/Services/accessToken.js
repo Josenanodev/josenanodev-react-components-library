@@ -7,4 +7,3 @@ export const setAccessToken = (token) => {
 export const eraseAccessToken = () => {
     localStorage.removeItem("access_token_turbosuite");
 };
-//# sourceMappingURL=accessToken.js.map

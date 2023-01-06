@@ -18,4 +18,3 @@ const DatesGrid = ({ gridWidth, gridHeight, xOffset, yOffset, cellsWidth, cellsH
             } }, visibleListElementsIdsArray.map((listElementId) => (react_1.default.createElement(CellsRow_1.default, { key: listElementId, listElementId: listElementId, visibleDatesArray: visibleDates, width: visibleDates.length * cellsWidth, height: cellsHeight, cellsWidth: cellsWidth, cellsHeight: cellsHeight, ReactCellChildren: ReactCellChildren }))))));
 };
 exports.default = DatesGrid;
-//# sourceMappingURL=DatesGrid.js.map

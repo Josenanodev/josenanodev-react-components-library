@@ -10,4 +10,3 @@ function numberOfDaysInAMonth(dateObject) {
     return new Date(dateObject.getFullYear(), dateObject.getMonth() + 1, 0).getDate();
 }
 exports.numberOfDaysInAMonth = numberOfDaysInAMonth;
-//# sourceMappingURL=numberOfDaysInAMonth.js.map
