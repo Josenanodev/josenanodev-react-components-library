@@ -5,7 +5,7 @@ export interface MulticalendarPropsType {
   ReactCellChildren: ReactCellChildrenType;
   ReactListElementChildren: ReactListElementChildrenType;
   listElementsIdsArray: string[] | number[];
-  language: languageType,
+  language: languageType;
   cellsWidth?: number;
   cellsHeight?: number;
   verticalAxisWidth?: number;
@@ -13,7 +13,7 @@ export interface MulticalendarPropsType {
   horizontalInitialCellQuantity?: number;
   chunkRenderX?: number;
   chunkRenderY?: number;
-  draggingOverDateCells?: boolean,
+  draggingOverDateCells?: boolean;
   dynamicPagination?: boolean;
   logoUrl?: string;
   waitTimeForCalls?: number;
@@ -30,12 +30,12 @@ export type ReactCellChildrenType = React.ElementType<CellChildrenPropsType>;
 export type ReactListElementChildrenType =
   React.ElementType<ListElementChildrenPropsType>;
 
-export interface CellChildrenPropsType {
+export type CellChildrenPropsType = { [key: string]: any } & {
   date: string;
   /**Date in SQL format, i.e. 1993-03-29 */
   listElementId: string | number;
-}
+};
 
-export interface ListElementChildrenPropsType {
+export type ListElementChildrenPropsType = { [key: string]: any } & {
   listElementId: string | number;
-}
+};
