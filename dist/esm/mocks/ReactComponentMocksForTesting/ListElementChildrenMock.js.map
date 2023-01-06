@@ -1,1 +1,0 @@
-{"version":3,"file":"ListElementChildrenMock.js","sourceRoot":"","sources":["../../../../src/mocks/ReactComponentMocksForTesting/ListElementChildrenMock.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,OAAO,CAAC;AAG1B,MAAM,uBAAuB,GAAG,CAAC,EAAE,aAAa,EAAgC,EAAE,EAAE;IAClF,OAAO,iCAAM,aAAa,CAAO,CAAC;AACpC,CAAC,CAAC;AAEF,eAAe,uBAAuB,CAAC"}

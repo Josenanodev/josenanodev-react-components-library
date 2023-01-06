@@ -193,4 +193,3 @@ const spanish = {
     "Holiday": "Festivo",
 };
 exports.default = spanish;
-//# sourceMappingURL=es-ES.js.map

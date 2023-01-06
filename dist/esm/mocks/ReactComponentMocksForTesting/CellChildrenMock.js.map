@@ -1,1 +1,0 @@
-{"version":3,"file":"CellChildrenMock.js","sourceRoot":"","sources":["../../../../src/mocks/ReactComponentMocksForTesting/CellChildrenMock.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,OAAO,CAAC;AAG1B,MAAM,gBAAgB,GAAG,CAAC,EAAE,IAAI,EAAE,aAAa,EAAyB,EAAE,EAAE;IAC1E,OAAO,CACL;QACG,IAAI;QACL,+BAAM;QACL,aAAa,CACV,CACP,CAAC;AACJ,CAAC,CAAC;AAEF,eAAe,gBAAgB,CAAC"}

@@ -6,4 +6,3 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // learn more: https://github.com/testing-library/jest-dom
 require("@testing-library/jest-dom");
 require("@testing-library/jest-dom/extend-expect");
-//# sourceMappingURL=setupTests.js.map

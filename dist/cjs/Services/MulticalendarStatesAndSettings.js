@@ -27,4 +27,3 @@ const eraseMulticalendarYScrollPosition = (multicalendarId) => {
     sessionStorage.removeItem(`MulticalendarYScrollPosition-${multicalendarId}`);
 };
 exports.eraseMulticalendarYScrollPosition = eraseMulticalendarYScrollPosition;
-//# sourceMappingURL=MulticalendarStatesAndSettings.js.map

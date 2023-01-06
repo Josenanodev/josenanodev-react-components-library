@@ -8,4 +8,3 @@ const ListElementChildrenMock = ({ listElementId }) => {
     return react_1.default.createElement("div", null, listElementId);
 };
 exports.default = ListElementChildrenMock;
-//# sourceMappingURL=ListElementChildrenMock.js.map

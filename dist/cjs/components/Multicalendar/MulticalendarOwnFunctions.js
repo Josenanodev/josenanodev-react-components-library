@@ -190,4 +190,3 @@ function authomaticScrollInGrid(holdingClic, xClientPosition, yClientPosition, w
     }
 }
 exports.authomaticScrollInGrid = authomaticScrollInGrid;
-//# sourceMappingURL=MulticalendarOwnFunctions.js.map

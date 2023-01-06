@@ -13,4 +13,3 @@ const CellsRow = ({ listElementId, visibleDatesArray, width, height, cellsWidth,
         visibleDatesArray.map((date) => (React.createElement(Cell, { key: listElementId + date.toString(), date: jsToSqlDate(date), listElementId: listElementId, width: cellsWidth, heigth: cellsHeight, ReactCellChildren: ReactCellChildren })))));
 };
 export default CellsRow;
-//# sourceMappingURL=CellsRow.js.map

@@ -31,8 +31,8 @@ export type ReactListElementChildrenType =
   React.ElementType<ListElementChildrenPropsType>;
 
 export type CellChildrenPropsType = { [key: string]: any } & {
-  date: string;
   /**Date in SQL format, i.e. 1993-03-29 */
+  date: string;
   listElementId: string | number;
 };
 
