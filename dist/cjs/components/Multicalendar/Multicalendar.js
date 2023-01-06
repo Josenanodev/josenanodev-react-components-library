@@ -214,7 +214,7 @@ const Multicalendar = ({ multicalendarId, ReactCellChildren, ReactListElementChi
     //Render
     return (react_1.default.createElement("div", { "data-testid": "multicalendar", className: "multicalendar", style: {
             gridTemplateColumns: `${verticalAxisWidth}px`,
-            gridTemplateRows: `70px ${horizontalAxisHeight - 70}px calc(100vh - ${horizontalAxisHeight}px - ${process.env.NODE_ENV === "production" ? 120 : 0}px)`,
+            gridTemplateRows: `70px ${horizontalAxisHeight - 70}px calc(100% - ${horizontalAxisHeight}px`,
         } },
         react_1.default.createElement("div", { className: "controles" },
             react_1.default.createElement("div", { className: "div-dropdown-fechas-boton-hoy" },
