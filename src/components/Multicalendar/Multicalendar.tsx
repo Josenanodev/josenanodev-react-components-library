@@ -257,9 +257,7 @@ const Multicalendar = ({
         gridTemplateColumns: `${verticalAxisWidth}px`,
         gridTemplateRows: `70px ${
           horizontalAxisHeight - 70
-        }px calc(100vh - ${horizontalAxisHeight}px - ${
-          process.env.NODE_ENV === "production" ? 120 : 0
-        }px)`,
+        }px calc(100% - ${horizontalAxisHeight}px`,
       }}
     >
       <div className="controles">
