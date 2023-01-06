@@ -1,3 +1,4 @@
-export * from "./components";
-export { setMulticalendarYScrollPosition } from "./Services/MulticalendarStatesAndSettings";
+import Multicalendar from "./components/Multicalendar/Multicalendar";
+import { setMulticalendarYScrollPosition } from "./Services/MulticalendarStatesAndSettings";
+export { Multicalendar, setMulticalendarYScrollPosition };
 //# sourceMappingURL=index.js.map
