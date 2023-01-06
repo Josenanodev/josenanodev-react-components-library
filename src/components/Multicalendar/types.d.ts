@@ -30,12 +30,12 @@ export type ReactCellChildrenType = React.ElementType<CellChildrenPropsType>;
 export type ReactListElementChildrenType =
   React.ElementType<ListElementChildrenPropsType>;
 
-export type CellChildrenPropsType = { [key: string]: any } & {
-  date: string;
+export type CellChildrenPropsType = React.ReactPropTypes & {
   /**Date in SQL format, i.e. 1993-03-29 */
+  date: string;
   listElementId: string | number;
 };
 
-export type ListElementChildrenPropsType = { [key: string]: any } & {
+export type ListElementChildrenPropsType = React.ReactPropTypes & {
   listElementId: string | number;
 };
