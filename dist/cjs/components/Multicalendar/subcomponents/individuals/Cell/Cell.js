@@ -9,4 +9,4 @@ const Cell = ({ date, listElementId, width, heigth, ReactCellChildren }) => {
     return (react_1.default.createElement("div", { className: "cell", style: { width: width, height: heigth } },
         react_1.default.createElement(ReactCellChildren, { date: date, listElementId: listElementId })));
 };
-exports.default = Cell;
+exports.default = react_1.default.memo(Cell);

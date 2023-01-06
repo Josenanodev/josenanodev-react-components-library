@@ -21,4 +21,4 @@ const ListElement = ({
   );
 };
 
-export default ListElement;
+export default React.memo(ListElement);

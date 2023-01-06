@@ -6,4 +6,4 @@ const ListElement = ({ listElementId, ReactListElementChildren, height, }) => {
         } },
         React.createElement(ReactListElementChildren, { listElementId: listElementId })));
 };
-export default ListElement;
+export default React.memo(ListElement);
