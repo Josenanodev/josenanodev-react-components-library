@@ -11,4 +11,4 @@ const ListElement = ({ listElementId, ReactListElementChildren, height, }) => {
         } },
         react_1.default.createElement(ReactListElementChildren, { listElementId: listElementId })));
 };
-exports.default = ListElement;
+exports.default = react_1.default.memo(ListElement);
