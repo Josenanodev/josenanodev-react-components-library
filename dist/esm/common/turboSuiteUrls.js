@@ -5,4 +5,3 @@ let turboSuiteUrls = {
     middleware: window.actionUrl,
 };
 export default turboSuiteUrls;
-//# sourceMappingURL=turboSuiteUrls.js.map

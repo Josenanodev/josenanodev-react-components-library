@@ -13,4 +13,3 @@ const eraseAccessToken = () => {
     localStorage.removeItem("access_token_turbosuite");
 };
 exports.eraseAccessToken = eraseAccessToken;
-//# sourceMappingURL=accessToken.js.map

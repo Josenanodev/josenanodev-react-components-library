@@ -18,4 +18,3 @@ function jsToSqlDate(jsDate) {
     return sqlDate;
 }
 export default jsToSqlDate;
-//# sourceMappingURL=jsToSqlDate.js.map

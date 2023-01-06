@@ -23,4 +23,3 @@ function monthYearString(dateObject, language) {
     }
 }
 export default monthYearString;
-//# sourceMappingURL=monthYearString.js.map

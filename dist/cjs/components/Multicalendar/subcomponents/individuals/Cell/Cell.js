@@ -10,4 +10,3 @@ const Cell = ({ date, listElementId, width, heigth, ReactCellChildren }) => {
         react_1.default.createElement(ReactCellChildren, { date: date, listElementId: listElementId })));
 };
 exports.default = Cell;
-//# sourceMappingURL=Cell.js.map

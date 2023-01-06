@@ -7,4 +7,3 @@ let turboSuiteUrls = {
     middleware: window.actionUrl,
 };
 exports.default = turboSuiteUrls;
-//# sourceMappingURL=turboSuiteUrls.js.map

@@ -193,4 +193,3 @@ const italian = {
     "Holiday": "Vacanza",
 };
 exports.default = italian;
-//# sourceMappingURL=it-IT.js.map

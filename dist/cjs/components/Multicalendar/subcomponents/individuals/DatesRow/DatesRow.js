@@ -54,4 +54,3 @@ const DatesRow = ({ visibleDates, width, height, cellsWidth, cellsHeight, offset
                     dateObject.getFullYear()))))))));
 };
 exports.default = DatesRow;
-//# sourceMappingURL=DatesRow.js.map

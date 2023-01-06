@@ -11,4 +11,3 @@ const CellChildrenMock = ({ date, listElementId }) => {
         listElementId));
 };
 exports.default = CellChildrenMock;
-//# sourceMappingURL=CellChildrenMock.js.map

@@ -6,4 +6,3 @@ exports.propertyManagerCode = window.propertyManagerCode;
 exports.propertyManagerLookAndFeelCode = window.propertyManagerLookAndFeelCode;
 exports.languageCode = window.languageCode;
 exports.millisecondsOfOneDay = 86400000;
-//# sourceMappingURL=constants.js.map

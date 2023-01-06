@@ -8,4 +8,3 @@ const Multicalendar_1 = __importDefault(require("./components/Multicalendar/Mult
 exports.Multicalendar = Multicalendar_1.default;
 const MulticalendarStatesAndSettings_1 = require("./Services/MulticalendarStatesAndSettings");
 Object.defineProperty(exports, "setMulticalendarYScrollPosition", { enumerable: true, get: function () { return MulticalendarStatesAndSettings_1.setMulticalendarYScrollPosition; } });
-//# sourceMappingURL=index.js.map
