@@ -21,6 +21,6 @@
     "noUnusedLocals": true,
     "outDir": "dist/esm"
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "include": ["src/**/*"],
   "exclude": ["dist", "node_modules", "src/**/*.test.tsx", "src/**/*.test.ts", "src/**/*.stories.tsx"]
 }
