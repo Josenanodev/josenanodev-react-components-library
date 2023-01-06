@@ -1,10 +1,4 @@
-import {
-  EventsType,
-  HolidaysType,
-  OccupationsType,
-  SeasonType,
-} from "../../../common/types";
-import { ReactCellChildrenType } from "../../../Multicalendar/types";
+import { ReactCellChildrenType } from "../../../types";
 
 export interface CellPropsType {
   date: string;

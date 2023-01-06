@@ -1,13 +1,14 @@
 import React from "react";
 
+//Utils
+import jsToSqlDate from "../../utils/jsToSqlDate";
+import monthYearString from "../../utils/monthYearString";
+
 //Variables
-import { millisecondsOfOneDay } from "../common/constants";
+import { millisecondsOfOneDay } from "../../common/constants";
 
 //Types
-import jsToSqlDate from "../utils/jsToSqlDate";
-import { languageType } from "../assets/languages/types";
-import { DestinyType } from "../common/types";
-import monthYearString from "../utils/monthYearString";
+import { languageType } from "../../languages/types";
 
 /**
  *
@@ -96,7 +97,7 @@ export function defineVisibleDatesArray(
   chunkRenderX: number,
   minimalDateMilliseconds: number
 ) {
-  let array = [];
+  let array: Date[] = [];
   for (let index = 0; index < paginationWidth + chunkRenderX * 2; index++) {
     array[index] = new Date(minimalDateMilliseconds + millisecondsOfOneDay * (index + 1));
   }

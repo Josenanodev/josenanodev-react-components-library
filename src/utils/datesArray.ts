@@ -1,4 +1,5 @@
 import { millisecondsOfOneDay } from "../common/constants";
+
 /**
  *
  * @param startDate Date Object
@@ -12,7 +13,7 @@ function datesArray(startDate: Date, endDate: Date): Date[] {
   let endDateForMilliseconds: Date | number = new Date(endDate);
   endDateForMilliseconds.setHours(12, 0, 0);
   endDateForMilliseconds = Date.parse(endDateForMilliseconds.toString());
-  let array = [];
+  let array: Date[] = [];
   for (
     let index = 0;
     startDateForMilliseconds + millisecondsOfOneDay * index <= endDateForMilliseconds;

@@ -17,6 +17,7 @@ export interface MulticalendarPropsType {
   dynamicPagination?: boolean;
   logoUrl?: string;
   waitTimeForCalls?: number;
+  callsOnScrollingStops?: Function;
 }
 
 export interface RenderCoordinatesType {

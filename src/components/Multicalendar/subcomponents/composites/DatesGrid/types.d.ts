@@ -1,5 +1,4 @@
-import { DestinyType } from "../../../common/types";
-import { PropiedadType } from "../../../golbalTypes";
+import { ReactCellChildrenType } from "../../../types";
 
 export interface DatesGridPropTypes {
   gridWidth: number;

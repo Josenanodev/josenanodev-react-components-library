@@ -1,4 +1,4 @@
-import { languageType } from "../../../../assets/languages/types";
+import { languageType } from "../../../../../languages/types";
 
 export interface DatesRowPropsType {
     visibleDates: Date[];

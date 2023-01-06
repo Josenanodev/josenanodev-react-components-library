@@ -1,5 +1,4 @@
-import { DestinyType } from "../../../common/types";
-import { ReactListElementChildrenType } from "../../../Multicalendar/types";
+import { ReactListElementChildrenType } from "../../../types";
 
 export interface ListElementsColumnPropsType {
   ReactListElementChildren: ReactListElementChildrenType;

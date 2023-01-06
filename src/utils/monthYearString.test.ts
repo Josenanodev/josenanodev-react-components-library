@@ -3,7 +3,7 @@
  */
 
 import monthYearString from "./monthYearString";
-import es_Es from "../assets/languages/es-ES";
+import es_Es from "../languages/es-ES";
 
 describe("Month and year string funtionality", () => {
   it("Correctly parses a date object to a translated string", () => {

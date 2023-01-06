@@ -1,5 +1,5 @@
 import React from "react";
-import { ListElementChildrenPropsType } from "../../Multicalendar/types";
+import { ListElementChildrenPropsType } from "../../components/Multicalendar/types";
 
 const ListElementChildrenMock = ({ listElementId }: ListElementChildrenPropsType) => {
   return <div>{listElementId}</div>;

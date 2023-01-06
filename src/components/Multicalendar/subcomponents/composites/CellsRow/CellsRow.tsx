@@ -1,10 +1,11 @@
+import React from "react"
 import "./CellsRow.css";
 
 //Componentes
 import Cell from "../../individuals/Cell/Cell";
 
 //Utils
-import jsToSqlDate from "../../../../utils/jsToSqlDate";
+import jsToSqlDate from "../../../../../utils/jsToSqlDate";
 
 //Types
 import { CellsRowsPropsType } from "./types";

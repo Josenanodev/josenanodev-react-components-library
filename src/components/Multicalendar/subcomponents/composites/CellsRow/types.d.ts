@@ -1,4 +1,4 @@
-import { ReactCellChildrenType } from "../../../Multicalendar/types";
+import { ReactCellChildrenType } from "../../../types";
 
 export interface CellsRowsPropsType {
   listElementId: string | number;

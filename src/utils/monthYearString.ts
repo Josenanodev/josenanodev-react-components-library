@@ -1,6 +1,7 @@
-import { languageType } from "../assets/languages/types";
 
 //Variables
+
+import { languageType } from "../languages/types";
 
 function monthYearString(dateObject: Date, language: languageType): string {
   const monthsNames = [

@@ -12,10 +12,10 @@ import DatesGrid from "./subcomponents/composites/DatesGrid/DatesGrid";
 import DropdownNavegadorMeses from "./subcomponents/individuals/DropdownMonthNavigation/DropdownMonthNavigation";
 
 //Hooks
-import useWindowSize from "../hooks/useWindowsSize";
+import useWindowSize from "../../hooks/useWindowsSize";
 
 //Utils
-import sqlToJsDate from "../utils/sqlToJsDate";
+import sqlToJsDate from "../../utils/sqlToJsDate";
 
 //Types
 import { MulticalendarPropsType, RenderCoordinatesType } from "./types";
@@ -24,7 +24,7 @@ import { MulticalendarPropsType, RenderCoordinatesType } from "./types";
 import {
   eraseMulticalendarYScrollPosition,
   getMulticalendarYScrollPosition,
-} from "../Services/MulticalendarStatesAndSettings";
+} from "../../Services/MulticalendarStatesAndSettings";
 
 const Multicalendar = ({
   multicalendarId,
@@ -43,6 +43,7 @@ const Multicalendar = ({
   draggingOverDateCells = false,
   logoUrl,
   waitTimeForCalls = 500,
+  callsOnScrollingStops,
 }: MulticalendarPropsType) => {
   //Constantes del componente
   const origin = {
@@ -233,6 +234,13 @@ const Multicalendar = ({
       setIdTimeoutForCalls(_id);
     }
   }, [xPosition, yPosition, idTimeoutForCalls, waitTimeForCalls]);
+  useEffect(() => {
+    if(!scrollingOnCourse && callsOnScrollingStops){
+      callsOnScrollingStops()
+    }
+    // eslint-disable-next-line
+  }, [scrollingOnCourse])
+  
   //Cancelar idIntervalo Autoscroll de rango cuando se deja de seleccionar
   useEffect(() => {
     if (!draggingOverDateCells) {
