@@ -28,7 +28,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
 const Funciones = __importStar(require("./MulticalendarOwnFunctions"));
-require("./Multidestiny.css");
+require("./Multicalendar.css");
 //Assets
 const BootstrapIcons = __importStar(require("react-icons/bs"));
 //Componentes

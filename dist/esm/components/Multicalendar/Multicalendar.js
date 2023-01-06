@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import * as Funciones from "./MulticalendarOwnFunctions";
-import "./Multidestiny.css";
+import "./Multicalendar.css";
 //Assets
 import * as BootstrapIcons from "react-icons/bs";
 //Componentes
