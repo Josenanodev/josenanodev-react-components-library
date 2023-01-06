@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import * as Funciones from "./MulticalendarOwnFunctions";
-import "./Multidestiny.css";
+import "./Multicalendar.css";
 //Assets
 import * as BootstrapIcons from "react-icons/bs";
 //Componentes
@@ -186,7 +186,7 @@ const Multicalendar = ({ multicalendarId, ReactCellChildren, ReactListElementChi
     //Render
     return (React.createElement("div", { "data-testid": "multicalendar", className: "multicalendar", style: {
             gridTemplateColumns: `${verticalAxisWidth}px`,
-            gridTemplateRows: `70px ${horizontalAxisHeight - 70}px calc(100vh - ${horizontalAxisHeight}px - ${process.env.NODE_ENV === "production" ? 120 : 0}px)`,
+            gridTemplateRows: `70px ${horizontalAxisHeight - 70}px calc(100% - ${horizontalAxisHeight}px`,
         } },
         React.createElement("div", { className: "controles" },
             React.createElement("div", { className: "div-dropdown-fechas-boton-hoy" },
