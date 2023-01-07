@@ -6,18 +6,22 @@ export interface MulticalendarPropsType {
   ReactListElementChildren: ReactListElementChildrenType;
   listElementsIdsArray: string[] | number[];
   language: languageType;
+  pastDatesVisible?: boolean
   cellsWidth?: number;
   cellsHeight?: number;
   verticalAxisWidth?: number;
   horizontalAxisHeight?: number;
-  horizontalInitialCellQuantity?: number;
+  pastDaysInitialQuantity?: number;
+  futureDaysInitialQuantity?: number;
   chunkRenderX?: number;
   chunkRenderY?: number;
   draggingOverDateCells?: boolean;
-  dynamicPagination?: boolean;
-  logoUrl?: string;
+  dynamicDaysQuantity?: boolean;
   waitTimeForCalls?: number;
+  callsOnScrollingMoves?: Function;
   callsOnScrollingStops?: Function;
+  aditionalControlsComponents?: JSX.Element | JSX.Element[]
+  upperLeftComponent?: JSX.Element
 }
 
 export interface RenderCoordinatesType {

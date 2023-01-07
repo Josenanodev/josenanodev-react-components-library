@@ -107,7 +107,7 @@ function defineListElementsArrayVisibleList(paginationHeight, chunkRenderY, offs
     let array = [];
     for (let index = 0; index < paginationHeight + chunkRenderY * 2; index++) {
         if (listElementsIds[index + offset] && index + offset >= 0)
-            array[index] = Object.assign({}, listElementsIds[index + offset]);
+            array[index] = listElementsIds[index + offset];
     }
     return array;
 }
@@ -118,9 +118,9 @@ exports.defineListElementsArrayVisibleList = defineListElementsArrayVisibleList;
  * @param language language object for traductions
  * @returns string of the date, month followed by year
  */
-function defineMonthsArray(leftPagination, language) {
+function defineMonthsArray(leftPagination, rightPagination, language) {
     let minimumDateMilliseconds = Date.parse(new Date().toString()) - leftPagination * constants_1.millisecondsOfOneDay;
-    let maximumDateMilliseconds = Date.parse(new Date().toString()) + leftPagination * constants_1.millisecondsOfOneDay;
+    let maximumDateMilliseconds = Date.parse(new Date().toString()) + rightPagination * constants_1.millisecondsOfOneDay;
     let array = [];
     let sideArray = [];
     for (let index = 0; index * constants_1.millisecondsOfOneDay + minimumDateMilliseconds < maximumDateMilliseconds; index++) {

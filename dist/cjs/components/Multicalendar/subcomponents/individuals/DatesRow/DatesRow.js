@@ -35,7 +35,7 @@ const DatesRow = ({ visibleDates, width, height, cellsWidth, cellsHeight, offset
             height: height,
             paddingLeft: offset * cellsWidth,
         } }, visibleDates.length > 0 &&
-        visibleDates.map((dateObject) => (react_1.default.createElement("div", { className: "date-cell", style: {
+        visibleDates.map((dateObject) => (react_1.default.createElement("div", { key: dateObject.toString(), className: "date-cell", style: {
                 width: cellsWidth,
                 height: cellsHeight,
             } },
