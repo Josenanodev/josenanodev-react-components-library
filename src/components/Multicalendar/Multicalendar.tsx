@@ -37,7 +37,8 @@ const Multicalendar = ({
   cellsHeight = 80,
   verticalAxisWidth = 280,
   horizontalAxisHeight = 148,
-  horizontalInitialCellQuantity = 1000,
+  pastDaysInitialQuantity = 365,
+  futureDaysInitialQuantity = 365,
   chunkRenderX = 0,
   chunkRenderY = 0,
   dynamicPagination = false,
@@ -48,7 +49,7 @@ const Multicalendar = ({
 }: MulticalendarPropsType) => {
   //Constantes del componente
   const origin = {
-    x: pastDatesVisible ? Math.ceil(horizontalInitialCellQuantity / 2) * cellsWidth : 0,
+    x: pastDatesVisible ? Math.ceil(pastDaysInitialQuantity) * cellsWidth : 0,
     y: 0,
   };
   const initialDateOffset = 2 + chunkRenderX;
@@ -59,11 +60,11 @@ const Multicalendar = ({
   //Estados
   const [firtsCall, setFirtsCall] = useState<boolean>(false);
   const [windowWidth, windowHeight] = useWindowSize();
-  const [rightPagination, setRightPagination] = useState(
-    Math.ceil(horizontalInitialCellQuantity / 2)
+  const [futureDaysQuantity, setFutureDaysQuantity] = useState(
+    Math.ceil(futureDaysInitialQuantity)
   );
-  const [leftPagination, setLeftPagination] = useState(
-    pastDatesVisible ? Math.ceil(horizontalInitialCellQuantity / 2) : 0
+  const [pastDaysQuantity, setPastDaysQuantity] = useState(
+    pastDatesVisible ? Math.ceil(pastDaysInitialQuantity) : 0
   );
   const [paginationWidth, setPaginationWidth] = useState<number>(0);
   const [paginationHeight, setPaginationHeight] = useState<number>(0);
@@ -91,11 +92,11 @@ const Multicalendar = ({
   //UseEffects
   useEffect(() => {
     if (pastDatesVisible) {
-      setLeftPagination(Math.ceil(horizontalInitialCellQuantity / 2));
+      setPastDaysQuantity(Math.ceil(pastDaysInitialQuantity));
     } else {
-      setLeftPagination(0);
+      setPastDaysQuantity(0);
     }
-  }, [pastDatesVisible, horizontalInitialCellQuantity]);
+  }, [pastDatesVisible, pastDaysInitialQuantity]);
   useEffect(() => {
     //Delegamos un cambio de estado a los primero renderes para evitar duplicado de llamadas a la API
     if (!firtsCall) {
@@ -201,7 +202,7 @@ const Multicalendar = ({
       const fechaMinimaMilisegundos = Funciones.minimalDateMilliseconds(
         xPosition,
         cellsWidth,
-        leftPagination,
+        pastDaysQuantity,
         initialDateOffset
       );
       setMinimumVisibleDate(
@@ -223,7 +224,7 @@ const Multicalendar = ({
     chunkRenderX,
     cellsWidth,
     initialDateOffset,
-    leftPagination,
+    pastDaysQuantity,
     renderCoordinates.x,
     renderCoordinates.y,
     origin.x,
@@ -275,13 +276,13 @@ const Multicalendar = ({
               Funciones.scrollByDate(
                 new Date(Number(Date.parse(sqlToJsDate(valorDeOpcion).toString()))),
                 gridWrapperRef,
-                leftPagination,
+                pastDaysQuantity,
                 cellsWidth
               );
             }}
             options={Funciones.defineMonthsArray(
-              leftPagination,
-              rightPagination,
+              pastDaysQuantity,
+              futureDaysQuantity,
               language
             )}
           />
@@ -290,7 +291,7 @@ const Multicalendar = ({
               Funciones.scrollByDate(
                 new Date(),
                 gridWrapperRef,
-                leftPagination,
+                pastDaysQuantity,
                 cellsWidth
               )
             }
@@ -361,7 +362,7 @@ const Multicalendar = ({
         >
           <DatesRow
             visibleDates={visibleDates}
-            width={(leftPagination + rightPagination) * cellsWidth}
+            width={(pastDaysQuantity + futureDaysQuantity) * cellsWidth}
             height={64}
             cellsWidth={cellsWidth}
             cellsHeight={64}
@@ -389,16 +390,16 @@ const Multicalendar = ({
               dynamicPagination &&
               (e.target as HTMLDivElement).scrollLeft +
                 (e.target as HTMLDivElement).offsetWidth >
-                (leftPagination + rightPagination) * cellsWidth - cellsWidth
+                (pastDaysQuantity + futureDaysQuantity) * cellsWidth - cellsWidth
             ) {
-              setRightPagination(rightPagination + 1);
+              setFutureDaysQuantity(futureDaysQuantity + 1);
             }
             if (
               pastDatesVisible &&
               dynamicPagination &&
               (e.target as HTMLDivElement).scrollLeft < cellsWidth
             ) {
-              setLeftPagination(leftPagination + 1);
+              setPastDaysQuantity(pastDaysQuantity + 1);
               (e.target as HTMLDivElement).scrollLeft = cellsWidth * 3;
             }
             Funciones.authomaticScrollInGrid(
@@ -428,7 +429,7 @@ const Multicalendar = ({
           }}
         >
           <DatesGrid
-            gridWidth={(leftPagination + rightPagination) * cellsWidth}
+            gridWidth={(pastDaysQuantity + futureDaysQuantity) * cellsWidth}
             gridHeight={cellsHeight * listElementsIdsArray.length}
             xOffset={xOffset}
             yOffset={yOffset}

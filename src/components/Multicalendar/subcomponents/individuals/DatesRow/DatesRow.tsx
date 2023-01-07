@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 import "./DatesRow.css";
 
 //Types
@@ -49,6 +49,7 @@ const DatesRow = ({
       {visibleDates.length > 0 &&
         visibleDates.map((dateObject) => (
           <div
+            key={dateObject.toString()}
             className="date-cell"
             style={{
               width: cellsWidth,

@@ -11,7 +11,8 @@ export interface MulticalendarPropsType {
   cellsHeight?: number;
   verticalAxisWidth?: number;
   horizontalAxisHeight?: number;
-  horizontalInitialCellQuantity?: number;
+  pastDaysInitialQuantity?: number;
+  futureDaysInitialQuantity?: number;
   chunkRenderX?: number;
   chunkRenderY?: number;
   draggingOverDateCells?: boolean;
