@@ -1,4 +1,5 @@
 import React from "react";
+import "./css-presets.css"
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import Multicalendar from "../components/Multicalendar/Multicalendar";

@@ -6,6 +6,7 @@ export interface MulticalendarPropsType {
   ReactListElementChildren: ReactListElementChildrenType;
   listElementsIdsArray: string[] | number[];
   language: languageType;
+  pastDatesVisible?: boolean
   cellsWidth?: number;
   cellsHeight?: number;
   verticalAxisWidth?: number;

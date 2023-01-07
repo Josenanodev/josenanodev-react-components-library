@@ -32,6 +32,7 @@ const Multicalendar = ({
   ReactListElementChildren,
   listElementsIdsArray,
   language,
+  pastDatesVisible = true,
   cellsWidth = 120,
   cellsHeight = 80,
   verticalAxisWidth = 280,
@@ -47,7 +48,7 @@ const Multicalendar = ({
 }: MulticalendarPropsType) => {
   //Constantes del componente
   const origin = {
-    x: Math.ceil(horizontalInitialCellQuantity / 2) * cellsWidth,
+    x: pastDatesVisible ? Math.ceil(horizontalInitialCellQuantity / 2) * cellsWidth : 0,
     y: 0,
   };
   const initialDateOffset = 2 + chunkRenderX;
@@ -61,7 +62,9 @@ const Multicalendar = ({
   const [rightPagination, setRightPagination] = useState(
     Math.ceil(horizontalInitialCellQuantity / 2)
   );
-  const [leftPagination, setLeftPagination] = useState(0);
+  const [leftPagination, setLeftPagination] = useState(
+    pastDatesVisible ? Math.ceil(horizontalInitialCellQuantity / 2) : 0
+  );
   const [paginationWidth, setPaginationWidth] = useState<number>(0);
   const [paginationHeight, setPaginationHeight] = useState<number>(0);
   const [xOffset, setXOffset] = useState<number>(1);
@@ -78,17 +81,21 @@ const Multicalendar = ({
     y: origin.y,
   });
   const [minimumVisibleDate, setMinimumVisibleDate] = useState<Date>(new Date());
-  const [idTimeoutForCalls, setIdTimeoutForCalls] = useState<NodeJS.Timeout | undefined>(
-    undefined
-  );
-  const [clientXPositionOnGrid, setClientXPositionOnGrid] = useState<number | undefined>(
-    undefined
-  );
-  const [clientYPositionOnGrid, setClientYPositionOnGrid] = useState<number | undefined>(
-    undefined
-  );
+  const [idTimeoutForCalls, setIdTimeoutForCalls] =
+    useState<NodeJS.Timeout | undefined>(undefined);
+  const [clientXPositionOnGrid, setClientXPositionOnGrid] =
+    useState<number | undefined>(undefined);
+  const [clientYPositionOnGrid, setClientYPositionOnGrid] =
+    useState<number | undefined>(undefined);
   const [scrollingOnCourse, setScrollingOnCourse] = useState<boolean>(false);
   //UseEffects
+  useEffect(() => {
+    if (pastDatesVisible) {
+      setLeftPagination(Math.ceil(horizontalInitialCellQuantity / 2));
+    } else {
+      setLeftPagination(0);
+    }
+  }, [pastDatesVisible, horizontalInitialCellQuantity]);
   useEffect(() => {
     //Delegamos un cambio de estado a los primero renderes para evitar duplicado de llamadas a la API
     if (!firtsCall) {
@@ -235,12 +242,12 @@ const Multicalendar = ({
     }
   }, [xPosition, yPosition, idTimeoutForCalls, waitTimeForCalls]);
   useEffect(() => {
-    if(!scrollingOnCourse && callsOnScrollingStops){
-      callsOnScrollingStops()
+    if (!scrollingOnCourse && callsOnScrollingStops) {
+      callsOnScrollingStops();
     }
     // eslint-disable-next-line
-  }, [scrollingOnCourse])
-  
+  }, [scrollingOnCourse]);
+
   //Cancelar idIntervalo Autoscroll de rango cuando se deja de seleccionar
   useEffect(() => {
     if (!draggingOverDateCells) {
@@ -383,6 +390,7 @@ const Multicalendar = ({
               setRightPagination(rightPagination + 1);
             }
             if (
+              pastDatesVisible &&
               dynamicPagination &&
               (e.target as HTMLDivElement).scrollLeft < cellsWidth
             ) {
