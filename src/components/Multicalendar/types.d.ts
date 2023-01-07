@@ -20,6 +20,8 @@ export interface MulticalendarPropsType {
   logoUrl?: string;
   waitTimeForCalls?: number;
   callsOnScrollingStops?: Function;
+  aditionalControlsComponents?: JSX.Element | JSX.Element[]
+  upperLeftComponent?: JSX.Element
 }
 
 export interface RenderCoordinatesType {

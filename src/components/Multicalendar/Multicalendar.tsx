@@ -46,6 +46,8 @@ const Multicalendar = ({
   logoUrl,
   waitTimeForCalls = 500,
   callsOnScrollingStops,
+  aditionalControlsComponents,
+  upperLeftComponent,
 }: MulticalendarPropsType) => {
   //Constantes del componente
   const origin = {
@@ -268,8 +270,8 @@ const Multicalendar = ({
         }px calc(100% - ${horizontalAxisHeight}px`,
       }}
     >
-      <div className="controles">
-        <div className="div-dropdown-fechas-boton-hoy">
+      <div className="controls">
+        <div className="div-dates-navigation">
           <DropdownMonthNavigation
             minimumVisibleDate={minimumVisibleDate}
             onChangeAction={(valorDeOpcion: string) => {
@@ -299,15 +301,19 @@ const Multicalendar = ({
             {language["Today"]}
           </button>
         </div>
-        <div className="div-botones-superior-derecho"></div>
+        {aditionalControlsComponents && (
+          <div className="div-aditional-controls-components">
+            {aditionalControlsComponents}
+          </div>
+        )}
       </div>
-      <div className="filtros-logo">
-        {logoUrl && <img className="logo" src={logoUrl} alt="logo" />}
+      <div className="div-upper-left-component">
+        {upperLeftComponent}
       </div>
-      <div className="eje-vertical">
+      <div className="vertical-axis">
         <div
           ref={destiniesColumnRef}
-          className="lista-anuncios"
+          className="div-list-element-column"
           onScroll={(e) => {
             // Se puede hacer funcion
             if (gridWrapperRef.current !== null)
@@ -323,11 +329,11 @@ const Multicalendar = ({
           />
         </div>
       </div>
-      <div className="eje-horizontal">
-        <div className="div-botones-fechas">
+      <div className="horizontal-axis">
+        <div className="div-weeks-buttons">
           {/* Se Puede hacer componente */}
           <button
-            className="boton-semana-pasada"
+            className="past-week-button"
             onClick={() => {
               // Se puede hacer funcion
               if (datesRowRef.current !== null)
@@ -347,14 +353,14 @@ const Multicalendar = ({
                   left: datesRowRef.current.scrollLeft + cellsWidth * 7,
                 });
             }}
-            className="boton-semana-siguiente"
+            className="next-week-button"
           >
             <BootstrapIcons.BsChevronRight />
           </button>
         </div>
         <div
           ref={datesRowRef}
-          className="div-fila-fechas"
+          className="div-dates-row"
           onScroll={(e) => {
             if (gridWrapperRef.current !== null)
               gridWrapperRef.current.scrollLeft = (e.target as HTMLDivElement).scrollLeft;
@@ -371,10 +377,10 @@ const Multicalendar = ({
           />
         </div>
       </div>
-      <div className="div-contenedor-principal">
+      <div className="div-main-container">
         <div
           ref={gridWrapperRef}
-          className="contendor-principal"
+          className="main-container"
           onScroll={(e) => {
             if (datesRowRef.current !== null) {
               datesRowRef.current.scrollLeft = (e.target as HTMLDivElement).scrollLeft;
