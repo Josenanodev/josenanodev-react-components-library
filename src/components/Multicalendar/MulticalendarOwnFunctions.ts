@@ -138,7 +138,7 @@ export function defineListElementsArrayVisibleList(
   let array: string[] | number[] = [];
   for (let index = 0; index < paginationHeight + chunkRenderY * 2; index++) {
     if (listElementsIds[index + offset] && index + offset >= 0)
-      array[index] = Object.assign({}, listElementsIds[index + offset]);
+      array[index] = listElementsIds[index + offset];
   }
   return array;
 }
