@@ -1,4 +1,5 @@
 import React from "react";
+import "./css-presets.css";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import Multicalendar from "../components/Multicalendar/Multicalendar";
@@ -23,7 +24,9 @@ export default {
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: ComponentStory<typeof Multicalendar> = (args) => (
-  <Multicalendar {...args} />
+  <div style={{ height: "90vh" }}>
+    <Multicalendar {...args} />
+  </div>
 );
 
 export const Primary = Template.bind({});
@@ -39,6 +42,15 @@ Primary.args = {
     "List element 4",
     "List element 5",
     "List element 6",
+    "List element 7",
+    "List element 8",
+    "List element 9",
+    "List element 10",
+    "List element 11",
+    "List element 12",
+    "List element 13",
+    "List element 14",
+    "List element 15",
   ],
   language: es_ES,
 } as MulticalendarPropsType;
