@@ -63,7 +63,7 @@ export declare function defineListElementsArrayVisibleList(paginationHeight: num
  * @param language language object for traductions
  * @returns string of the date, month followed by year
  */
-export declare function defineMonthsArray(leftPagination: number, language: languageType): JSX.Element[];
+export declare function defineMonthsArray(leftPagination: number, rightPagination: number, language: languageType): JSX.Element[];
 /**
  *
  * @param holdingClic boolean to know if mouse id down
