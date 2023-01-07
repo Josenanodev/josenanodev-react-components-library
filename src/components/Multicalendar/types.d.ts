@@ -18,6 +18,7 @@ export interface MulticalendarPropsType {
   draggingOverDateCells?: boolean;
   dynamicDaysQuantity?: boolean;
   waitTimeForCalls?: number;
+  callsOnScrollingMoves?: Function;
   callsOnScrollingStops?: Function;
   aditionalControlsComponents?: JSX.Element | JSX.Element[]
   upperLeftComponent?: JSX.Element

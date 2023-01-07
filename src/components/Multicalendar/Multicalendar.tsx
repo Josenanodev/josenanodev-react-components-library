@@ -3,7 +3,7 @@ import * as Funciones from "./MulticalendarOwnFunctions";
 import "./Multicalendar.css";
 
 //Assets
-import * as BootstrapIcons from "react-icons/bs";
+import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 
 //Componentes
 import DatesRow from "./subcomponents/individuals/DatesRow/DatesRow";
@@ -44,6 +44,7 @@ const Multicalendar = ({
   dynamicDaysQuantity = false,
   draggingOverDateCells = false,
   waitTimeForCalls = 500,
+  callsOnScrollingMoves,
   callsOnScrollingStops,
   aditionalControlsComponents,
   upperLeftComponent,
@@ -244,7 +245,9 @@ const Multicalendar = ({
     }
   }, [xPosition, yPosition, idTimeoutForCalls, waitTimeForCalls]);
   useEffect(() => {
-    if (!scrollingOnCourse && callsOnScrollingStops) {
+    if (scrollingOnCourse && callsOnScrollingMoves) {
+      callsOnScrollingMoves();
+    } else if (!scrollingOnCourse && callsOnScrollingStops) {
       callsOnScrollingStops();
     }
     // eslint-disable-next-line
@@ -306,9 +309,7 @@ const Multicalendar = ({
           </div>
         )}
       </div>
-      <div className="div-upper-left-component">
-        {upperLeftComponent}
-      </div>
+      <div className="div-upper-left-component">{upperLeftComponent}</div>
       <div className="vertical-axis">
         <div
           ref={destiniesColumnRef}
@@ -341,7 +342,7 @@ const Multicalendar = ({
                 });
             }}
           >
-            <BootstrapIcons.BsChevronLeft />
+            <BsChevronLeft />
           </button>
           {/* Se Puede hacer componente */}
           <button
@@ -354,7 +355,7 @@ const Multicalendar = ({
             }}
             className="next-week-button"
           >
-            <BootstrapIcons.BsChevronRight />
+            <BsChevronRight />
           </button>
         </div>
         <div
