@@ -41,9 +41,8 @@ const Multicalendar = ({
   futureDaysInitialQuantity = 365,
   chunkRenderX = 0,
   chunkRenderY = 0,
-  dynamicPagination = false,
+  dynamicDaysQuantity = false,
   draggingOverDateCells = false,
-  logoUrl,
   waitTimeForCalls = 500,
   callsOnScrollingStops,
   aditionalControlsComponents,
@@ -393,7 +392,7 @@ const Multicalendar = ({
               setYPosition((e.target as HTMLDivElement).scrollTop);
             }
             if (
-              dynamicPagination &&
+              dynamicDaysQuantity &&
               (e.target as HTMLDivElement).scrollLeft +
                 (e.target as HTMLDivElement).offsetWidth >
                 (pastDaysQuantity + futureDaysQuantity) * cellsWidth - cellsWidth
@@ -402,7 +401,7 @@ const Multicalendar = ({
             }
             if (
               pastDatesVisible &&
-              dynamicPagination &&
+              dynamicDaysQuantity &&
               (e.target as HTMLDivElement).scrollLeft < cellsWidth
             ) {
               setPastDaysQuantity(pastDaysQuantity + 1);

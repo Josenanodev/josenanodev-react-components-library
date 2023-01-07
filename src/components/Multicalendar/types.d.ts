@@ -16,8 +16,7 @@ export interface MulticalendarPropsType {
   chunkRenderX?: number;
   chunkRenderY?: number;
   draggingOverDateCells?: boolean;
-  dynamicPagination?: boolean;
-  logoUrl?: string;
+  dynamicDaysQuantity?: boolean;
   waitTimeForCalls?: number;
   callsOnScrollingStops?: Function;
   aditionalControlsComponents?: JSX.Element | JSX.Element[]
