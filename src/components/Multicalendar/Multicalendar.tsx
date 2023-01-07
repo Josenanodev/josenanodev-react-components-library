@@ -9,7 +9,7 @@ import * as BootstrapIcons from "react-icons/bs";
 import DatesRow from "./subcomponents/individuals/DatesRow/DatesRow";
 import ListElementsColumn from "./subcomponents/composites/ListElementsColumn/ListElementsColumn";
 import DatesGrid from "./subcomponents/composites/DatesGrid/DatesGrid";
-import DropdownNavegadorMeses from "./subcomponents/individuals/DropdownMonthNavigation/DropdownMonthNavigation";
+import DropdownMonthNavigation from "./subcomponents/individuals/DropdownMonthNavigation/DropdownMonthNavigation";
 
 //Hooks
 import useWindowSize from "../../hooks/useWindowsSize";
@@ -269,7 +269,7 @@ const Multicalendar = ({
     >
       <div className="controles">
         <div className="div-dropdown-fechas-boton-hoy">
-          <DropdownNavegadorMeses
+          <DropdownMonthNavigation
             minimumVisibleDate={minimumVisibleDate}
             onChangeAction={(valorDeOpcion: string) => {
               Funciones.scrollByDate(
@@ -279,7 +279,11 @@ const Multicalendar = ({
                 cellsWidth
               );
             }}
-            options={Funciones.defineMonthsArray(leftPagination, language)}
+            options={Funciones.defineMonthsArray(
+              leftPagination,
+              rightPagination,
+              language
+            )}
           />
           <button
             onClick={() =>
