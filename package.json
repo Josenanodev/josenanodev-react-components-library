@@ -1,6 +1,6 @@
 {
   "name": "josenanodev-react-components-library",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "author": "Jose Carlos Cardenas Martinez",
   "description": "Libreria de componentes React personales",
   "license": "MIT",
@@ -49,18 +49,17 @@
     "react-icons": "^4.7.1"
   },
   "scripts": {
-    "start": "set PORT=80 && react-scripts start",
+    "storybook": "start-storybook -p 6006",
     "build": "rm -rf ./dist && npm run build:esm && npm run build:cjs && npm run copy-dts:cjs  && npm run copy-dts:esm  && npm run copy-css:cjs  && npm run copy-css:esm ",
+    "build-storybook": "build-storybook",
+    "test": "jest --coverage",
+    "tsc": "tsc",
     "build:esm": "tsc",
     "build:cjs": "tsc --module CommonJS --outDir dist/cjs",
     "copy-dts:cjs": "copyfiles -u 1 \"src/**/*.d.ts\" dist/cjs",
     "copy-dts:esm": "copyfiles -u 1 \"src/**/*.d.ts\" dist/esm",
     "copy-css:cjs": "copyfiles -u 1 \"src/**/*.css\" dist/cjs",
-    "copy-css:esm": "copyfiles -u 1 \"src/**/*.css\" dist/esm",
-    "test": "jest --coverage",
-    "tsc": "tsc",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "copy-css:esm": "copyfiles -u 1 \"src/**/*.css\" dist/esm"
   },
   "eslintConfig": {
     "extends": [

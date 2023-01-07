@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importDefault(require("react"));
 const CellChildrenMock = ({ date, listElementId }) => {
-    return (react_1.default.createElement("div", null,
+    return (react_1.default.createElement("div", { style: { userSelect: "none" } },
         date,
         react_1.default.createElement("br", null),
         listElementId));

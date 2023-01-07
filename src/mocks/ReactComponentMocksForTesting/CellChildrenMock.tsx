@@ -3,7 +3,7 @@ import { CellChildrenPropsType } from "../../components/Multicalendar/types";
 
 const CellChildrenMock = ({ date, listElementId }: CellChildrenPropsType) => {
   return (
-    <div>
+    <div style={{userSelect: "none"}}>
       {date}
       <br />
       {listElementId}

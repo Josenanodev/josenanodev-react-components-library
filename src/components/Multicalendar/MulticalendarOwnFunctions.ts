@@ -149,11 +149,15 @@ export function defineListElementsArrayVisibleList(
  * @param language language object for traductions
  * @returns string of the date, month followed by year
  */
-export function defineMonthsArray(leftPagination: number, language: languageType) {
+export function defineMonthsArray(
+  leftPagination: number,
+  rightPagination: number,
+  language: languageType
+) {
   let minimumDateMilliseconds =
     Date.parse(new Date().toString()) - leftPagination * millisecondsOfOneDay;
   let maximumDateMilliseconds =
-    Date.parse(new Date().toString()) + leftPagination * millisecondsOfOneDay;
+    Date.parse(new Date().toString()) + rightPagination * millisecondsOfOneDay;
   let array: JSX.Element[] = [];
   let sideArray: string[] = [];
   for (

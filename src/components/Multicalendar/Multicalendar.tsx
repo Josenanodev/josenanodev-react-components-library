@@ -3,13 +3,13 @@ import * as Funciones from "./MulticalendarOwnFunctions";
 import "./Multicalendar.css";
 
 //Assets
-import * as BootstrapIcons from "react-icons/bs";
+import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 
 //Componentes
 import DatesRow from "./subcomponents/individuals/DatesRow/DatesRow";
 import ListElementsColumn from "./subcomponents/composites/ListElementsColumn/ListElementsColumn";
 import DatesGrid from "./subcomponents/composites/DatesGrid/DatesGrid";
-import DropdownNavegadorMeses from "./subcomponents/individuals/DropdownMonthNavigation/DropdownMonthNavigation";
+import DropdownMonthNavigation from "./subcomponents/individuals/DropdownMonthNavigation/DropdownMonthNavigation";
 
 //Hooks
 import useWindowSize from "../../hooks/useWindowsSize";
@@ -32,22 +32,26 @@ const Multicalendar = ({
   ReactListElementChildren,
   listElementsIdsArray,
   language,
+  pastDatesVisible = true,
   cellsWidth = 120,
   cellsHeight = 80,
   verticalAxisWidth = 280,
   horizontalAxisHeight = 148,
-  horizontalInitialCellQuantity = 1000,
+  pastDaysInitialQuantity = 365,
+  futureDaysInitialQuantity = 365,
   chunkRenderX = 0,
   chunkRenderY = 0,
-  dynamicPagination = false,
+  dynamicDaysQuantity = false,
   draggingOverDateCells = false,
-  logoUrl,
   waitTimeForCalls = 500,
+  callsOnScrollingMoves,
   callsOnScrollingStops,
+  aditionalControlsComponents,
+  upperLeftComponent,
 }: MulticalendarPropsType) => {
   //Constantes del componente
   const origin = {
-    x: Math.ceil(horizontalInitialCellQuantity / 2) * cellsWidth,
+    x: pastDatesVisible ? Math.ceil(pastDaysInitialQuantity) * cellsWidth : 0,
     y: 0,
   };
   const initialDateOffset = 2 + chunkRenderX;
@@ -58,10 +62,12 @@ const Multicalendar = ({
   //Estados
   const [firtsCall, setFirtsCall] = useState<boolean>(false);
   const [windowWidth, windowHeight] = useWindowSize();
-  const [rightPagination, setRightPagination] = useState(
-    Math.ceil(horizontalInitialCellQuantity / 2)
+  const [futureDaysQuantity, setFutureDaysQuantity] = useState(
+    Math.ceil(futureDaysInitialQuantity)
   );
-  const [leftPagination, setLeftPagination] = useState(0);
+  const [pastDaysQuantity, setPastDaysQuantity] = useState(
+    pastDatesVisible ? Math.ceil(pastDaysInitialQuantity) : 0
+  );
   const [paginationWidth, setPaginationWidth] = useState<number>(0);
   const [paginationHeight, setPaginationHeight] = useState<number>(0);
   const [xOffset, setXOffset] = useState<number>(1);
@@ -78,17 +84,21 @@ const Multicalendar = ({
     y: origin.y,
   });
   const [minimumVisibleDate, setMinimumVisibleDate] = useState<Date>(new Date());
-  const [idTimeoutForCalls, setIdTimeoutForCalls] = useState<NodeJS.Timeout | undefined>(
-    undefined
-  );
-  const [clientXPositionOnGrid, setClientXPositionOnGrid] = useState<number | undefined>(
-    undefined
-  );
-  const [clientYPositionOnGrid, setClientYPositionOnGrid] = useState<number | undefined>(
-    undefined
-  );
+  const [idTimeoutForCalls, setIdTimeoutForCalls] =
+    useState<NodeJS.Timeout | undefined>(undefined);
+  const [clientXPositionOnGrid, setClientXPositionOnGrid] =
+    useState<number | undefined>(undefined);
+  const [clientYPositionOnGrid, setClientYPositionOnGrid] =
+    useState<number | undefined>(undefined);
   const [scrollingOnCourse, setScrollingOnCourse] = useState<boolean>(false);
   //UseEffects
+  useEffect(() => {
+    if (pastDatesVisible) {
+      setPastDaysQuantity(Math.ceil(pastDaysInitialQuantity));
+    } else {
+      setPastDaysQuantity(0);
+    }
+  }, [pastDatesVisible, pastDaysInitialQuantity]);
   useEffect(() => {
     //Delegamos un cambio de estado a los primero renderes para evitar duplicado de llamadas a la API
     if (!firtsCall) {
@@ -194,7 +204,7 @@ const Multicalendar = ({
       const fechaMinimaMilisegundos = Funciones.minimalDateMilliseconds(
         xPosition,
         cellsWidth,
-        leftPagination,
+        pastDaysQuantity,
         initialDateOffset
       );
       setMinimumVisibleDate(
@@ -216,7 +226,7 @@ const Multicalendar = ({
     chunkRenderX,
     cellsWidth,
     initialDateOffset,
-    leftPagination,
+    pastDaysQuantity,
     renderCoordinates.x,
     renderCoordinates.y,
     origin.x,
@@ -235,12 +245,14 @@ const Multicalendar = ({
     }
   }, [xPosition, yPosition, idTimeoutForCalls, waitTimeForCalls]);
   useEffect(() => {
-    if(!scrollingOnCourse && callsOnScrollingStops){
-      callsOnScrollingStops()
+    if (scrollingOnCourse && callsOnScrollingMoves) {
+      callsOnScrollingMoves();
+    } else if (!scrollingOnCourse && callsOnScrollingStops) {
+      callsOnScrollingStops();
     }
     // eslint-disable-next-line
-  }, [scrollingOnCourse])
-  
+  }, [scrollingOnCourse]);
+
   //Cancelar idIntervalo Autoscroll de rango cuando se deja de seleccionar
   useEffect(() => {
     if (!draggingOverDateCells) {
@@ -260,26 +272,30 @@ const Multicalendar = ({
         }px calc(100% - ${horizontalAxisHeight}px`,
       }}
     >
-      <div className="controles">
-        <div className="div-dropdown-fechas-boton-hoy">
-          <DropdownNavegadorMeses
+      <div className="controls">
+        <div className="div-dates-navigation">
+          <DropdownMonthNavigation
             minimumVisibleDate={minimumVisibleDate}
             onChangeAction={(valorDeOpcion: string) => {
               Funciones.scrollByDate(
                 new Date(Number(Date.parse(sqlToJsDate(valorDeOpcion).toString()))),
                 gridWrapperRef,
-                leftPagination,
+                pastDaysQuantity,
                 cellsWidth
               );
             }}
-            options={Funciones.defineMonthsArray(leftPagination, language)}
+            options={Funciones.defineMonthsArray(
+              pastDaysQuantity,
+              futureDaysQuantity,
+              language
+            )}
           />
           <button
             onClick={() =>
               Funciones.scrollByDate(
                 new Date(),
                 gridWrapperRef,
-                leftPagination,
+                pastDaysQuantity,
                 cellsWidth
               )
             }
@@ -287,15 +303,17 @@ const Multicalendar = ({
             {language["Today"]}
           </button>
         </div>
-        <div className="div-botones-superior-derecho"></div>
+        {aditionalControlsComponents && (
+          <div className="div-aditional-controls-components">
+            {aditionalControlsComponents}
+          </div>
+        )}
       </div>
-      <div className="filtros-logo">
-        {logoUrl && <img className="logo" src={logoUrl} alt="logo" />}
-      </div>
-      <div className="eje-vertical">
+      <div className="div-upper-left-component">{upperLeftComponent}</div>
+      <div className="vertical-axis">
         <div
           ref={destiniesColumnRef}
-          className="lista-anuncios"
+          className="div-list-element-column"
           onScroll={(e) => {
             // Se puede hacer funcion
             if (gridWrapperRef.current !== null)
@@ -311,11 +329,11 @@ const Multicalendar = ({
           />
         </div>
       </div>
-      <div className="eje-horizontal">
-        <div className="div-botones-fechas">
+      <div className="horizontal-axis">
+        <div className="div-weeks-buttons">
           {/* Se Puede hacer componente */}
           <button
-            className="boton-semana-pasada"
+            className="past-week-button"
             onClick={() => {
               // Se puede hacer funcion
               if (datesRowRef.current !== null)
@@ -324,7 +342,7 @@ const Multicalendar = ({
                 });
             }}
           >
-            <BootstrapIcons.BsChevronLeft />
+            <BsChevronLeft />
           </button>
           {/* Se Puede hacer componente */}
           <button
@@ -335,14 +353,14 @@ const Multicalendar = ({
                   left: datesRowRef.current.scrollLeft + cellsWidth * 7,
                 });
             }}
-            className="boton-semana-siguiente"
+            className="next-week-button"
           >
-            <BootstrapIcons.BsChevronRight />
+            <BsChevronRight />
           </button>
         </div>
         <div
           ref={datesRowRef}
-          className="div-fila-fechas"
+          className="div-dates-row"
           onScroll={(e) => {
             if (gridWrapperRef.current !== null)
               gridWrapperRef.current.scrollLeft = (e.target as HTMLDivElement).scrollLeft;
@@ -350,7 +368,7 @@ const Multicalendar = ({
         >
           <DatesRow
             visibleDates={visibleDates}
-            width={(leftPagination + rightPagination) * cellsWidth}
+            width={(pastDaysQuantity + futureDaysQuantity) * cellsWidth}
             height={64}
             cellsWidth={cellsWidth}
             cellsHeight={64}
@@ -359,10 +377,10 @@ const Multicalendar = ({
           />
         </div>
       </div>
-      <div className="div-contenedor-principal">
+      <div className="div-main-container">
         <div
           ref={gridWrapperRef}
-          className="contendor-principal"
+          className="main-container"
           onScroll={(e) => {
             if (datesRowRef.current !== null) {
               datesRowRef.current.scrollLeft = (e.target as HTMLDivElement).scrollLeft;
@@ -375,18 +393,19 @@ const Multicalendar = ({
               setYPosition((e.target as HTMLDivElement).scrollTop);
             }
             if (
-              dynamicPagination &&
+              dynamicDaysQuantity &&
               (e.target as HTMLDivElement).scrollLeft +
                 (e.target as HTMLDivElement).offsetWidth >
-                (leftPagination + rightPagination) * cellsWidth - cellsWidth
+                (pastDaysQuantity + futureDaysQuantity) * cellsWidth - cellsWidth
             ) {
-              setRightPagination(rightPagination + 1);
+              setFutureDaysQuantity(futureDaysQuantity + 1);
             }
             if (
-              dynamicPagination &&
+              pastDatesVisible &&
+              dynamicDaysQuantity &&
               (e.target as HTMLDivElement).scrollLeft < cellsWidth
             ) {
-              setLeftPagination(leftPagination + 1);
+              setPastDaysQuantity(pastDaysQuantity + 1);
               (e.target as HTMLDivElement).scrollLeft = cellsWidth * 3;
             }
             Funciones.authomaticScrollInGrid(
@@ -416,7 +435,7 @@ const Multicalendar = ({
           }}
         >
           <DatesGrid
-            gridWidth={(leftPagination + rightPagination) * cellsWidth}
+            gridWidth={(pastDaysQuantity + futureDaysQuantity) * cellsWidth}
             gridHeight={cellsHeight * listElementsIdsArray.length}
             xOffset={xOffset}
             yOffset={yOffset}
