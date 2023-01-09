@@ -27,7 +27,7 @@ function useResizeObserver(elementRef: React.MutableRefObject<HTMLElement | null
       }
     };
   }, [elementRef, observer]);
-  return {elementWidth, elementHeight};
+  return [elementWidth, elementHeight];
 }
 
 export default useResizeObserver;
