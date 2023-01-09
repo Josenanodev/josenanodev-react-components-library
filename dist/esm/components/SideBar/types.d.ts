@@ -4,4 +4,5 @@ export interface SideBarPropsType {
   open: boolean;
   closeAction?: Function;
   outBoundClickClosesSideBar?: boolean;
+  aditionalInlineStyle?: React.CSSProperties;
 }

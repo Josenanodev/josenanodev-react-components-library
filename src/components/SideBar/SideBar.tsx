@@ -11,7 +11,6 @@ import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 //Types
 import { SideBarPropsType } from "./types";
 
-
 /**
  * NOTE: Parent Node must have position: relative, to work correctly with the side bar
  */
@@ -21,6 +20,7 @@ const SideBar = ({
   children,
   closeAction,
   outBoundClickClosesSideBar,
+  aditionalInlineStyle = {},
 }: SideBarPropsType) => {
   //Refs
   const sideBarRef = useRef<HTMLDivElement | null>(null);
@@ -47,6 +47,7 @@ const SideBar = ({
             : closeAction
             ? "100%"
             : `calc(100% - 30px)`,
+        ...aditionalInlineStyle,
       }}
     >
       <button
