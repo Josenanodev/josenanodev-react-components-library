@@ -36,7 +36,7 @@ const bs_1 = require("react-icons/bs");
 /**
  * NOTE: Parent Node must have position: relative, to work correctly with the side bar
  */
-const SideBar = ({ side, open = false, children, closeAction, outBoundClickClosesSideBar, }) => {
+const SideBar = ({ side, open = false, children, closeAction, outBoundClickClosesSideBar, aditionalInlineStyle = {}, }) => {
     //Refs
     const sideBarRef = (0, react_1.useRef)(null);
     //Hooks
@@ -52,13 +52,11 @@ const SideBar = ({ side, open = false, children, closeAction, outBoundClickClose
     });
     //useState
     const [openState, setOpenState] = (0, react_1.useState)(open);
-    return (react_1.default.createElement("div", { ref: sideBarRef, className: "side-bar", style: {
-            [side === "left" ? "right" : "left"]: (closeAction && open) || (!closeAction && openState)
+    return (react_1.default.createElement("div", { ref: sideBarRef, className: "side-bar", style: Object.assign({ [side === "left" ? "right" : "left"]: (closeAction && open) || (!closeAction && openState)
                 ? `calc(100% - ${elementWidth}px)`
                 : closeAction
                     ? "100%"
-                    : `calc(100% - 30px)`,
-        } },
+                    : `calc(100% - 30px)` }, aditionalInlineStyle) },
         react_1.default.createElement("button", { style: side === "left" ? { right: 0 } : { left: 0 }, className: "sidebar-close-button", onClick: () => {
                 if (closeAction) {
                     closeAction();

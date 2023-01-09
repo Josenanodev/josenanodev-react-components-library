@@ -8,7 +8,7 @@ import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 /**
  * NOTE: Parent Node must have position: relative, to work correctly with the side bar
  */
-const SideBar = ({ side, open = false, children, closeAction, outBoundClickClosesSideBar, }) => {
+const SideBar = ({ side, open = false, children, closeAction, outBoundClickClosesSideBar, aditionalInlineStyle = {}, }) => {
     //Refs
     const sideBarRef = useRef(null);
     //Hooks
@@ -24,13 +24,11 @@ const SideBar = ({ side, open = false, children, closeAction, outBoundClickClose
     });
     //useState
     const [openState, setOpenState] = useState(open);
-    return (React.createElement("div", { ref: sideBarRef, className: "side-bar", style: {
-            [side === "left" ? "right" : "left"]: (closeAction && open) || (!closeAction && openState)
+    return (React.createElement("div", { ref: sideBarRef, className: "side-bar", style: Object.assign({ [side === "left" ? "right" : "left"]: (closeAction && open) || (!closeAction && openState)
                 ? `calc(100% - ${elementWidth}px)`
                 : closeAction
                     ? "100%"
-                    : `calc(100% - 30px)`,
-        } },
+                    : `calc(100% - 30px)` }, aditionalInlineStyle) },
         React.createElement("button", { style: side === "left" ? { right: 0 } : { left: 0 }, className: "sidebar-close-button", onClick: () => {
                 if (closeAction) {
                     closeAction();
