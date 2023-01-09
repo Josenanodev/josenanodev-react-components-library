@@ -1,6 +1,6 @@
 {
   "name": "josenanodev-react-components-library",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "author": "Jose Carlos Cardenas Martinez",
   "description": "Libreria de componentes React personales",
   "license": "MIT",
@@ -17,6 +17,7 @@
   "devDependencies": {
     "@babel/core": "^7.20.12",
     "@babel/preset-typescript": "^7.17.12",
+    "@babel/runtime": "^7.20.7",
     "@storybook/addon-actions": "^6.5.15",
     "@storybook/addon-essentials": "^6.5.15",
     "@storybook/addon-interactions": "^6.5.15",
