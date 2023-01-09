@@ -1,0 +1,50 @@
+.side-bar {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  z-index: 2;
+  background-color: rgb(253, 253, 253);
+  box-shadow: 5px 0px 15px 0px rgb(206 206 206);
+  transition: all 0.5s ease-in-out;
+  animation: fade-in-side-bar 1s ease-in;
+}
+
+.side-bar .sidebar-close-button {
+  position: absolute;
+  top: 0;
+  height: 30px;
+  width: 30px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  transition: all 0.3s;
+  color: dimgray;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.side-bar .sidebar-close-button:hover {
+  color: var(--primary-color);
+}
+
+.side-bar .sidebar-close-button svg.open{
+  transform: rotate(0deg);
+  transition: all 0.5s;
+}
+
+.side-bar .sidebar-close-button svg.close{
+  transform: rotate(180deg);
+  transition: all 0.5s;
+}
+
+@keyframes fade-in-side-bar {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

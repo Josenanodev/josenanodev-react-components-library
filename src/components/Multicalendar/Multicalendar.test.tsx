@@ -3,10 +3,10 @@
  */
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import CellChildrenMock from "../mocks/ReactComponentMocksForTesting/CellChildrenMock";
-import ListElementChildrenMock from "../mocks/ReactComponentMocksForTesting/ListElementChildrenMock";
+import CellChildrenMock from "../../mocks/ReactComponentMocksForTesting/CellChildrenMock";
+import ListElementChildrenMock from "../../mocks/ReactComponentMocksForTesting/ListElementChildrenMock";
 import Multicalendar from "./Multicalendar";
-import es_ES from "../assets/languages/es-ES";
+import es_ES from "../../languages/es-ES";
 
 test("renders multicalendar", () => {
   const Wrapper = (
