@@ -1,7 +1,8 @@
 export interface PopUpProps {
-  children: JSX.Element;
-  callingButton?: React.MutableRefObject<HTMLButtonElement | null>
-  aditionalClass?: String;
-  visibility: boolean;
-  onCloseAction?: Function
+  children: JSX.Element | JSX.Element[];
+  open: boolean;
+  closeAction?: Function;
+  outBoundClickClosesPopUp?: boolean;
+  aditionalInlineStyle?: React.CSSProperties;
+  aditionalClass: string;
 }
