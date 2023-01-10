@@ -8,8 +8,11 @@ function useOutsideClick(elementRef: React.MutableRefObject<HTMLElement | null>,
     /**
      * Alert if clicked on outside of element
      */
-    function handleClickOutside(event) {
-      if (elementRef.current && !elementRef.current.contains(event.target)) {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        elementRef.current &&
+        !elementRef.current.contains(event.target as Node | null)
+      ) {
         onOutsideClickAction();
       }
     }
