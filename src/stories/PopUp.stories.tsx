@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./css-presets.css";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
@@ -11,38 +11,53 @@ export default {
 } as ComponentMeta<typeof PopUp>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof PopUp> = (args) => (
-  <div
-    style={{
-      width: "100%",
-      height: "100%",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      position: "relative",
-    }}
-  >
-    <PopUp {...args}>
-      <p
-        style={{
-          width: 300,
-          height: 300,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
+const Template: ComponentStory<typeof PopUp> = (args) => {
+  const [openPopUp, setOpenPopUp] = useState(false);
+
+  return (
+    <div
+      style={{
+        width: "100%",
+        height: 500,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        position: "relative",
+      }}
+    >
+      <PopUp
+        {...args}
+        // open={openPopUp}
+        // closeAction={() => {
+        //   setOpenPopUp(false);
+        // }}
       >
-        Introduce your components here
-      </p>
-    </PopUp>
-  </div>
-);
+        <p
+          style={{
+            fontWeight: 600,
+            textAlign: "center",
+          }}
+        >
+          Introduce your component here
+        </p>
+      </PopUp>
+      <button onClick={() => setOpenPopUp(!openPopUp)}>Toogle PopUp</button>
+    </div>
+  );
+};
 
 export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {
-  open: true,
   outBoundClickClosesPopUp: true,
-  aditionalInlineStyle: {},
-  aditionalClass: undefined,
+  aditionalInlineStyle: {
+    width: 300,
+    height: 350,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#cab1f1",
+    color: "black",
+    borderRadius: "8px",
+  },
 };

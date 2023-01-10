@@ -39,7 +39,7 @@ const PopUp = ({
         ((closeAction && open) || (!closeAction && openState) ? "" : " pop-up-hidden") +
         (aditionalClass ? " " + aditionalClass : "")
       }
-      style={aditionalInlineStyle}
+      style={open ? aditionalInlineStyle : {}}
     >
       {children}
     </div>
