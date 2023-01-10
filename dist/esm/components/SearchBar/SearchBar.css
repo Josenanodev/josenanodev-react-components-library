@@ -1,0 +1,35 @@
+.search-bar .div-search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgb(185, 185, 185);
+  box-sizing: border-box;
+  margin: 2px 10px;
+  padding: 5px 0px;
+  border-radius: 6px;
+}
+
+.search-bar .div-search-bar input {
+  width: 100%;
+  border: none;
+}
+
+.search-bar .div-search-bar input:focus {
+  border: none;
+  outline: none;
+}
+
+.search-bar .div-search-bar svg {
+  width: 36px;
+  padding: 0px 10px;
+}
+
+.search-bar .div-search-bar .icono-search-bar-opciones {
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.search-bar .div-search-bar .icono-search-bar-opciones.icono-search-bar-opciones-desactivado {
+  cursor: not-allowed;
+  color: rgb(184, 184, 184);
+}
