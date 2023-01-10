@@ -1,9 +1,11 @@
 import React, { useState, useRef } from "react";
-import useOutsideClick from "../../hooks/useOutsideClick";
 import "./PopUp.css";
 
+//hooks
+import useOutsideClick from "../../hooks/useOutsideClick";
+
 //Types
-import { PopUpProps } from "./types";
+import { PopUpPropsType } from "./types";
 
 const PopUp = ({
   open = false,
@@ -12,19 +14,23 @@ const PopUp = ({
   outBoundClickClosesPopUp,
   aditionalInlineStyle = {},
   aditionalClass,
-}: PopUpProps) => {
+  activationButtonRef,
+}: PopUpPropsType) => {
   //Refs
   const popUpRef = useRef<HTMLDivElement | null>(null);
   //Hooks
-  useOutsideClick(popUpRef, () => {
-    if (outBoundClickClosesPopUp) {
-      setOpenState(false);
-      if (closeAction) closeAction();
-    }
-  });
-  //Estados
-  const [openState, setOpenState] = useState<boolean>(open);
+  useOutsideClick(
+    popUpRef,
+    () => {
+      if (outBoundClickClosesPopUp) {
+        setOpenState(false);
+        if (closeAction) closeAction();
+      }
+    },
+    activationButtonRef ? [activationButtonRef] : []
+  );
   //useState
+  const [openState, setOpenState] = useState<boolean>(open);
   return (
     <div
       ref={popUpRef}

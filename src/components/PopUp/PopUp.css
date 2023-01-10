@@ -5,7 +5,7 @@
   border-width: 0px 1px 1px;
   box-shadow: rgb(0 0 0 / 15%) 0px 14px 36px 2px;
   padding: 0px;
-  position: relative;
+  position: absolute;
   overflow: auto;
   box-sizing: border-box;
 }
