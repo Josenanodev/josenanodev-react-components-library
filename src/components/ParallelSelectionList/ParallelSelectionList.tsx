@@ -66,7 +66,7 @@ const ParallelSelectionList = ({
     const selectedDatumsIdsClone = [...selectedDatumsIds];
     datumIdsArray.forEach((datumId) => {
       if (selectedDatumsIds.includes(datumId)) {
-        selectedDatumsIdsClone.splice(selectedDatumsIdsClone.indexOf(datumId, 1));
+        selectedDatumsIdsClone.splice(selectedDatumsIdsClone.indexOf(datumId), 1);
       }
     });
     setSelectedDatumsIds(selectedDatumsIdsClone);
