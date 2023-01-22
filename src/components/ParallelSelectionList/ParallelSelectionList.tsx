@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./ParallelSelectionList.css";
 
 //Icons
@@ -12,7 +12,8 @@ import {
 } from "react-icons/bs";
 
 //Types
-import { ListDatumType, ParallelSelctionListPropsTypes } from "./types";
+import { ListDatumType, ParallelSelectionListPropsTypes } from "./types";
+import useResizeObserver from "../../hooks/useResizeObserver";
 
 const ParallelSelectionList = ({
   dataList,
@@ -23,17 +24,34 @@ const ParallelSelectionList = ({
   searchBarsVisible,
   applyButonText,
   cancelButtonText,
-}: ParallelSelctionListPropsTypes) => {
+  preSelectedDatumsIds = [],
+  listElementsHeight = 50,
+}: ParallelSelectionListPropsTypes) => {
+  //Refs
+  const leftListRef = useRef<HTMLDivElement | null>(null);
+  const rightListRef = useRef<HTMLDivElement | null>(null);
   //useState
-  const [selectedDatumsIds, setSelectedDatumsIds] = useState<ListDatumType["_id"][]>([]);
+  const [selectedDatumsIds, setSelectedDatumsIds] =
+    useState<ListDatumType["_id"][]>(preSelectedDatumsIds);
   const [filteredLeftList, setFilteredLeftList] = useState<
-    ParallelSelctionListPropsTypes["dataList"]
+    ParallelSelectionListPropsTypes["dataList"]
   >([]);
   const [filteredRightList, setFilteredRightList] = useState<
-    ParallelSelctionListPropsTypes["dataList"]
+    ParallelSelectionListPropsTypes["dataList"]
   >([]);
+  const [leftListFirstVisibleElementIndex, setLeftListFirstVisibleElementIndex] =
+    useState<number>(0);
+  const [leftListLastVisibleElementIndex, setLeftListLastVisibleElementIndex] =
+    useState<number>(0);
+  const [rightListFirstVisibleElementIndex, setRightListFirstVisibleElementIndex] =
+    useState<number>(0);
+  const [rightListLastVisibleElementIndex, setRightListLastVisibleElementIndex] =
+    useState<number>(0);
   const [leftListSearchValue, setLeftListSearchValue] = useState<string>("");
   const [rightListSearchValue, setRightListSearchValue] = useState<string>("");
+  //hooks
+  const [leftListWidth, leftListHeight] = useResizeObserver(leftListRef);
+  const [rightListWidth, rightListHeight] = useResizeObserver(rightListRef);
   //Functions
   const addToSelectedDatumsIds = (datumIdsArray: ListDatumType["_id"][]) => {
     const selectedDatumsIdsClone = [...selectedDatumsIds];
@@ -55,9 +73,7 @@ const ParallelSelectionList = ({
   };
   //useEffects
   useEffect(() => {
-    let dataListClone: ParallelSelctionListPropsTypes["dataList"] = JSON.parse(
-      JSON.stringify(dataList)
-    );
+    let dataListClone = [...dataList];
     dataListClone = dataListClone.filter(
       (datum) => !selectedDatumsIds.includes(datum._id)
     );
@@ -67,9 +83,7 @@ const ParallelSelectionList = ({
     setFilteredLeftList(dataListClone);
   }, [leftListSearchValue, dataList, selectedDatumsIds]);
   useEffect(() => {
-    let dataListClone: ParallelSelctionListPropsTypes["dataList"] = JSON.parse(
-      JSON.stringify(dataList)
-    );
+    let dataListClone = [...dataList];
     dataListClone = dataListClone.filter((datum) =>
       selectedDatumsIds.includes(datum._id)
     );
@@ -78,6 +92,40 @@ const ParallelSelectionList = ({
     );
     setFilteredRightList(dataListClone);
   }, [rightListSearchValue, dataList, selectedDatumsIds]);
+  useEffect(() => {
+    if (leftListRef.current && leftListRef.current.clientHeight !== 0) {
+      setLeftListLastVisibleElementIndex(
+        leftListFirstVisibleElementIndex +
+          Math.floor(leftListRef.current.clientHeight / listElementsHeight) +
+          2
+      );
+    } else {
+      setLeftListLastVisibleElementIndex(filteredLeftList.length);
+    }
+  }, [
+    leftListHeight,
+    leftListWidth,
+    leftListFirstVisibleElementIndex,
+    listElementsHeight,
+    filteredLeftList.length
+  ]);
+  useEffect(() => {
+    if (rightListRef.current && rightListRef.current.clientHeight !== 0) {
+      setRightListLastVisibleElementIndex(
+        rightListFirstVisibleElementIndex +
+          Math.floor(rightListRef.current.clientHeight / listElementsHeight) +
+          2
+      );
+    } else {
+      setRightListLastVisibleElementIndex(filteredRightList.length);
+    }
+  }, [
+    rightListHeight,
+    rightListWidth,
+    rightListFirstVisibleElementIndex,
+    listElementsHeight,
+    filteredRightList.length
+  ]);
   return (
     <div className="parallel-selection-list">
       <div className="div-left-list">
@@ -101,22 +149,53 @@ const ParallelSelectionList = ({
           >
             <BsChevronDoubleRight />
           </button>
-          <div className="scrollable-section">
-            {filteredLeftList.map((datum) => (
-              <div key={datum._id} className="div-datum-wrapper">
-                {datum.customComponent ? (
-                  datum.customComponent
-                ) : (
-                  <p className="visible-default-name">{datum.visibleDefaultName}</p>
-                )}
-                <button
-                  className="apply-to-one-button"
-                  onClick={() => addToSelectedDatumsIds([datum._id])}
-                >
-                  <BsChevronRight />
-                </button>
-              </div>
-            ))}
+          <div
+            ref={leftListRef}
+            className="scrollable-section"
+            onScroll={(event) =>
+              setLeftListFirstVisibleElementIndex(
+                Math.floor(
+                  (event.target as HTMLDivElement).scrollTop / listElementsHeight
+                )
+              )
+            }
+          >
+            <div
+              className="resizable-div-for-scroll"
+              style={{
+                paddingTop: leftListFirstVisibleElementIndex * listElementsHeight,
+                height: filteredLeftList.length * listElementsHeight,
+              }}
+            >
+              {filteredLeftList
+                .slice(leftListFirstVisibleElementIndex, leftListLastVisibleElementIndex)
+                .map((datum) => (
+                  <div
+                    key={datum._id}
+                    className="div-datum-wrapper"
+                    style={{ height: listElementsHeight }}
+                  >
+                    {datum.customComponent ? (
+                      <div className="div-custom-component-wrapper">
+                        {datum.customComponent}
+                      </div>
+                    ) : (
+                      <p
+                        className="visible-default-name"
+                        title={datum.visibleDefaultName}
+                      >
+                        {datum.visibleDefaultName}
+                      </p>
+                    )}
+                    <button
+                      className="apply-to-one-button"
+                      onClick={() => addToSelectedDatumsIds([datum._id])}
+                    >
+                      <BsChevronRight />
+                    </button>
+                  </div>
+                ))}
+            </div>
           </div>
         </div>
       </div>
@@ -141,22 +220,56 @@ const ParallelSelectionList = ({
           >
             <BsChevronDoubleLeft />
           </button>
-          <div className="scrollable-section">
-            {filteredRightList.map((datum) => (
-              <div key={datum._id} className="div-datum-wrapper">
-                <button
-                  className="apply-to-one-button"
-                  onClick={() => removeFromSelectedDatumsIds([datum._id])}
-                >
-                  <BsChevronLeft />
-                </button>
-                {datum.customComponent ? (
-                  datum.customComponent
-                ) : (
-                  <p className="visible-default-name">{datum.visibleDefaultName}</p>
-                )}
-              </div>
-            ))}
+          <div
+            ref={rightListRef}
+            className="scrollable-section"
+            onScroll={(event) =>
+              setRightListFirstVisibleElementIndex(
+                Math.floor(
+                  (event.target as HTMLDivElement).scrollTop / listElementsHeight
+                )
+              )
+            }
+          >
+            <div
+              className="resizable-div-for-scroll"
+              style={{
+                paddingTop: rightListFirstVisibleElementIndex * listElementsHeight,
+                height: filteredRightList.length * listElementsHeight,
+              }}
+            >
+              {filteredRightList
+                .slice(
+                  rightListFirstVisibleElementIndex,
+                  rightListLastVisibleElementIndex
+                )
+                .map((datum) => (
+                  <div
+                    key={datum._id}
+                    className="div-datum-wrapper"
+                    style={{ height: listElementsHeight }}
+                  >
+                    <button
+                      className="apply-to-one-button"
+                      onClick={() => removeFromSelectedDatumsIds([datum._id])}
+                    >
+                      <BsChevronLeft />
+                    </button>
+                    {datum.customComponent ? (
+                      <div className="div-custom-component-wrapper">
+                        {datum.customComponent}
+                      </div>
+                    ) : (
+                      <p
+                        className="visible-default-name"
+                        title={datum.visibleDefaultName}
+                      >
+                        {datum.visibleDefaultName}
+                      </p>
+                    )}
+                  </div>
+                ))}
+            </div>
           </div>
         </div>
       </div>

@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 //Types
 import ParallelSelectionList from "../components/ParallelSelectionList/ParallelSelectionList";
-import { ParallelSelctionListPropsTypes } from "../components/ParallelSelectionList/types";
+import { ParallelSelectionListPropsTypes } from "../components/ParallelSelectionList/types";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -14,7 +14,7 @@ export default {
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: ComponentStory<typeof ParallelSelectionList> = (args) => (
-  <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+  <div style={{ width: "100%", height: "90vh", display: "flex", justifyContent: "center" }}>
     <ParallelSelectionList {...args} />
   </div>
 );
@@ -39,4 +39,4 @@ Primary.args = {
   searchBarsVisible: true,
   leftListTitle: "Disponibles",
   rightListTitle: "Seleccionados",
-} as ParallelSelctionListPropsTypes;
+} as ParallelSelectionListPropsTypes;

@@ -1,4 +1,4 @@
-export interface ParallelSelctionListPropsTypes {
+export interface ParallelSelectionListPropsTypes {
   dataList: ListDatumType[];
   applyAction: (dataListId: ListDatumType["_id"][]) => Fuction;
   cancelAction: Function;
@@ -7,6 +7,8 @@ export interface ParallelSelctionListPropsTypes {
   searchBarsVisible?: boolean;
   applyButonText?: string;
   cancelButtonText?: string;
+  preSelectedDatumsIds?: ListDatumType["_id"][];
+  listElementsHeight?: number;
 }
 
 export type ListDatumType = {

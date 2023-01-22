@@ -3,6 +3,9 @@
   grid-template-areas:
     "lef rig"
     "but but";
+  height: 100%;
+  grid-template-rows: calc(100% - 80px) 80px;
+  grid-template-columns: 50% 50%;
 }
 
 .parallel-selection-list .div-left-list {
@@ -12,6 +15,7 @@
   align-items: center;
   box-sizing: border-box;
   padding: 10px;
+  height: 100%;
 }
 
 .parallel-selection-list .div-right-list {
@@ -21,6 +25,7 @@
   align-items: center;
   box-sizing: border-box;
   padding: 10px;
+  height: 100%;
 }
 
 .parallel-selection-list .div-action-buttons {
@@ -36,15 +41,19 @@
   font-size: 20px;
   font-weight: 600;
   color: dimgray;
-  margin-bottom: 10px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .parallel-selection-list .div-search-bar {
   width: 100%;
   border: 1px solid rgb(185, 185, 185);
-  border-radius: 6px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
   padding: 6px;
-  margin-bottom: 10px;
+  height: 30px;
   box-sizing: border-box;
   color: dimgray;
   display: flex;
@@ -55,6 +64,7 @@
 .parallel-selection-list .div-search-bar input {
   border: none;
   padding-left: 10px;
+  width: 100%;
 }
 
 .parallel-selection-list .div-search-bar input:focus {
@@ -65,9 +75,12 @@
   width: 100%;
   display: flex;
   flex-flow: column;
+  box-sizing: border-box;
   border: 1px solid rgb(169, 169, 169);
-  border-radius: 6px;
-  height: 160px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  border-top: none;
+  height: calc(100% - 60px);
 }
 
 .parallel-selection-list .list-container .apply-all-button {
@@ -75,6 +88,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
+  height: 30px;
   border: none;
   background-color: transparent;
   color: dimgray;
@@ -97,10 +111,19 @@
 
 .parallel-selection-list .list-container .scrollable-section {
   overflow-y: auto;
-  height: 100%;
+  height: calc(100% - 30px);
 }
 
-.parallel-selection-list .list-container .scrollable-section .div-datum-wrapper {
+.parallel-selection-list .list-container .scrollable-section .resizable-div-for-scroll {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.parallel-selection-list
+  .list-container
+  .scrollable-section
+  .resizable-div-for-scroll
+  .div-datum-wrapper {
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -111,18 +134,41 @@
 .parallel-selection-list
   .list-container
   .scrollable-section
+  .resizable-div-for-scroll
   .div-datum-wrapper
-  .visible-default-name {
-  box-sizing: border-box;
-  padding: 10px;
-  font-size: 16px;
-  font-weight: 600;
-  color: dimgray;
+  .div-custom-component-wrapper {
+  position: relative;
+  height: 100%;
+  width: calc(100% - 50px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .parallel-selection-list
   .list-container
   .scrollable-section
+  .resizable-div-for-scroll
+  .div-datum-wrapper
+  .visible-default-name {
+  box-sizing: border-box;
+  padding: 17px 10px;
+  font-size: 16px;
+  font-weight: 600;
+  color: dimgray;
+  height: 50px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: calc(100% - 50px);
+  text-align: start;
+}
+
+.parallel-selection-list
+  .list-container
+  .scrollable-section
+  .resizable-div-for-scroll
   .div-datum-wrapper
   .apply-to-one-button {
   height: 30px;
@@ -141,6 +187,7 @@
 .parallel-selection-list
   .list-container
   .scrollable-section
+  .resizable-div-for-scroll
   .div-datum-wrapper
   .apply-to-one-button:hover {
   background-color: rgb(238, 238, 238);
