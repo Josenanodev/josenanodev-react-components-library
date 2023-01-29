@@ -1,0 +1,19 @@
+export interface ParallelSelectionListPropsTypes {
+  dataList: ListDatumType[];
+  applyAction: (dataListId: ListDatumType["_id"][]) => Fuction;
+  cancelAction: Function;
+  leftListTitle?: string;
+  rightListTitle?: string;
+  searchBarsVisible?: boolean;
+  applyButonText?: string;
+  cancelButtonText?: string;
+  preSelectedDatumsIds?: ListDatumType["_id"][];
+  listElementsHeight?: number;
+}
+
+export type ListDatumType = {
+  _id: string;
+  searchValue: string;
+  visibleDefaultName: string;
+  customComponent?: JSX.Element;
+};
