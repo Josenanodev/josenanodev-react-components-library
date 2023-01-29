@@ -18,7 +18,7 @@ jobs:
           node-version: 16
       - run: npm ci
       - run: npm test
-      - run: npm build
+      - run: rm -rf ./dist && npm run build:esm && npm run build:cjs && npm run copy-dts:cjs  && npm run copy-dts:esm  && npm run copy-css:cjs  && npm run copy-css:esm 
 
   publish-npm:
     needs: build
