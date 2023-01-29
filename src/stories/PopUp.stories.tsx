@@ -27,18 +27,22 @@ const Template: ComponentStory<typeof PopUp> = (args) => {
     >
       <PopUp
         {...args}
-        // open={openPopUp}
-        // closeAction={() => {
-        //   setOpenPopUp(false);
-        // }}
+        open={openPopUp}
+        closeAction={() => {
+          setOpenPopUp(false);
+        }}
       >
         <p
           style={{
             fontWeight: 600,
             textAlign: "center",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          Introduce your component here
+          Click outside to close
         </p>
       </PopUp>
       <button onClick={() => setOpenPopUp(!openPopUp)}>Toogle PopUp</button>
@@ -53,9 +57,6 @@ Primary.args = {
   aditionalInlineStyle: {
     width: 300,
     height: 350,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
     backgroundColor: "#cab1f1",
     color: "black",
     borderRadius: "8px",
