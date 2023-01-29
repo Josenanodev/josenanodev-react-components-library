@@ -11,9 +11,11 @@ import {
   BsSearch,
 } from "react-icons/bs";
 
+//Hooks
+import useResizeObserver from "../../hooks/useResizeObserver";
+
 //Types
 import { ListDatumType, ParallelSelectionListPropsTypes } from "./types";
-import useResizeObserver from "../../hooks/useResizeObserver";
 
 const ParallelSelectionList = ({
   dataList,
