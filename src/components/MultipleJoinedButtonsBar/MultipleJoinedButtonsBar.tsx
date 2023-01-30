@@ -7,7 +7,7 @@ const MultipleJoinedButtonsBar = ({
   onSelectOption,
   initialSelectedValue,
   externalSelectedValue,
-}: MultipleJoinedButtonsBarPropsType) => {
+}: MultipleJoinedButtonsBarPropsType<any>) => {
   //States
   const [selectedValue, setSelectedValue] =
     useState<string | undefined>(initialSelectedValue);
