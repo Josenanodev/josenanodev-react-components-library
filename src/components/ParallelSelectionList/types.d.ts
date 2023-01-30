@@ -1,6 +1,6 @@
 export interface ParallelSelectionListPropsTypes {
   dataList: ListDatumType[];
-  applyAction: (dataListId: ListDatumType["_id"][]) => Fuction;
+  applyAction: (dataListId: ListDatumType["_id"][]) => void;
   cancelAction: Function;
   leftListTitle?: string;
   rightListTitle?: string;
