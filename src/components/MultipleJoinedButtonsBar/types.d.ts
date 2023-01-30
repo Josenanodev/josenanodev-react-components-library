@@ -1,6 +1,6 @@
-export interface MultipleJoinedButtonsBarPropsType {
-  options: { _id: string; visibleValue: string }[];
-  onSelectOption: (selectedValue: string) => void;
-  initialSelectedValue?: string;
-  externalSelectedValue?: string;
+export interface MultipleJoinedButtonsBarPropsType<T> {
+  options: { _id: T; visibleValue: string }[];
+  onSelectOption: (selectedValue: T) => void;
+  initialSelectedValue?: T;
+  externalSelectedValue?: T;
 }
