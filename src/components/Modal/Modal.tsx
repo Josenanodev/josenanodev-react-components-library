@@ -10,7 +10,6 @@ import { ModalPropsType } from "./types";
 
 const Modal = ({
   children,
-  parentElement,
   visibility,
   forced = false,
   onOpen,
@@ -62,7 +61,7 @@ const Modal = ({
       >
         {children}
       </div>,
-      parentElement
+      document.body
     );
   } else {
     return <></>;
