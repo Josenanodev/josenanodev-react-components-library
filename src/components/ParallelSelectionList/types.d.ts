@@ -4,6 +4,8 @@ export interface ParallelSelectionListPropsTypes {
   cancelAction: Function;
   leftListTitle?: string;
   rightListTitle?: string;
+  leftListApplyAllButtonText?: string;
+  rightListApplyAllButtonText?: string;
   searchBarsVisible?: boolean;
   applyButonText?: string;
   cancelButtonText?: string;
