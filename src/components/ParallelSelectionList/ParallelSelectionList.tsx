@@ -23,6 +23,8 @@ const ParallelSelectionList = ({
   cancelAction,
   leftListTitle,
   rightListTitle,
+  leftListApplyAllButtonText,
+  rightListApplyAllButtonText,
   searchBarsVisible,
   applyButonText,
   cancelButtonText,
@@ -109,7 +111,7 @@ const ParallelSelectionList = ({
     leftListWidth,
     leftListFirstVisibleElementIndex,
     listElementsHeight,
-    filteredLeftList.length
+    filteredLeftList.length,
   ]);
   useEffect(() => {
     if (rightListRef.current && rightListRef.current.clientHeight !== 0) {
@@ -126,7 +128,7 @@ const ParallelSelectionList = ({
     rightListWidth,
     rightListFirstVisibleElementIndex,
     listElementsHeight,
-    filteredRightList.length
+    filteredRightList.length,
   ]);
   return (
     <div className="parallel-selection-list">
@@ -149,7 +151,7 @@ const ParallelSelectionList = ({
               addToSelectedDatumsIds(filteredLeftList.map((datum) => datum._id))
             }
           >
-            <BsChevronDoubleRight />
+            {leftListApplyAllButtonText} <BsChevronDoubleRight />
           </button>
           <div
             ref={leftListRef}
@@ -220,7 +222,7 @@ const ParallelSelectionList = ({
               removeFromSelectedDatumsIds(filteredRightList.map((datum) => datum._id))
             }
           >
-            <BsChevronDoubleLeft />
+            <BsChevronDoubleLeft /> {rightListApplyAllButtonText}
           </button>
           <div
             ref={rightListRef}
