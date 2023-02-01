@@ -2,6 +2,7 @@ export interface ParallelSelectionListPropsTypes {
   dataList: ListDatumType[];
   applyAction: (dataListId: ListDatumType["_id"][]) => void;
   cancelAction: Function;
+  onSelectionChange?: (dataListId: ListDatumType["_id"][]) => void;
   leftListTitle?: string;
   rightListTitle?: string;
   leftListApplyAllButtonText?: string;
