@@ -21,6 +21,7 @@ const ParallelSelectionList = ({
   dataList,
   applyAction,
   cancelAction,
+  onSelectionChange,
   leftListTitle,
   rightListTitle,
   leftListApplyAllButtonText,
@@ -65,6 +66,9 @@ const ParallelSelectionList = ({
       }
     });
     setSelectedDatumsIds(selectedDatumsIdsClone);
+    if (onSelectionChange) {
+      onSelectionChange(selectedDatumsIdsClone);
+    }
   };
   const removeFromSelectedDatumsIds = (datumIdsArray: ListDatumType["_id"][]) => {
     const selectedDatumsIdsClone = [...selectedDatumsIds];
@@ -74,6 +78,9 @@ const ParallelSelectionList = ({
       }
     });
     setSelectedDatumsIds(selectedDatumsIdsClone);
+    if (onSelectionChange) {
+      onSelectionChange(selectedDatumsIdsClone);
+    }
   };
   //useEffects
   useEffect(() => {
