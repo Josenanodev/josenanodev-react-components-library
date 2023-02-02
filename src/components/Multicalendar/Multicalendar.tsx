@@ -246,9 +246,9 @@ const Multicalendar = ({
   }, [xPosition, yPosition, idTimeoutForCalls, waitTimeForCalls]);
   useEffect(() => {
     if (scrollingOnCourse && callsOnScrollingMoves) {
-      callsOnScrollingMoves();
+      callsOnScrollingMoves(visibleListElementsIds, visibleDates);
     } else if (!scrollingOnCourse && callsOnScrollingStops) {
-      callsOnScrollingStops();
+      callsOnScrollingStops(visibleListElementsIds, visibleDates);
     }
     // eslint-disable-next-line
   }, [scrollingOnCourse]);
