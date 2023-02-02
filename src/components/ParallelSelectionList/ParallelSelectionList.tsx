@@ -66,9 +66,6 @@ const ParallelSelectionList = ({
       }
     });
     setSelectedDatumsIds(selectedDatumsIdsClone);
-    if (onSelectionChange) {
-      onSelectionChange(selectedDatumsIdsClone);
-    }
   };
   const removeFromSelectedDatumsIds = (datumIdsArray: ListDatumType["_id"][]) => {
     const selectedDatumsIdsClone = [...selectedDatumsIds];
@@ -78,9 +75,6 @@ const ParallelSelectionList = ({
       }
     });
     setSelectedDatumsIds(selectedDatumsIdsClone);
-    if (onSelectionChange) {
-      onSelectionChange(selectedDatumsIdsClone);
-    }
   };
   //useEffects
   useEffect(() => {
@@ -137,6 +131,14 @@ const ParallelSelectionList = ({
     listElementsHeight,
     filteredRightList.length,
   ]);
+  useEffect(() => {
+    //I know what I am doing... maybe
+    if (onSelectionChange) {
+      onSelectionChange(selectedDatumsIds);
+    }
+    // eslint-disable-next-line
+  }, [selectedDatumsIds]);
+
   return (
     <div className="parallel-selection-list">
       <div className="div-left-list">
