@@ -44,6 +44,7 @@ const Multicalendar = ({
   dynamicDaysQuantity = false,
   draggingOverDateCells = false,
   waitTimeForCalls = 500,
+  callsOnInitialView,
   callsOnScrollingMoves,
   callsOnScrollingStops,
   aditionalControlsComponents,
@@ -61,6 +62,8 @@ const Multicalendar = ({
   const gridWrapperRef = useRef<HTMLDivElement>(null);
   //Estados
   const [firtsCall, setFirtsCall] = useState<boolean>(false);
+  const [firtsCallOnInitialViewDone, setFirtsCallOnInitialViewDone] =
+    useState<boolean>(false);
   const [windowWidth, windowHeight] = useWindowSize();
   const [futureDaysQuantity, setFutureDaysQuantity] = useState(
     Math.ceil(futureDaysInitialQuantity)
@@ -113,6 +116,22 @@ const Multicalendar = ({
       }
     }
   }, [firtsCall]);
+  useEffect(() => {
+    if (
+      !firtsCallOnInitialViewDone &&
+      visibleListElementsIds.length > 0 &&
+      visibleDates.length > 0 &&
+      callsOnInitialView
+    ) {
+      setFirtsCallOnInitialViewDone(true);
+      callsOnInitialView(visibleListElementsIds, visibleDates);
+    }
+  }, [
+    firtsCallOnInitialViewDone,
+    visibleListElementsIds,
+    visibleDates,
+    callsOnInitialView,
+  ]);
   useEffect(() => {
     // Posicionamiento inicial en X
     if (gridWrapperRef.current !== null) {
