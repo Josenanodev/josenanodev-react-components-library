@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./SearchBar.css";
 
 //Icons
@@ -19,18 +19,6 @@ const SearchBar = ({
 }: SearchBarPropsType) => {
   //Estados
   const [searchValue, setSearchValue] = useState<string>(initialValue);
-  const [cachedSearchValue, setCachedSearchValue] = useState<string>(initialValue);
-  //useEffect
-  useEffect(() => {
-    if (searchValue !== cachedSearchValue) {
-      if (searchValue !== "") {
-        actionOnAlteringText(searchValue);
-      } else if (searchValue === "") {
-        actionOnEmptyText();
-      }
-      setCachedSearchValue(searchValue);
-    }
-  }, [searchValue, cachedSearchValue, actionOnAlteringText, actionOnEmptyText]);
   return (
     <form
       className="search-bar"
