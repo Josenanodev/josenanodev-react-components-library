@@ -45,6 +45,7 @@ const Multicalendar = ({
   draggingOverDateCells = false,
   waitTimeForCalls = 500,
   callsOnInitialView,
+  callsOnElementIdsListChanges,
   callsOnScrollingMoves,
   callsOnScrollingStops,
   aditionalControlsComponents,
@@ -132,6 +133,12 @@ const Multicalendar = ({
     visibleDates,
     callsOnInitialView,
   ]);
+  useEffect(() => {
+    if (callsOnElementIdsListChanges && visibleListElementsIds.length > 0) {
+      callsOnElementIdsListChanges(visibleListElementsIds, visibleDates);
+    }
+    // eslint-disable-next-line
+  }, [listElementsIdsArray]);
   useEffect(() => {
     // Posicionamiento inicial en X
     if (gridWrapperRef.current !== null) {
