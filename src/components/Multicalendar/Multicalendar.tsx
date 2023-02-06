@@ -45,8 +45,6 @@ const Multicalendar = ({
   draggingOverDateCells = false,
   waitTimeForCalls = 500,
   callsOnInitialView,
-  callsOnElementIdsListChanges,
-  callsOnScrollingMoves,
   callsOnScrollingStops,
   aditionalControlsComponents,
   upperLeftComponent,
@@ -133,12 +131,6 @@ const Multicalendar = ({
     visibleDates,
     callsOnInitialView,
   ]);
-  useEffect(() => {
-    if (callsOnElementIdsListChanges && visibleListElementsIds.length > 0) {
-      callsOnElementIdsListChanges(visibleListElementsIds, visibleDates);
-    }
-    // eslint-disable-next-line
-  }, [listElementsIdsArray]);
   useEffect(() => {
     // Posicionamiento inicial en X
     if (gridWrapperRef.current !== null) {
@@ -271,13 +263,11 @@ const Multicalendar = ({
     }
   }, [xPosition, yPosition, idTimeoutForCalls, waitTimeForCalls]);
   useEffect(() => {
-    if (scrollingOnCourse && callsOnScrollingMoves) {
-      callsOnScrollingMoves(visibleListElementsIds, visibleDates);
-    } else if (!scrollingOnCourse && callsOnScrollingStops) {
+    if (!scrollingOnCourse && callsOnScrollingStops) {
       callsOnScrollingStops(visibleListElementsIds, visibleDates);
     }
     // eslint-disable-next-line
-  }, [scrollingOnCourse]);
+  }, [scrollingOnCourse, visibleListElementsIds, visibleDates]);
 
   //Cancelar idIntervalo Autoscroll de rango cuando se deja de seleccionar
   useEffect(() => {

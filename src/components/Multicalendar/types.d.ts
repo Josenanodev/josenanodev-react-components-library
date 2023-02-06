@@ -6,7 +6,7 @@ export interface MulticalendarPropsType {
   ReactListElementChildren: ReactListElementChildrenType;
   listElementsIdsArray: string[] | number[];
   language: languageType;
-  pastDatesVisible?: boolean
+  pastDatesVisible?: boolean;
   cellsWidth?: number;
   cellsHeight?: number;
   verticalAxisWidth?: number;
@@ -19,11 +19,9 @@ export interface MulticalendarPropsType {
   dynamicDaysQuantity?: boolean;
   waitTimeForCalls?: number;
   callsOnInitialView?: (visibleIds: string[] | number[], visibleDates: Date[]) => void;
-  callsOnElementIdsListChanges?: (visibleIds: string[] | number[], visibleDates: Date[]) => void;
-  callsOnScrollingMoves?: (visibleIds: string[] | number[], visibleDates: Date[]) => void;
   callsOnScrollingStops?: (visibleIds: string[] | number[], visibleDates: Date[]) => void;
-  aditionalControlsComponents?: JSX.Element | JSX.Element[]
-  upperLeftComponent?: JSX.Element
+  aditionalControlsComponents?: JSX.Element | JSX.Element[];
+  upperLeftComponent?: JSX.Element;
 }
 
 export interface RenderCoordinatesType {
