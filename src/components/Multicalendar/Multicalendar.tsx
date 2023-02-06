@@ -54,7 +54,7 @@ const Multicalendar = ({
     x: pastDatesVisible ? Math.ceil(pastDaysInitialQuantity) * cellsWidth : 0,
     y: 0,
   };
-  const initialDateOffset = 2 + chunkRenderX;
+  const initialDateOffset = 1 + chunkRenderX;
   //Refs
   const datesRowRef = useRef<HTMLDivElement>(null);
   const destiniesColumnRef = useRef<HTMLDivElement>(null);
