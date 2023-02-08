@@ -22,6 +22,6 @@ const Template: ComponentStory<typeof ExportToExcelButton> = (args) => (
 export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {
-  headers: {a : [{value: "Test"}]},
-  data: { a: [[{ value: 4 }]] },
+  headers: { a: [{ value: "Test" }] },
+  data: { a: [[{ value: 1 }, { value: 2 }], [{ value: 3 }]] },
 } as ExportToExcelButtonPropsType;
