@@ -1,9 +1,9 @@
 //Librerias de terceros
 import * as XLSX from "xlsx-js-style";
 
-import { dataObjectXlsxType } from "./types";
+import { DataObjectXlsxType } from "./types";
 
-function styleObjectParser(styleObject: dataObjectXlsxType) {
+function styleObjectParser(styleObject: DataObjectXlsxType) {
   let objetoResultante: { v: string | number; s: any } = {
     v: styleObject.value,
     s: {},
@@ -41,12 +41,12 @@ export function downloadExcel(
   fileName: string,
   data:
     | {
-        [key: string]: dataObjectXlsxType[][];
+        [key: string]: DataObjectXlsxType[][];
       }
     | undefined,
   headers:
     | {
-        [key: string]: dataObjectXlsxType[];
+        [key: string]: DataObjectXlsxType[];
       }
     | undefined
 ) {
