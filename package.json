@@ -1,6 +1,6 @@
 {
   "name": "josenanodev-react-components-library",
-  "version": "0.0.29",
+  "version": "0.1.0",
   "author": {
     "name": "Jose Carlos Cardenas Martinez"
   },
@@ -99,5 +99,8 @@
   },
   "readme": "ERROR: No README data found!",
   "homepage": "https://github.com/Josenanodev/josenanodev-react-components-library#readme",
-  "_id": "josenanodev-react-components-library@0.0.13"
+  "_id": "josenanodev-react-components-library@0.0.13",
+  "dependencies": {
+    "xlsx-js-style": "^1.2.0"
+  }
 }
