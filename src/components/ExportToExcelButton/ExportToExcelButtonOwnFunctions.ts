@@ -8,8 +8,7 @@ function styleObjectParser(styleObject: DataObjectXlsxType) {
     v: styleObject.value,
     s: {},
   };
-  if (styleObject.allign)
-    restultantStyleObject.s.alignment = { ...styleObject.allign };
+  if (styleObject.allign) restultantStyleObject.s.alignment = { ...styleObject.allign };
   if (styleObject.fontSize)
     restultantStyleObject.s.font = {
       ...restultantStyleObject.s.font,
@@ -51,31 +50,30 @@ export function downloadExcel(
     | undefined
 ) {
   if (data !== undefined) {
-    const wb = XLSX.utils.book_new();
+    const workbook = XLSX.utils.book_new();
     for (const sheetName in data) {
       if (Object.prototype.hasOwnProperty.call(data, sheetName)) {
         let dataXlsxJs: {
           v: string | number;
           s: any;
         }[][] = [];
-        if (headers !== undefined) {
+        if (
+          headers !== undefined &&
+          Object.prototype.hasOwnProperty.call(headers, sheetName)
+        ) {
           dataXlsxJs = [
             headers[sheetName].map((header) => styleObjectParser(header)),
-            ...data[sheetName].map((row) =>
-              row.map((cell) => styleObjectParser(cell))
-            ),
+            ...data[sheetName].map((row) => row.map((cell) => styleObjectParser(cell))),
           ];
         } else {
           dataXlsxJs = [
-            ...data[sheetName].map((row) =>
-              row.map((cell) => styleObjectParser(cell))
-            ),
+            ...data[sheetName].map((row) => row.map((cell) => styleObjectParser(cell))),
           ];
         }
-        const ws = XLSX.utils.aoa_to_sheet(dataXlsxJs);
-        XLSX.utils.book_append_sheet(wb, ws, sheetName);
+        const worksheet = XLSX.utils.aoa_to_sheet(dataXlsxJs);
+        XLSX.utils.book_append_sheet(workbook, worksheet, sheetName);
       }
     }
-    XLSX.writeFile(wb, `${fileName}.xlsx`);
+    XLSX.writeFile(workbook, `${fileName}.xlsx`);
   }
 }
