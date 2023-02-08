@@ -8,7 +8,7 @@ export interface ExportToExcelButtonPropsType {
   disabled?: boolean;
 }
 
-export interface styleObjectXlsxType {
+export interface StyleObjectXlsxType {
   allign?: {
     vertical: "top" | "center" | "bottom";
     horizontal: "left" | "center" | "right";
@@ -18,17 +18,17 @@ export interface styleObjectXlsxType {
   bold?: boolean;
   backgroundColor?: string;
   borders?: {
-    top: borderStyleType;
-    bottom: borderStyleType;
-    left: borderStyleType;
-    right: borderStyleType;
+    top: BorderStyleType;
+    bottom: BorderStyleType;
+    left: BorderStyleType;
+    right: BorderStyleType;
   };
 }
-export interface dataObjectXlsxType extends styleObjectXlsxType {
+export interface DataObjectXlsxType extends StyleObjectXlsxType {
   value: string | number;
 }
 
-type borderStyleType =
+type BorderStyleType =
   | "dashDotDot"
   | "dashDot"
   | "dashed"
