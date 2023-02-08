@@ -2,8 +2,8 @@ export interface ExportToExcelButtonPropsType {
   customButtonText?: string;
   customClass?: string;
   fileName?: string;
-  headers?: { [key: string]: dataObjectXlsxType[] };
-  data?: { [key: string]: dataObjectXlsxType[][] };
+  headers?: { [key: string]: DataObjectXlsxType[] };
+  data?: { [key: string]: DataObjectXlsxType[][] };
   onAfterExport?: Function;
   disabled?: boolean;
 }
