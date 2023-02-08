@@ -10,6 +10,8 @@ import MultipleJoinedButtonsBar from "./components/MultipleJoinedButtonsBar/Mult
 import ExportToExcelButton from "./components/ExportToExcelButton/ExportToExcelButton";
 import { setMulticalendarYScrollPosition } from "./Services/MulticalendarStatesAndSettings";
 
+export type { DataObjectXlsxType } from "./components/ExportToExcelButton/types";
+
 export {
   Multicalendar,
   setMulticalendarYScrollPosition,
