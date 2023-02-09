@@ -8,6 +8,7 @@ import ParallelSelectionList from "./components/ParallelSelectionList/ParallelSe
 import Slider from "./components/Slider/Slider";
 import MultipleJoinedButtonsBar from "./components/MultipleJoinedButtonsBar/MultipleJoinedButtonsBar";
 import ExportToExcelButton from "./components/ExportToExcelButton/ExportToExcelButton";
+import InputBoxWithConfirmation from "./components/InputBoxWithConfirmation/InputBoxWithConfirmation";
 import { setMulticalendarYScrollPosition } from "./Services/MulticalendarStatesAndSettings";
 
 export type { ExportToExcelButtonPropsType } from "./components/ExportToExcelButton/types";
@@ -24,4 +25,5 @@ export {
   Slider,
   MultipleJoinedButtonsBar,
   ExportToExcelButton,
+  InputBoxWithConfirmation
 };
