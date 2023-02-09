@@ -52,6 +52,34 @@ const InputBoxWithConfirmation = ({
           setCurrentValue(event.target.value);
           setFocused(true);
         }}
+        onKeyDown={(event) => {
+          console.log(event.key);
+          if (event.key === "Enter") {
+            if (currentValue) {
+              onConfirmAction(currentValue);
+              setCachedValue(currentValue);
+            }
+            setFocused(false);
+            if (inputRef.current) {
+              inputRef.current.blur();
+            }
+          } else if (event.key === "Tab") {
+            if (currentValue) {
+              onConfirmAction(currentValue);
+              setCachedValue(currentValue);
+            }
+            setFocused(false);
+            if (inputRef.current) {
+              inputRef.current.blur();
+            }
+          } else if (event.key === "Escape") {
+            setCurrentValue(cachedValue);
+            setFocused(false);
+            if (inputRef.current) {
+              inputRef.current.blur();
+            }
+          }
+        }}
       />
       {focused ? (
         <button
