@@ -27,11 +27,12 @@ function styleObjectParser(styleObject: DataObjectXlsxType) {
   if (styleObject.backgroundColor)
     restultantStyleObject.s.fill = {
       ...restultantStyleObject.s.fill,
-      fgColor: { rgb: styleObject.backgroundColor },
+      fgColor: { rgb: styleObject.foregroundColor },
+      bgColor: { rgb: styleObject.backgroundColor },
     };
   if (styleObject.borders)
     restultantStyleObject.s.border = {
-      bgColor: styleObject.borders,
+      ...styleObject.borders,
     };
   return restultantStyleObject;
 }
