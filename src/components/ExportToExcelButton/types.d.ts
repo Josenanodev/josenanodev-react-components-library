@@ -17,11 +17,12 @@ export interface StyleObjectXlsxType {
   fontColor?: string;
   bold?: boolean;
   backgroundColor?: string;
+  foregroundColor?: string;
   borders?: {
-    top: BorderStyleType;
-    bottom: BorderStyleType;
-    left: BorderStyleType;
-    right: BorderStyleType;
+    top?: { style: BorderStyleType; color: string };
+    bottom?: { style: BorderStyleType; color: string };
+    left?: { style: BorderStyleType; color: string };
+    right?: { style: BorderStyleType; color: string };
   };
 }
 export interface DataObjectXlsxType extends StyleObjectXlsxType {
