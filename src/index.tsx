@@ -9,13 +9,21 @@ import Slider from "./components/Slider/Slider";
 import MultipleJoinedButtonsBar from "./components/MultipleJoinedButtonsBar/MultipleJoinedButtonsBar";
 import ExportToExcelButton from "./components/ExportToExcelButton/ExportToExcelButton";
 import InputBoxWithConfirmation from "./components/InputBoxWithConfirmation/InputBoxWithConfirmation";
-import { setMulticalendarYScrollPosition } from "./Services/MulticalendarStatesAndSettings";
+import {
+  setMulticalendarScrollTopPosition,
+  setMulticalendarScrollLeftPosition,
+  eraseMulticalendarScrollLeftPosition,
+  eraseMulticalendarScrollTopPosition,
+} from "./Services/MulticalendarStatesAndSettings";
 
 export type { ExportToExcelButtonPropsType } from "./components/ExportToExcelButton/types";
 
 export {
   Multicalendar,
-  setMulticalendarYScrollPosition,
+  setMulticalendarScrollTopPosition,
+  setMulticalendarScrollLeftPosition,
+  eraseMulticalendarScrollLeftPosition,
+  eraseMulticalendarScrollTopPosition,
   SideBar,
   SearchBar,
   Modal,
@@ -25,5 +33,5 @@ export {
   Slider,
   MultipleJoinedButtonsBar,
   ExportToExcelButton,
-  InputBoxWithConfirmation
+  InputBoxWithConfirmation,
 };
