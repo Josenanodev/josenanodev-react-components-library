@@ -22,6 +22,9 @@ export interface MulticalendarPropsType {
   callsOnScrollingStops?: (visibleIds: string[] | number[], visibleDates: Date[]) => void;
   aditionalControlsComponents?: JSX.Element | JSX.Element[];
   upperLeftComponent?: JSX.Element;
+  autoSavePosition?: boolean;
+  onScrollTopChanges?: (scrollTop: number) => void
+  onScrollLeftChanges?: (scrollLeft: number) => void
 }
 
 export interface RenderCoordinatesType {
