@@ -180,14 +180,18 @@ const Multicalendar = ({
       }
       let desfase = Funciones.defineYOffset(yPosition, cellsHeight, chunkRenderY);
       setYOffset(desfase);
-      setVisibleListElementsIds(
-        Funciones.defineListElementsArrayVisibleList(
-          paginationHeight,
-          chunkRenderY,
-          desfase,
-          listElementsIdsArray
-        )
+      const newVisibleListElementsIds = Funciones.defineListElementsArrayVisibleList(
+        paginationHeight,
+        chunkRenderY,
+        desfase,
+        listElementsIdsArray
       );
+      if (
+        JSON.stringify(visibleListElementsIds) !==
+        JSON.stringify(newVisibleListElementsIds)
+      ) {
+        setVisibleListElementsIds(newVisibleListElementsIds);
+      }
       if (updateList) setUpdateList(false);
     }
   }, [
@@ -201,6 +205,7 @@ const Multicalendar = ({
     renderCoordinates.x,
     renderCoordinates.y,
     listElementsIdsArray,
+    visibleListElementsIds,
   ]);
   useEffect(() => {
     // Definicion de visibilidad y renderizacion del Eje X
@@ -228,14 +233,15 @@ const Multicalendar = ({
       setMinimumVisibleDate(
         Funciones.defineMinimalVisibleDate(fechaMinimaMilisegundos, initialDateOffset)
       );
-      if (updateList) setUpdateList(false);
-      setVisibleDates(
-        Funciones.defineVisibleDatesArray(
-          paginationWidth,
-          chunkRenderX,
-          fechaMinimaMilisegundos
-        )
+      const newVisibleDatesArray = Funciones.defineVisibleDatesArray(
+        paginationWidth,
+        chunkRenderX,
+        fechaMinimaMilisegundos
       );
+      if (JSON.stringify(visibleDates) !== JSON.stringify(newVisibleDatesArray)) {
+        setVisibleDates(newVisibleDatesArray);
+      }
+      if (updateList) setUpdateList(false);
     }
   }, [
     updateList,
@@ -249,6 +255,7 @@ const Multicalendar = ({
     renderCoordinates.y,
     origin.x,
     origin.y,
+    visibleDates,
   ]);
   useEffect(() => {
     setScrollingOnCourse(true);
