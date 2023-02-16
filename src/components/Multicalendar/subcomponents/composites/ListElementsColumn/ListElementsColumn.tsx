@@ -14,7 +14,7 @@ const ListElementsColumn = ({
 }: ListElementsColumnPropsType) => {
   return (
     <div
-      className="destinies-column"
+      className="list-element-column"
       style={{
         height: listHeight,
         paddingTop: yOffset * elementsHeight,
