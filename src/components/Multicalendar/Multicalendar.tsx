@@ -22,8 +22,6 @@ import { MulticalendarPropsType, RenderCoordinatesType } from "./types";
 
 //Services
 import {
-  eraseMulticalendarScrollLeftPosition,
-  eraseMulticalendarScrollTopPosition,
   getMulticalendarScrollLeftPosition,
   getMulticalendarScrollTopPosition,
   setMulticalendarScrollLeftPosition,
@@ -82,8 +80,14 @@ const Multicalendar = ({
   >([]);
   const [updateList, setUpdateList] = useState<boolean>(false);
   const [origin, setOrigin] = useState<RenderCoordinatesType>({
-    x: pastDatesVisible ? Math.ceil(pastDaysInitialQuantity) * cellsWidth : 0,
-    y: 0,
+    x: getMulticalendarScrollLeftPosition(multicalendarId)
+      ? Number(getMulticalendarScrollLeftPosition(multicalendarId))
+      : pastDatesVisible
+      ? Math.ceil(pastDaysInitialQuantity) * cellsWidth
+      : 0,
+    y: getMulticalendarScrollTopPosition(multicalendarId)
+      ? Number(getMulticalendarScrollTopPosition(multicalendarId))
+      : 0,
   });
   const [xPosition, setXPosition] = useState<number>(origin.x);
   const [yPosition, setYPosition] = useState<number>(origin.y);
@@ -109,21 +113,9 @@ const Multicalendar = ({
   }, [pastDatesVisible, pastDaysInitialQuantity, cellsWidth]);
   useEffect(() => {
     //Cached positions
-    let newYPosition = getMulticalendarScrollTopPosition(multicalendarId);
-    let newXPosition = getMulticalendarScrollLeftPosition(multicalendarId);
     if (gridWrapperRef.current && initialPositioningDone === false) {
-      if (newYPosition !== null && newYPosition !== String(origin.y)) {
-        gridWrapperRef.current.scrollTop = Number(newYPosition);
-        eraseMulticalendarScrollTopPosition(multicalendarId);
-      } else {
-        gridWrapperRef.current.scrollTop = origin.y;
-      }
-      if (newXPosition !== null && newXPosition !== String(origin.x)) {
-        gridWrapperRef.current.scrollLeft = Number(newXPosition);
-        eraseMulticalendarScrollLeftPosition(multicalendarId);
-      } else {
-        gridWrapperRef.current.scrollLeft = origin.x;
-      }
+      gridWrapperRef.current.scrollTop = origin.y;
+      gridWrapperRef.current.scrollLeft = origin.x;
       setInitialPositioningDone(true);
     }
   }, [origin.y, origin.x, initialPositioningDone]);
