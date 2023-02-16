@@ -57,10 +57,6 @@ const Multicalendar = ({
   onScrollLeftChanges,
 }: MulticalendarPropsType) => {
   //Constantes del componente
-  const origin = {
-    x: pastDatesVisible ? Math.ceil(pastDaysInitialQuantity) * cellsWidth : 0,
-    y: 0,
-  };
   const initialDateOffset = 1 + chunkRenderX;
   //Refs
   const datesRowRef = useRef<HTMLDivElement>(null);
@@ -85,6 +81,10 @@ const Multicalendar = ({
     string[] | number[]
   >([]);
   const [updateList, setUpdateList] = useState<boolean>(false);
+  const [origin, setOrigin] = useState({
+    x: pastDatesVisible ? Math.ceil(pastDaysInitialQuantity) * cellsWidth : 0,
+    y: 0,
+  });
   const [xPosition, setXPosition] = useState<number>(origin.x);
   const [yPosition, setYPosition] = useState<number>(origin.y);
   const [renderCoordinates, setRenderCoordinates] = useState<RenderCoordinatesType>({
@@ -100,6 +100,12 @@ const Multicalendar = ({
     useState<number | undefined>(undefined);
   const [scrollingOnCourse, setScrollingOnCourse] = useState<boolean>(false);
   //UseEffects
+  useEffect(() => {
+    setOrigin({
+      x: pastDatesVisible ? Math.ceil(pastDaysInitialQuantity) * cellsWidth : 0,
+      y: 0,
+    });
+  }, [pastDatesVisible, pastDaysInitialQuantity, cellsWidth]);
   useEffect(() => {
     //Cached positions
     let newYPosition = getMulticalendarScrollTopPosition(multicalendarId);
@@ -128,11 +134,15 @@ const Multicalendar = ({
     }
     return () => {
       if (autoSavePosition) {
-        setMulticalendarScrollTopPosition(multicalendarId, String(yPosition));
-        setMulticalendarScrollLeftPosition(multicalendarId, String(xPosition));
+        if (yPosition !== origin.y) {
+          setMulticalendarScrollTopPosition(multicalendarId, String(yPosition));
+        }
+        if (xPosition !== origin.x) {
+          setMulticalendarScrollLeftPosition(multicalendarId, String(xPosition));
+        }
       }
     };
-  }, [yPosition, xPosition]);
+  }, [autoSavePosition, yPosition, xPosition, origin.y, origin.x]);
   useEffect(() => {
     if (pastDatesVisible) {
       setPastDaysQuantity(Math.ceil(pastDaysInitialQuantity));
