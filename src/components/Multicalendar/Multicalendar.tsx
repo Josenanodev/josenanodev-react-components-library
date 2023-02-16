@@ -22,8 +22,12 @@ import { MulticalendarPropsType, RenderCoordinatesType } from "./types";
 
 //Services
 import {
-  eraseMulticalendarYScrollPosition,
-  getMulticalendarYScrollPosition,
+  eraseMulticalendarScrollLeftPosition,
+  eraseMulticalendarScrollTopPosition,
+  getMulticalendarScrollLeftPosition,
+  getMulticalendarScrollTopPosition,
+  setMulticalendarScrollLeftPosition,
+  setMulticalendarScrollTopPosition,
 } from "../../Services/MulticalendarStatesAndSettings";
 
 const Multicalendar = ({
@@ -48,6 +52,9 @@ const Multicalendar = ({
   callsOnScrollingStops,
   aditionalControlsComponents,
   upperLeftComponent,
+  autoSavePosition,
+  onScrollTopChanges,
+  onScrollLeftChanges,
 }: MulticalendarPropsType) => {
   //Constantes del componente
   const origin = {
@@ -60,7 +67,6 @@ const Multicalendar = ({
   const destiniesColumnRef = useRef<HTMLDivElement>(null);
   const gridWrapperRef = useRef<HTMLDivElement>(null);
   //Estados
-  const [firtsCall, setFirtsCall] = useState<boolean>(false);
   const [firtsCallOnInitialViewDone, setFirtsCallOnInitialViewDone] =
     useState<boolean>(false);
   const [windowWidth, windowHeight] = useWindowSize();
@@ -95,26 +101,45 @@ const Multicalendar = ({
   const [scrollingOnCourse, setScrollingOnCourse] = useState<boolean>(false);
   //UseEffects
   useEffect(() => {
+    //Cached positions
+    let newYPosition = getMulticalendarScrollTopPosition(multicalendarId);
+    let newXPosition = getMulticalendarScrollLeftPosition(multicalendarId);
+    if (gridWrapperRef.current) {
+      if (newYPosition !== null && newYPosition !== String(origin.y)) {
+        gridWrapperRef.current.scrollTop = Number(newYPosition);
+        eraseMulticalendarScrollTopPosition(multicalendarId);
+      } else {
+        gridWrapperRef.current.scrollTop = origin.y;
+      }
+      if (newXPosition !== null && newXPosition !== String(origin.x)) {
+        gridWrapperRef.current.scrollLeft = Number(newXPosition);
+        eraseMulticalendarScrollLeftPosition(multicalendarId);
+      } else {
+        gridWrapperRef.current.scrollLeft = origin.x;
+      }
+    }
+  }, [origin.y, origin.x]);
+  useEffect(() => {
+    if (onScrollLeftChanges) {
+      onScrollLeftChanges(xPosition);
+    }
+    if (onScrollTopChanges) {
+      onScrollTopChanges(yPosition);
+    }
+    return () => {
+      if (autoSavePosition) {
+        setMulticalendarScrollTopPosition(multicalendarId, String(yPosition));
+        setMulticalendarScrollLeftPosition(multicalendarId, String(xPosition));
+      }
+    };
+  }, [yPosition, xPosition]);
+  useEffect(() => {
     if (pastDatesVisible) {
       setPastDaysQuantity(Math.ceil(pastDaysInitialQuantity));
     } else {
       setPastDaysQuantity(0);
     }
   }, [pastDatesVisible, pastDaysInitialQuantity]);
-  useEffect(() => {
-    //Delegamos un cambio de estado a los primero renderes para evitar duplicado de llamadas a la API
-    if (!firtsCall) {
-      setFirtsCall(true);
-      //Cached Y position
-      let newYPosition = getMulticalendarYScrollPosition(multicalendarId);
-      if (newYPosition !== null && newYPosition !== "0") {
-        if (gridWrapperRef.current) {
-          gridWrapperRef.current.scrollTop = Number(newYPosition);
-          eraseMulticalendarYScrollPosition(multicalendarId);
-        }
-      }
-    }
-  }, [firtsCall]);
   useEffect(() => {
     if (
       !firtsCallOnInitialViewDone &&
@@ -131,12 +156,6 @@ const Multicalendar = ({
     visibleDates,
     callsOnInitialView,
   ]);
-  useEffect(() => {
-    // Posicionamiento inicial en X
-    if (gridWrapperRef.current !== null) {
-      gridWrapperRef.current.scrollLeft = origin.x;
-    }
-  }, [origin.x]);
   useEffect(() => {
     setUpdateList(true);
     // Dimensiones de paginacion, requiere agregar 1 para no ver espacios en blanco
@@ -399,14 +418,14 @@ const Multicalendar = ({
           className="main-container"
           onScroll={(e) => {
             if (datesRowRef.current !== null) {
-              datesRowRef.current.scrollLeft = (e.target as HTMLDivElement).scrollLeft;
-              setXPosition((e.target as HTMLDivElement).scrollLeft);
+              const scrollLeft = (e.target as HTMLDivElement).scrollLeft;
+              datesRowRef.current.scrollLeft = scrollLeft;
+              setXPosition(scrollLeft);
             }
             if (destiniesColumnRef.current !== null) {
-              destiniesColumnRef.current.scrollTop = (
-                e.target as HTMLDivElement
-              ).scrollTop;
-              setYPosition((e.target as HTMLDivElement).scrollTop);
+              const scrollTop = (e.target as HTMLDivElement).scrollTop;
+              destiniesColumnRef.current.scrollTop = scrollTop;
+              setYPosition(scrollTop);
             }
             if (
               dynamicDaysQuantity &&

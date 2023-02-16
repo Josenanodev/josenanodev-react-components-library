@@ -50,4 +50,5 @@ Primary.args = {
     "List element 15",
   ],
   language: es_ES,
+  autoSavePosition: true,
 } as MulticalendarPropsType;
