@@ -81,7 +81,7 @@ const Multicalendar = ({
     string[] | number[]
   >([]);
   const [updateList, setUpdateList] = useState<boolean>(false);
-  const [origin, setOrigin] = useState({
+  const [origin, setOrigin] = useState<RenderCoordinatesType>({
     x: pastDatesVisible ? Math.ceil(pastDaysInitialQuantity) * cellsWidth : 0,
     y: 0,
   });
@@ -91,6 +91,7 @@ const Multicalendar = ({
     x: origin.x,
     y: origin.y,
   });
+  const [initialPositioningDone, setInitialPositioningDone] = useState<boolean>(false);
   const [minimumVisibleDate, setMinimumVisibleDate] = useState<Date>(new Date());
   const [idTimeoutForCalls, setIdTimeoutForCalls] =
     useState<NodeJS.Timeout | undefined>(undefined);
@@ -110,7 +111,7 @@ const Multicalendar = ({
     //Cached positions
     let newYPosition = getMulticalendarScrollTopPosition(multicalendarId);
     let newXPosition = getMulticalendarScrollLeftPosition(multicalendarId);
-    if (gridWrapperRef.current) {
+    if (gridWrapperRef.current && initialPositioningDone === false) {
       if (newYPosition !== null && newYPosition !== String(origin.y)) {
         gridWrapperRef.current.scrollTop = Number(newYPosition);
         eraseMulticalendarScrollTopPosition(multicalendarId);
@@ -123,8 +124,9 @@ const Multicalendar = ({
       } else {
         gridWrapperRef.current.scrollLeft = origin.x;
       }
+      setInitialPositioningDone(true);
     }
-  }, [origin.y, origin.x]);
+  }, [origin.y, origin.x, initialPositioningDone]);
   useEffect(() => {
     if (onScrollLeftChanges) {
       onScrollLeftChanges(xPosition);
