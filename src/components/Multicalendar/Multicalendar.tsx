@@ -302,7 +302,9 @@ const Multicalendar = ({
   //Render
   return (
     <div
-      data-testid="multicalendar"
+      key={multicalendarId}
+      id={multicalendarId}
+      data-testid={multicalendarId}
       className="multicalendar"
       style={{
         gridTemplateColumns: `${verticalAxisWidth}px`,
