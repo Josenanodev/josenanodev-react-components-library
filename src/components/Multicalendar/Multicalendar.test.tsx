@@ -19,6 +19,6 @@ test("renders multicalendar", () => {
     />
   );
   render(Wrapper);
-  const divElement = screen.getByTestId("multicalendar");
+  const divElement = screen.getByTestId("multicalendar-for-unit-testing");
   expect(divElement).toBeInTheDocument();
 });
