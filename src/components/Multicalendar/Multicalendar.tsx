@@ -38,7 +38,7 @@ const Multicalendar = ({
   cellsWidth = 120,
   cellsHeight = 80,
   verticalAxisWidth = 280,
-  horizontalAxisHeight = 148,
+  // horizontalAxisHeight = 148,
   pastDaysInitialQuantity = 365,
   futureDaysInitialQuantity = 365,
   chunkRenderX = 0,
@@ -61,6 +61,7 @@ const Multicalendar = ({
   const destiniesColumnRef = useRef<HTMLDivElement>(null);
   const gridWrapperRef = useRef<HTMLDivElement>(null);
   const controlsWrapperRef = useRef<HTMLDivElement>(null);
+  const horizontalAxisWrapperRef = useRef<HTMLDivElement>(null);
   //Estados
   const [firtsCallOnInitialViewDone, setFirtsCallOnInitialViewDone] =
     useState<boolean>(false);
@@ -105,6 +106,14 @@ const Multicalendar = ({
   const [clientYPositionOnGrid, setClientYPositionOnGrid] =
     useState<number | undefined>(undefined);
   const [scrollingOnCourse, setScrollingOnCourse] = useState<boolean>(false);
+  const [controlsWrapperHeight, setControlsWrapperHeight] = useState(
+    controlsWrapperRef.current?.clientHeight ? controlsWrapperRef.current.clientHeight : 0
+  );
+  const [horizontalAxisWrapperHeight, setHorizontalAxisWrapperHeight] = useState(
+    horizontalAxisWrapperRef.current?.clientHeight
+      ? horizontalAxisWrapperRef.current.clientHeight
+      : 0
+  );
   //UseEffects
   useEffect(() => {
     setOrigin({
@@ -162,11 +171,25 @@ const Multicalendar = ({
     callsOnInitialView,
   ]);
   useEffect(() => {
+    const localConstControlsWrapperHeight = controlsWrapperRef.current?.clientHeight
+      ? controlsWrapperRef.current.clientHeight
+      : 0;
+    const localConstHorizontalAxisWrapperHeight = horizontalAxisWrapperRef.current
+      ?.clientHeight
+      ? horizontalAxisWrapperRef.current.clientHeight
+      : 0;
+    setControlsWrapperHeight(localConstControlsWrapperHeight);
+    setHorizontalAxisWrapperHeight(localConstHorizontalAxisWrapperHeight);
     setUpdateList(true);
     // Dimensiones de paginacion, requiere agregar 1 para no ver espacios en blanco
     setPaginationWidth(Math.ceil((windowWidth - verticalAxisWidth) / cellsWidth) + 1);
     setPaginationHeight(
-      Math.ceil((windowHeight - horizontalAxisHeight) / cellsHeight) + 1
+      Math.ceil(
+        (windowHeight -
+          localConstControlsWrapperHeight -
+          localConstHorizontalAxisWrapperHeight) /
+          cellsHeight
+      ) + 1
     );
     // Redefinicion de posicion X ante cambios en el tamaño de la ventana
     if (gridWrapperRef.current !== null) {
@@ -183,7 +206,6 @@ const Multicalendar = ({
     windowWidth,
     windowHeight,
     verticalAxisWidth,
-    horizontalAxisHeight,
     cellsHeight,
     cellsWidth,
     chunkRenderX,
@@ -309,16 +331,9 @@ const Multicalendar = ({
       className="multicalendar"
       style={{
         gridTemplateColumns: `${verticalAxisWidth}px`,
-        gridTemplateRows: `${
-          controlsWrapperRef.current?.clientHeight
-            ? controlsWrapperRef.current.clientHeight
-            : 0
-        }px ${
-          horizontalAxisHeight -
-          (controlsWrapperRef.current?.clientHeight
-            ? controlsWrapperRef.current.clientHeight
-            : 0)
-        }px calc(100% - ${horizontalAxisHeight}px`,
+        gridTemplateRows: `auto auto calc(100% - ${
+          controlsWrapperHeight + horizontalAxisWrapperHeight
+        }px`,
       }}
     >
       <div ref={controlsWrapperRef} className="controls">
@@ -378,7 +393,7 @@ const Multicalendar = ({
           />
         </div>
       </div>
-      <div className="horizontal-axis">
+      <div ref={horizontalAxisWrapperRef} className="horizontal-axis">
         <div className="div-weeks-buttons">
           {/* Se Puede hacer componente */}
           <button
@@ -418,9 +433,9 @@ const Multicalendar = ({
           <DatesRow
             visibleDates={visibleDates}
             width={(pastDaysQuantity + futureDaysQuantity) * cellsWidth}
-            height={64}
+            height={74}
             cellsWidth={cellsWidth}
-            cellsHeight={64}
+            cellsHeight={74}
             offset={xOffset}
             language={language}
           />

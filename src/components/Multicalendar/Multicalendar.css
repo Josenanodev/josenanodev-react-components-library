@@ -69,7 +69,7 @@
   grid-area: hor;
   position: relative;
   max-width: 100%;
-  height: 100%;
+  height: 90px;
 }
 
 .multicalendar .controls .div-dates-navigation {
@@ -140,7 +140,7 @@
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 64px;
+  height: 74px;
 }
 
 .multicalendar .horizontal-axis .div-weeks-buttons .past-week-button,
