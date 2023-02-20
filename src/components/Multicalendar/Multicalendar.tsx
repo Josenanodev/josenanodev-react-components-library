@@ -60,6 +60,7 @@ const Multicalendar = ({
   const datesRowRef = useRef<HTMLDivElement>(null);
   const destiniesColumnRef = useRef<HTMLDivElement>(null);
   const gridWrapperRef = useRef<HTMLDivElement>(null);
+  const controlsWrapperRef = useRef<HTMLDivElement>(null);
   //Estados
   const [firtsCallOnInitialViewDone, setFirtsCallOnInitialViewDone] =
     useState<boolean>(false);
@@ -308,12 +309,19 @@ const Multicalendar = ({
       className="multicalendar"
       style={{
         gridTemplateColumns: `${verticalAxisWidth}px`,
-        gridTemplateRows: `70px ${
-          horizontalAxisHeight - 70
+        gridTemplateRows: `${
+          controlsWrapperRef.current?.clientHeight
+            ? controlsWrapperRef.current.clientHeight
+            : 0
+        }px ${
+          horizontalAxisHeight -
+          (controlsWrapperRef.current?.clientHeight
+            ? controlsWrapperRef.current.clientHeight
+            : 0)
         }px calc(100% - ${horizontalAxisHeight}px`,
       }}
     >
-      <div className="controls">
+      <div ref={controlsWrapperRef} className="controls">
         <div className="div-dates-navigation">
           <DropdownMonthNavigation
             minimumVisibleDate={minimumVisibleDate}
