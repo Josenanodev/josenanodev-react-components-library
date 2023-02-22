@@ -15,7 +15,7 @@ export interface MulticalendarPropsType {
   futureDaysInitialQuantity?: number;
   chunkRenderX?: number;
   chunkRenderY?: number;
-  draggingOverDateCells?: boolean;
+  authomaticScrollOnDraggingOverEdges?: boolean;
   dynamicDaysQuantity?: boolean;
   waitTimeForCalls?: number;
   callsOnInitialView?: (visibleIds: string[] | number[], visibleDates: Date[]) => void;
