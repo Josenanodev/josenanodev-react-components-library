@@ -38,13 +38,12 @@ const Multicalendar = ({
   cellsWidth = 120,
   cellsHeight = 80,
   verticalAxisWidth = 280,
-  // horizontalAxisHeight = 148,
   pastDaysInitialQuantity = 365,
   futureDaysInitialQuantity = 365,
   chunkRenderX = 0,
   chunkRenderY = 0,
   dynamicDaysQuantity = false,
-  draggingOverDateCells = false,
+  authomaticScrollOnDraggingOverEdges = false,
   waitTimeForCalls = 500,
   callsOnInitialView,
   callsOnScrollingStops,
@@ -114,7 +113,8 @@ const Multicalendar = ({
       ? horizontalAxisWrapperRef.current.clientHeight
       : 0
   );
-  //UseEffects
+  const [userIsHoldingMouseDown, setUserIsHoldingMouseDown] = useState<boolean>(false);
+  //UseEffect
   useEffect(() => {
     setOrigin({
       x: pastDatesVisible ? Math.ceil(pastDaysInitialQuantity) * cellsWidth : 0,
@@ -317,11 +317,29 @@ const Multicalendar = ({
 
   //Cancelar idIntervalo Autoscroll de rango cuando se deja de seleccionar
   useEffect(() => {
-    if (!draggingOverDateCells) {
+    if (!authomaticScrollOnDraggingOverEdges) {
       if (clientXPositionOnGrid !== undefined) setClientXPositionOnGrid(undefined);
       if (clientYPositionOnGrid !== undefined) setClientYPositionOnGrid(undefined);
     }
-  }, [draggingOverDateCells, clientXPositionOnGrid, clientYPositionOnGrid]);
+  }, [authomaticScrollOnDraggingOverEdges, clientXPositionOnGrid, clientYPositionOnGrid]);
+  useEffect(() => {
+    console.log("addEventListener");
+    document.body.addEventListener("mousedown", () => {
+      setUserIsHoldingMouseDown(true);
+    });
+    document.body.addEventListener("mouseup", () => {
+      setUserIsHoldingMouseDown(false);
+    });
+    return () => {
+      console.log("removeEventListener");
+      document.body.removeEventListener("mousedown", () => {
+        setUserIsHoldingMouseDown(true);
+      });
+      document.body.removeEventListener("mouseup", () => {
+        setUserIsHoldingMouseDown(false);
+      });
+    };
+  }, [authomaticScrollOnDraggingOverEdges]);
   //Render
   return (
     <div
@@ -473,26 +491,26 @@ const Multicalendar = ({
               (e.target as HTMLDivElement).scrollLeft = cellsWidth * 3;
             }
             Funciones.authomaticScrollInGrid(
-              draggingOverDateCells,
+              userIsHoldingMouseDown,
               clientXPositionOnGrid,
               clientYPositionOnGrid,
-              cellsWidth,
-              cellsHeight,
+              cellsWidth * 0.3,
+              cellsHeight * 0.3,
               e.target as HTMLDivElement
             );
           }}
           onMouseMove={(e) => {
-            if (gridWrapperRef.current !== null && draggingOverDateCells) {
+            if (gridWrapperRef.current !== null && userIsHoldingMouseDown) {
               let x = e.clientX - gridWrapperRef.current.getBoundingClientRect().left;
               let y = e.clientY - gridWrapperRef.current.getBoundingClientRect().top;
               setClientXPositionOnGrid(x);
               setClientYPositionOnGrid(y);
               Funciones.startAuthomaticScrollInGrid(
-                draggingOverDateCells,
+                userIsHoldingMouseDown,
                 x,
                 y,
-                cellsWidth,
-                cellsHeight,
+                cellsWidth * 0.3,
+                cellsHeight * 0.3,
                 gridWrapperRef
               );
             }
