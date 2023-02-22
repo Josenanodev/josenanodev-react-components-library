@@ -51,4 +51,5 @@ Primary.args = {
   ],
   language: es_ES,
   autoSavePosition: true,
+  authomaticScrollOnDraggingOverEdges: true,
 } as MulticalendarPropsType;
