@@ -494,8 +494,8 @@ const Multicalendar = ({
               userIsHoldingMouseDown,
               clientXPositionOnGrid,
               clientYPositionOnGrid,
-              cellsWidth * 0.3,
-              cellsHeight * 0.3,
+              cellsWidth * 0.8,
+              cellsHeight * 0.8,
               e.target as HTMLDivElement
             );
           }}
@@ -509,8 +509,8 @@ const Multicalendar = ({
                 userIsHoldingMouseDown,
                 x,
                 y,
-                cellsWidth * 0.3,
-                cellsHeight * 0.3,
+                cellsWidth * 0.8,
+                cellsHeight * 0.8,
                 gridWrapperRef
               );
             }
