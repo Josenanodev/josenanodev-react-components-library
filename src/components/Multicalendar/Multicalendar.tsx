@@ -323,7 +323,6 @@ const Multicalendar = ({
     }
   }, [authomaticScrollOnDraggingOverEdges, clientXPositionOnGrid, clientYPositionOnGrid]);
   useEffect(() => {
-    console.log("addEventListener");
     document.body.addEventListener("mousedown", () => {
       setUserIsHoldingMouseDown(true);
     });
@@ -331,7 +330,6 @@ const Multicalendar = ({
       setUserIsHoldingMouseDown(false);
     });
     return () => {
-      console.log("removeEventListener");
       document.body.removeEventListener("mousedown", () => {
         setUserIsHoldingMouseDown(true);
       });
