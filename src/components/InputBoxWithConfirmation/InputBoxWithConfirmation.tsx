@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, Fragment } from "react";
 import "./InputBoxWithConfirmation.css";
 
 //Hooks
@@ -13,8 +13,11 @@ import { InputBoxWithConfirmationPropsType } from "./types";
 const InputBoxWithConfirmation = ({
   onConfirmAction,
   inputType = "text",
+  minimumValue = "",
+  maximumValue = "",
   aditionalClass,
   defaultValue,
+  showConfirmationButton,
 }: InputBoxWithConfirmationPropsType) => {
   //Refs
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -29,8 +32,15 @@ const InputBoxWithConfirmation = ({
   const [focused, setFocused] = useState<boolean>(false);
   //Hooks
   useOutsideClick(containerRef, () => {
-    setCurrentValue(cachedValue);
-    setFocused(false);
+    if (showConfirmationButton) {
+      setCurrentValue(cachedValue);
+    } else {
+      if (currentValue) {
+        onConfirmAction(currentValue);
+        setCachedValue(currentValue);
+      }
+      setFocused(false);
+    }
   });
   //Variables
   return (
@@ -45,15 +55,27 @@ const InputBoxWithConfirmation = ({
         className="input-box-with-confirmation"
         type={inputType}
         style={{ width: `${(currentValue?.length ? currentValue.length : 0) + 7}ch` }}
+        min={minimumValue}
+        max={maximumValue}
         value={focused ? currentValue : cachedValue}
-        onChange={(event) => setCurrentValue(event.target.value)}
+        onChange={(event) => {
+          if (inputType === "number") {
+            let numericValue: number = Number(event.target.value);
+            if (minimumValue !== "" && numericValue < Number(minimumValue)) {
+              numericValue = Number(minimumValue);
+            } else if (maximumValue !== "" && numericValue > Number(maximumValue)) {
+              numericValue = Number(maximumValue);
+            }
+            setCurrentValue(String(numericValue));
+          }
+          setCurrentValue(event.target.value);
+        }}
         onFocus={(event) => {
           setCachedValue(event.target.value);
           setCurrentValue(event.target.value);
           setFocused(true);
         }}
         onKeyDown={(event) => {
-          console.log(event.key);
           if (event.key === "Enter") {
             if (currentValue) {
               onConfirmAction(currentValue);
@@ -81,30 +103,34 @@ const InputBoxWithConfirmation = ({
           }
         }}
       />
-      {focused ? (
-        <button
-          className="button-for-input-box-with-confirmation"
-          onClick={() => {
-            if (currentValue) {
-              onConfirmAction(currentValue);
-              setCachedValue(currentValue);
-            }
-            setFocused(false);
-          }}
-        >
-          <BsCheckLg />
-        </button>
-      ) : (
-        <button
-          className="button-for-input-box-with-confirmation"
-          onClick={() => {
-            if (inputRef.current) {
-              inputRef.current.focus();
-            }
-          }}
-        >
-          <BsPencil />
-        </button>
+      {showConfirmationButton && (
+        <Fragment>
+          {focused ? (
+            <button
+              className="button-for-input-box-with-confirmation"
+              onClick={() => {
+                if (currentValue) {
+                  onConfirmAction(currentValue);
+                  setCachedValue(currentValue);
+                }
+                setFocused(false);
+              }}
+            >
+              <BsCheckLg />
+            </button>
+          ) : (
+            <button
+              className="button-for-input-box-with-confirmation"
+              onClick={() => {
+                if (inputRef.current) {
+                  inputRef.current.focus();
+                }
+              }}
+            >
+              <BsPencil />
+            </button>
+          )}
+        </Fragment>
       )}
     </div>
   );
