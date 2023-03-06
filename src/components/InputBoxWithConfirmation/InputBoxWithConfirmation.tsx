@@ -39,8 +39,8 @@ const InputBoxWithConfirmation = ({
         onConfirmAction(currentValue);
         setCachedValue(currentValue);
       }
-      setFocused(false);
     }
+    setFocused(false);
   });
   //Variables
   return (
