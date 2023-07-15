@@ -35,7 +35,7 @@ const PopUp = ({
     <div
       ref={popUpRef}
       className={
-        "pop-up" +
+        "trc-pop-up" +
         ((closeAction && open) || (!closeAction && openState) ? "" : " pop-up-hidden") +
         (aditionalClass ? " " + aditionalClass : "")
       }

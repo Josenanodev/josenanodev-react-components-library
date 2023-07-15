@@ -1,4 +1,4 @@
-.multicalendar {
+.trc-multicalendar {
   display: grid;
   color: black;
   width: 100%;
@@ -11,7 +11,7 @@
   transition: 0.5s;
 }
 
-.multicalendar .div-upper-left-component {
+.trc-multicalendar .div-upper-left-component {
   grid-area: fil;
   position: relative;
   width: 100%;
@@ -27,7 +27,7 @@
   align-items: center;
 }
 
-.multicalendar .controls {
+.trc-multicalendar .controls {
   grid-area: con;
   height: 100%;
   padding: 2px;
@@ -40,7 +40,7 @@
   border-bottom: var(--border-tenues);
 }
 
-.multicalendar .div-upper-left-component {
+.trc-multicalendar .div-upper-left-component {
   grid-area: fil;
   position: relative;
   width: 100%;
@@ -56,7 +56,7 @@
 }
 
 
-.multicalendar .vertical-axis {
+.trc-multicalendar .vertical-axis {
   grid-area: ver;
   position: relative;
   width: 100%;
@@ -65,19 +65,19 @@
   z-index: 1;
 }
 
-.multicalendar .horizontal-axis {
+.trc-multicalendar .horizontal-axis {
   grid-area: hor;
   position: relative;
   max-width: 100%;
   height: 90px;
 }
 
-.multicalendar .controls .div-dates-navigation {
+.trc-multicalendar .controls .div-dates-navigation {
   display: flex;
   align-items: center;
 }
 
-.multicalendar .controls .div-dates-navigation button {
+.trc-multicalendar .controls .div-dates-navigation button {
   cursor: pointer;
   margin: 0px;
   position: relative;
@@ -95,14 +95,14 @@
   height: calc(100% - 16px);
 }
 
-.multicalendar .controls .div-aditional-controls-components {
+.trc-multicalendar .controls .div-aditional-controls-components {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   flex-grow: 1;
 }
 
-.multicalendar .div-main-container {
+.trc-multicalendar .div-main-container {
   grid-area: gri;
   height: 100%;
   position: relative;
@@ -110,7 +110,7 @@
   overflow: hidden;
 }
 
-.multicalendar .div-main-container .div-cargando-contenedor-principal {
+.trc-multicalendar .div-main-container .div-cargando-contenedor-principal {
   position: absolute;
   top: 0;
   left: 0;
@@ -123,28 +123,28 @@
   background-color: rgba(236, 236, 236, 0.8);
 }
 
-.multicalendar .main-container {
+.trc-multicalendar .main-container {
   position: relative;
   min-width: 100%;
   height: 100%;
   overflow-x: scroll;
 }
 
-.multicalendar .vertical-axis .div-list-element-column {
+.trc-multicalendar .vertical-axis .div-list-element-column {
   height: 100%;
   overflow-y: scroll;
   box-sizing: border-box;
 }
 
-.multicalendar .horizontal-axis .div-weeks-buttons {
+.trc-multicalendar .horizontal-axis .div-weeks-buttons {
   position: absolute;
   bottom: 0;
   width: 100%;
   height: 74px;
 }
 
-.multicalendar .horizontal-axis .div-weeks-buttons .past-week-button,
-.multicalendar .horizontal-axis .div-weeks-buttons .next-week-button {
+.trc-multicalendar .horizontal-axis .div-weeks-buttons .past-week-button,
+.trc-multicalendar .horizontal-axis .div-weeks-buttons .next-week-button {
   z-index: 2;
   position: absolute;
   background-color: transparent;
@@ -161,27 +161,27 @@
   box-shadow: 0px 0px 8px 8px white;
 }
 
-.multicalendar .horizontal-axis .div-weeks-buttons .past-week-button:hover,
-.multicalendar .horizontal-axis .div-weeks-buttons .next-week-button:hover {
+.trc-multicalendar .horizontal-axis .div-weeks-buttons .past-week-button:hover,
+.trc-multicalendar .horizontal-axis .div-weeks-buttons .next-week-button:hover {
   background: rgb(247, 247, 247);
   box-shadow: 0px 0px 8px 8px rgb(247 247 247);
 }
 
-.multicalendar .horizontal-axis .div-weeks-buttons .past-week-button:active,
-.multicalendar .horizontal-axis .div-weeks-buttons .next-week-button:active {
+.trc-multicalendar .horizontal-axis .div-weeks-buttons .past-week-button:active,
+.trc-multicalendar .horizontal-axis .div-weeks-buttons .next-week-button:active {
   background: rgb(167, 167, 167);
   box-shadow: 0px 0px 8px 8px rgb(167, 167, 167);
 }
 
-.multicalendar .horizontal-axis .div-weeks-buttons .past-week-button {
+.trc-multicalendar .horizontal-axis .div-weeks-buttons .past-week-button {
   left: 5px;
 }
 
-.multicalendar .horizontal-axis .div-weeks-buttons .next-week-button {
+.trc-multicalendar .horizontal-axis .div-weeks-buttons .next-week-button {
   right: 5px;
 }
 
-.multicalendar .horizontal-axis .div-dates-row {
+.trc-multicalendar .horizontal-axis .div-dates-row {
   position: absolute;
   bottom: 0;
   width: 100%;

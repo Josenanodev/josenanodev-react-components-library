@@ -7,7 +7,8 @@ import jsToSqlDate from "../../../../../utils/jsToSqlDate";
 //Types
 import { DropdownMonthNavigationPropsType } from "./types";
 const DropdownMonthNavigation = ({
-  minimumVisibleDate,
+  visibleMonth,
+  visibleYear,
   onChangeAction,
   options,
 }: DropdownMonthNavigationPropsType) => {
@@ -16,8 +17,8 @@ const DropdownMonthNavigation = ({
       className="dropdown-month-navigation"
       value={jsToSqlDate(
         new Date(
-          minimumVisibleDate.getFullYear(),
-          minimumVisibleDate.getMonth(),
+          visibleYear,
+          visibleMonth,
           1,
           12,
           0,

@@ -27,6 +27,7 @@ import {
   setMulticalendarScrollLeftPosition,
   setMulticalendarScrollTopPosition,
 } from "../../Services/MulticalendarStatesAndSettings";
+import statisticalMode from "../../utils/statisticalMode";
 
 const Multicalendar = ({
   multicalendarId,
@@ -344,7 +345,7 @@ const Multicalendar = ({
       key={multicalendarId}
       id={multicalendarId}
       data-testid={multicalendarId}
-      className="multicalendar"
+      className="trc-multicalendar"
       style={{
         gridTemplateColumns: `${verticalAxisWidth}px`,
         gridTemplateRows: `auto auto calc(100% - ${
@@ -355,7 +356,14 @@ const Multicalendar = ({
       <div ref={controlsWrapperRef} className="controls">
         <div className="div-dates-navigation">
           <DropdownMonthNavigation
-            minimumVisibleDate={minimumVisibleDate}
+            visibleYear={
+              statisticalMode(visibleDates.map((date) => date.getFullYear())) ||
+              minimumVisibleDate.getFullYear()
+            }
+            visibleMonth={
+              statisticalMode(visibleDates.map((date) => date.getMonth())) ||
+              minimumVisibleDate.getMonth()
+            }
             onChangeAction={(valorDeOpcion: string) => {
               Funciones.scrollByDate(
                 new Date(Number(Date.parse(sqlToJsDate(valorDeOpcion).toString()))),

@@ -1,43 +1,55 @@
-.parallel-selection-list {
-  display: grid;
-  grid-template-areas:
-    "lef rig"
-    "but but";
+.trc-parallel-selection-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   height: 100%;
-  grid-template-rows: calc(100% - 80px) 80px;
-  grid-template-columns: 50% 50%;
 }
 
-.parallel-selection-list .div-left-list {
+.trc-parallel-selection-list .div-lists {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex-grow: 1;
+  min-height: calc(100% - 80px);
+  max-height: 100%;
+}
+
+.trc-parallel-selection-list .div-lists .div-left-list {
   grid-area: lef;
   display: flex;
   flex-flow: column;
   align-items: center;
   box-sizing: border-box;
   padding: 10px;
+  width: 50%;
   height: 100%;
 }
 
-.parallel-selection-list .div-right-list {
+.trc-parallel-selection-list .div-lists .div-right-list {
   grid-area: rig;
   display: flex;
   flex-flow: column;
   align-items: center;
   box-sizing: border-box;
   padding: 10px;
+  width: 50%;
   height: 100%;
 }
 
-.parallel-selection-list .div-action-buttons {
+.trc-parallel-selection-list .div-action-buttons {
   grid-area: but;
   display: flex;
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
   padding: 10px 20px;
+  width: 100%;
+  height: 80px;
 }
 
-.parallel-selection-list .list-title {
+.trc-parallel-selection-list .list-title {
   font-size: 20px;
   font-weight: 600;
   color: dimgray;
@@ -47,7 +59,7 @@
   justify-content: center;
 }
 
-.parallel-selection-list .div-search-bar {
+.trc-parallel-selection-list .div-search-bar {
   width: 100%;
   border: 1px solid rgb(185, 185, 185);
   border-top-left-radius: 6px;
@@ -61,17 +73,17 @@
   justify-content: center;
 }
 
-.parallel-selection-list .div-search-bar input {
+.trc-parallel-selection-list .div-search-bar input {
   border: none;
   padding-left: 10px;
   width: 100%;
 }
 
-.parallel-selection-list .div-search-bar input:focus {
+.trc-parallel-selection-list .div-search-bar input:focus {
   outline: none;
 }
 
-.parallel-selection-list .list-container {
+.trc-parallel-selection-list .list-container {
   width: 100%;
   display: flex;
   flex-flow: column;
@@ -83,7 +95,7 @@
   height: calc(100% - 60px);
 }
 
-.parallel-selection-list .list-container .apply-all-button {
+.trc-parallel-selection-list .list-container .apply-all-button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -100,26 +112,29 @@
   cursor: pointer;
 }
 
-.parallel-selection-list .list-container .apply-all-button svg {
+.trc-parallel-selection-list .list-container .apply-all-button svg {
   width: 20px;
   height: 20px;
 }
 
-.parallel-selection-list .list-container .apply-all-button:hover {
+.trc-parallel-selection-list .list-container .apply-all-button:hover {
   background-color: rgb(238, 238, 238);
 }
 
-.parallel-selection-list .list-container .scrollable-section {
+.trc-parallel-selection-list .list-container .scrollable-section {
   overflow-y: auto;
   height: calc(100% - 30px);
 }
 
-.parallel-selection-list .list-container .scrollable-section .resizable-div-for-scroll {
+.trc-parallel-selection-list
+  .list-container
+  .scrollable-section
+  .resizable-div-for-scroll {
   width: 100%;
   box-sizing: border-box;
 }
 
-.parallel-selection-list
+.trc-parallel-selection-list
   .list-container
   .scrollable-section
   .resizable-div-for-scroll
@@ -131,7 +146,7 @@
   border-bottom: 1px solid rgb(169, 169, 169);
 }
 
-.parallel-selection-list
+.trc-parallel-selection-list
   .list-container
   .scrollable-section
   .resizable-div-for-scroll
@@ -146,7 +161,7 @@
   overflow: hidden;
 }
 
-.parallel-selection-list
+.trc-parallel-selection-list
   .list-container
   .scrollable-section
   .resizable-div-for-scroll
@@ -165,7 +180,7 @@
   text-align: start;
 }
 
-.parallel-selection-list
+.trc-parallel-selection-list
   .list-container
   .scrollable-section
   .resizable-div-for-scroll
@@ -184,7 +199,7 @@
   cursor: pointer;
 }
 
-.parallel-selection-list
+.trc-parallel-selection-list
   .list-container
   .scrollable-section
   .resizable-div-for-scroll
@@ -193,7 +208,7 @@
   background-color: rgb(238, 238, 238);
 }
 
-.parallel-selection-list .div-action-buttons button {
+.trc-parallel-selection-list .div-action-buttons button {
   box-sizing: border-box;
   padding: 10px 15px;
   display: flex;
@@ -208,22 +223,22 @@
   cursor: pointer;
 }
 
-.parallel-selection-list .div-action-buttons .cancel-button {
+.trc-parallel-selection-list .div-action-buttons .cancel-button {
   border-color: dimgray;
   color: dimgray;
 }
 
-.parallel-selection-list .div-action-buttons .cancel-button:hover {
+.trc-parallel-selection-list .div-action-buttons .cancel-button:hover {
   background-color: dimgray;
   color: white;
 }
 
-.parallel-selection-list .div-action-buttons .apply-button {
+.trc-parallel-selection-list .div-action-buttons .apply-button {
   border-color: var(--primary-color);
   color: var(--primary-color);
 }
 
-.parallel-selection-list .div-action-buttons .apply-button:hover {
+.trc-parallel-selection-list .div-action-buttons .apply-button:hover {
   background-color: var(--primary-color);
   color: white;
 }

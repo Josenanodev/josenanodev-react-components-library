@@ -17,6 +17,7 @@ const Slider = ({
   width = 300,
   sufix,
   prefix,
+  disabled,
 }: SliderPropsType) => {
   //Refs
   const sliderRef = useRef<HTMLDivElement | null>(null);
@@ -27,8 +28,9 @@ const Slider = ({
       : width / 2
   );
   const [visibleValue, setVisibleValue] = useState<number>(initialValue);
-  const [temporalVisibleValue, setTemporalVisibleValue] =
-    useState<number | undefined>(undefined);
+  const [temporalVisibleValue, setTemporalVisibleValue] = useState<number | undefined>(
+    undefined
+  );
   const [cancelTransition, setCancelTransition] = useState<boolean>(false);
   useEffect(() => {
     if (value !== undefined) {
@@ -42,30 +44,14 @@ const Slider = ({
     <div
       ref={sliderRef}
       style={{ width: width, height: height }}
-      className="slider"
+      className={`trc-slider ${disabled ? "disabled" : ""}`}
       onMouseDown={(event1) => {
-        var nuevovisibleValue: number;
-        if (sliderRef.current !== null && sliderRef.current !== undefined) {
-          setCancelTransition(false);
-          const newPosition =
-            event1.clientX - sliderRef.current.getBoundingClientRect().x;
-          setPosition(newPosition);
-          nuevovisibleValue = ownFunctions.defineVisibleValue(
-            newPosition,
-            width,
-            maximumValue,
-            minimumValue
-          );
-          setVisibleValue(nuevovisibleValue);
-        }
-        function repositioning(event2: MouseEvent) {
-          setCancelTransition(true);
+        if (!disabled) {
+          var nuevovisibleValue: number;
           if (sliderRef.current !== null && sliderRef.current !== undefined) {
-            setTemporalVisibleValue(undefined);
-            let newPosition =
-              event2.clientX - sliderRef.current.getBoundingClientRect().x;
-            if (newPosition < 0) newPosition = 0;
-            if (newPosition > width) newPosition = width;
+            setCancelTransition(false);
+            const newPosition =
+              event1.clientX - sliderRef.current.getBoundingClientRect().x;
             setPosition(newPosition);
             nuevovisibleValue = ownFunctions.defineVisibleValue(
               newPosition,
@@ -75,51 +61,41 @@ const Slider = ({
             );
             setVisibleValue(nuevovisibleValue);
           }
+          function repositioning(event2: MouseEvent) {
+            setCancelTransition(true);
+            if (sliderRef.current !== null && sliderRef.current !== undefined) {
+              setTemporalVisibleValue(undefined);
+              let newPosition =
+                event2.clientX - sliderRef.current.getBoundingClientRect().x;
+              if (newPosition < 0) newPosition = 0;
+              if (newPosition > width) newPosition = width;
+              setPosition(newPosition);
+              nuevovisibleValue = ownFunctions.defineVisibleValue(
+                newPosition,
+                width,
+                maximumValue,
+                minimumValue
+              );
+              setVisibleValue(nuevovisibleValue);
+            }
+          }
+          document.addEventListener("mousemove", repositioning);
+          function removeEventListeners() {
+            document.removeEventListener("mousemove", repositioning);
+            document.removeEventListener("mouseup", removeEventListeners);
+            setCancelTransition(false);
+            onChange(nuevovisibleValue);
+          }
+          document.addEventListener("mouseup", removeEventListeners);
         }
-        document.addEventListener(
-          "mousemove",
-          repositioning
-        );
-        function removeEventListeners() {
-          document.removeEventListener(
-            "mousemove",
-            repositioning
-          );
-          document.removeEventListener(
-            "mouseup",
-            removeEventListeners
-          );
-          setCancelTransition(false);
-          onChange(nuevovisibleValue);
-        }
-        document.addEventListener(
-          "mouseup",
-          removeEventListeners
-        );
       }}
       onTouchStart={(event1) => {
-        var nuevovisibleValue: number;
-        if (sliderRef.current !== null && sliderRef.current !== undefined) {
-          setCancelTransition(false);
-          const newPosition =
-            event1.touches[0].clientX - sliderRef.current.getBoundingClientRect().x;
-          setPosition(newPosition);
-          nuevovisibleValue = ownFunctions.defineVisibleValue(
-            newPosition,
-            width,
-            maximumValue,
-            minimumValue
-          );
-          setVisibleValue(nuevovisibleValue);
-        }
-        function repositioning(event2: TouchEvent) {
-          setCancelTransition(true);
+        if (!disabled) {
+          var nuevovisibleValue: number;
           if (sliderRef.current !== null && sliderRef.current !== undefined) {
-            setTemporalVisibleValue(undefined);
-            let newPosition =
-              event2.touches[0].clientX - sliderRef.current.getBoundingClientRect().x;
-            if (newPosition < 0) newPosition = 0;
-            if (newPosition > width) newPosition = width;
+            setCancelTransition(false);
+            const newPosition =
+              event1.touches[0].clientX - sliderRef.current.getBoundingClientRect().x;
             setPosition(newPosition);
             nuevovisibleValue = ownFunctions.defineVisibleValue(
               newPosition,
@@ -129,27 +105,33 @@ const Slider = ({
             );
             setVisibleValue(nuevovisibleValue);
           }
+          function repositioning(event2: TouchEvent) {
+            setCancelTransition(true);
+            if (sliderRef.current !== null && sliderRef.current !== undefined) {
+              setTemporalVisibleValue(undefined);
+              let newPosition =
+                event2.touches[0].clientX - sliderRef.current.getBoundingClientRect().x;
+              if (newPosition < 0) newPosition = 0;
+              if (newPosition > width) newPosition = width;
+              setPosition(newPosition);
+              nuevovisibleValue = ownFunctions.defineVisibleValue(
+                newPosition,
+                width,
+                maximumValue,
+                minimumValue
+              );
+              setVisibleValue(nuevovisibleValue);
+            }
+          }
+          document.addEventListener("touchmove", repositioning);
+          function removeEventListeners() {
+            document.removeEventListener("touchmove", repositioning);
+            document.removeEventListener("touchend", removeEventListeners);
+            setCancelTransition(false);
+            onChange(nuevovisibleValue);
+          }
+          document.addEventListener("touchend", removeEventListeners);
         }
-        document.addEventListener(
-          "touchmove",
-          repositioning
-        );
-        function removeEventListeners() {
-          document.removeEventListener(
-            "touchmove",
-            repositioning
-          );
-          document.removeEventListener(
-            "touchend",
-            removeEventListeners
-          );
-          setCancelTransition(false);
-          onChange(nuevovisibleValue);
-        }
-        document.addEventListener(
-          "touchend",
-          removeEventListeners
-        );
       }}
     >
       <div
@@ -168,7 +150,7 @@ const Slider = ({
           <Fragment>
             {prefix !== undefined && <p>{prefix}</p>}
             <input
-              disabled={!editableValueInsideButton}
+              disabled={!editableValueInsideButton || disabled}
               type="number"
               min={minimumValue}
               max={maximumValue}
@@ -182,60 +164,64 @@ const Slider = ({
                 setTemporalVisibleValue(visibleValue);
               }}
               onKeyDown={(event) => {
-                if (event.key === "Enter" && temporalVisibleValue !== undefined) {
-                  let nuevovalue = temporalVisibleValue;
-                  if (nuevovalue < minimumValue) nuevovalue = minimumValue;
-                  if (nuevovalue > maximumValue) nuevovalue = maximumValue;
-                  const newPosition = ownFunctions.definePostionByValue(
-                    nuevovalue,
-                    width,
-                    maximumValue,
-                    minimumValue
-                  );
-                  setPosition(newPosition);
-                  const nuevovisibleValue = ownFunctions.defineVisibleValue(
-                    newPosition,
-                    width,
-                    maximumValue,
-                    minimumValue
-                  );
-                  setVisibleValue(nuevovisibleValue);
-                  onChange(nuevovisibleValue);
-                  setTemporalVisibleValue(undefined);
-                }
-                if (event.key === "Escape") {
-                  setPosition(
-                    ownFunctions.definePostionByValue(
-                      visibleValue,
+                if (!disabled) {
+                  if (event.key === "Enter" && temporalVisibleValue !== undefined) {
+                    let nuevovalue = temporalVisibleValue;
+                    if (nuevovalue < minimumValue) nuevovalue = minimumValue;
+                    if (nuevovalue > maximumValue) nuevovalue = maximumValue;
+                    const newPosition = ownFunctions.definePostionByValue(
+                      nuevovalue,
                       width,
                       maximumValue,
                       minimumValue
-                    )
-                  );
-                  setTemporalVisibleValue(undefined);
+                    );
+                    setPosition(newPosition);
+                    const nuevovisibleValue = ownFunctions.defineVisibleValue(
+                      newPosition,
+                      width,
+                      maximumValue,
+                      minimumValue
+                    );
+                    setVisibleValue(nuevovisibleValue);
+                    onChange(nuevovisibleValue);
+                    setTemporalVisibleValue(undefined);
+                  }
+                  if (event.key === "Escape") {
+                    setPosition(
+                      ownFunctions.definePostionByValue(
+                        visibleValue,
+                        width,
+                        maximumValue,
+                        minimumValue
+                      )
+                    );
+                    setTemporalVisibleValue(undefined);
+                  }
                 }
               }}
               onBlur={() => {
-                if (temporalVisibleValue !== undefined) {
-                  let nuevovalue = temporalVisibleValue;
-                  if (nuevovalue < minimumValue) nuevovalue = minimumValue;
-                  if (nuevovalue > maximumValue) nuevovalue = maximumValue;
-                  const newPosition = ownFunctions.definePostionByValue(
-                    nuevovalue,
-                    width,
-                    maximumValue,
-                    minimumValue
-                  );
-                  setPosition(newPosition);
-                  const nuevovisibleValue = ownFunctions.defineVisibleValue(
-                    newPosition,
-                    width,
-                    maximumValue,
-                    minimumValue
-                  );
-                  setVisibleValue(nuevovisibleValue);
-                  onChange(nuevovisibleValue);
-                  setTemporalVisibleValue(undefined);
+                if (!disabled) {
+                  if (temporalVisibleValue !== undefined) {
+                    let nuevovalue = temporalVisibleValue;
+                    if (nuevovalue < minimumValue) nuevovalue = minimumValue;
+                    if (nuevovalue > maximumValue) nuevovalue = maximumValue;
+                    const newPosition = ownFunctions.definePostionByValue(
+                      nuevovalue,
+                      width,
+                      maximumValue,
+                      minimumValue
+                    );
+                    setPosition(newPosition);
+                    const nuevovisibleValue = ownFunctions.defineVisibleValue(
+                      newPosition,
+                      width,
+                      maximumValue,
+                      minimumValue
+                    );
+                    setVisibleValue(nuevovisibleValue);
+                    onChange(nuevovisibleValue);
+                    setTemporalVisibleValue(undefined);
+                  }
                 }
               }}
             />

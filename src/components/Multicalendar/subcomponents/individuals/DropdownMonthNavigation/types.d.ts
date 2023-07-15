@@ -1,5 +1,6 @@
 export interface DropdownMonthNavigationPropsType {
-  minimumVisibleDate: Date;
+  visibleMonth: number;
+  visibleYear: number;
   onChangeAction: Function;
   options: JSX.Element[];
 }

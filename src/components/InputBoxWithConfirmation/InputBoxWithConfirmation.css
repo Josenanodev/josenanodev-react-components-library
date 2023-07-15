@@ -1,4 +1,4 @@
-.div-wrapper-input-box-with-confirmation {
+.trc-div-wrapper-input-box-with-confirmation {
   position: relative;
   display: flex;
   align-items: center;
@@ -9,11 +9,11 @@
   transition: border 0.3s;
 }
 
-.div-wrapper-input-box-with-confirmation.focused {
+.trc-div-wrapper-input-box-with-confirmation.focused {
   border-color: var(--primary-color);
 }
 
-.div-wrapper-input-box-with-confirmation .input-box-with-confirmation {
+.trc-div-wrapper-input-box-with-confirmation .input-box-with-confirmation {
   box-sizing: border-box;
   padding: 10px 2ch;
   min-width: 10ch;
@@ -26,21 +26,21 @@
   transition: all 0.2s;
 }
 
-.div-wrapper-input-box-with-confirmation
+.trc-div-wrapper-input-box-with-confirmation
   .input-box-with-confirmation::-webkit-inner-spin-button {
   display: none;
 }
 
-.div-wrapper-input-box-with-confirmation .input-box-with-confirmation:focus,
-.div-wrapper-input-box-with-confirmation .button-for-input-box-with-confirmation:focus {
+.trc-div-wrapper-input-box-with-confirmation .input-box-with-confirmation:focus,
+.trc-div-wrapper-input-box-with-confirmation .button-for-input-box-with-confirmation:focus {
   outline: none;
 }
 
-.div-wrapper-input-box-with-confirmation .input-box-with-confirmation:focus{
+.trc-div-wrapper-input-box-with-confirmation .input-box-with-confirmation:focus{
     color: rgb(37, 37, 37);
 }
 
-.div-wrapper-input-box-with-confirmation .button-for-input-box-with-confirmation {
+.trc-div-wrapper-input-box-with-confirmation .button-for-input-box-with-confirmation {
   position: absolute;
   right: 0px;
   background-color: transparent;
@@ -54,7 +54,7 @@
   transition: all 0.2s;
 }
 
-.div-wrapper-input-box-with-confirmation .button-for-input-box-with-confirmation:hover {
+.trc-div-wrapper-input-box-with-confirmation .button-for-input-box-with-confirmation:hover {
   background-color: rgb(241, 241, 241);
   color: var(--primary-color);
 }

@@ -1,4 +1,4 @@
-.pop-up {
+.trc-pop-up {
   background-color: rgb(255, 255, 255);
   border-color: rgb(235, 235, 235);
   border-style: solid;
@@ -10,6 +10,6 @@
   box-sizing: border-box;
 }
 
-.pop-up.pop-up-hidden {
+.trc-pop-up.pop-up-hidden {
   display: none;
 }

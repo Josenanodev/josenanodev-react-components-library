@@ -21,7 +21,7 @@ const MultipleJoinedButtonsBar = ({
     }
   }, [externalSelectedValue]);
   return (
-    <div className="multiple-joined-buttons-bar">
+    <div className="trc-multiple-joined-buttons-bar">
       {options.map((option, index) => (
         <button
           key={option._id}

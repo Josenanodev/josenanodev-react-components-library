@@ -39,7 +39,7 @@ const SideBar = ({
   return (
     <div
       ref={sideBarRef}
-      className="side-bar"
+      className="trc-side-bar"
       style={{
         [side === "left" ? "right" : "left"]:
           (closeAction && open) || (!closeAction && openState)
