@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styles from "./CalendarDatePicker.module.scss";
 import { BsFillCalendar3WeekFill } from "react-icons/bs";
 import dayOfTheWeekStartingOnMonday from "../../utils/dayOfTheWeekStartingOnMonday";
 import numberOfWeeksInAMonth from "../../utils/numberOfWeeksInAMonth";
 import jsToSqlDate from "../../utils/jsToSqlDate";
+import useIntersectionObserver from "../../hooks/useIntersectionObserver";
 
 type CalendarDatePickerProps = {
   mode: "single" | "range" | "booking";
@@ -88,9 +89,24 @@ const getMonthName = (month: number, language: "es" | "en") => {
 };
 
 const CalendarDatePicker = ({ mode, language, title }: CalendarDatePickerProps) => {
+  const monthsContainerRef =
+    useRef<HTMLDivElement & { month: number; year: number }>(null);
+  const monthsRefs = useRef<(HTMLDivElement & { month: number; year: number })[]>([]);
   const [month, setMonth] = useState(new Date().getMonth());
   const [year, setYear] = useState(new Date().getFullYear());
-
+  const intersectionObservers = monthsRefs.current.map((ref) =>
+    useIntersectionObserver(
+      ref,
+      (entries) => {
+        if (entries.every((entry) => entry.isIntersecting)) {
+          setMonth(ref.month);
+          setYear(ref.year);
+        }
+      },
+      { root: monthsContainerRef.current, rootMargin: "0px", threshold: 1 }
+    )
+  );
+  intersectionObservers;
   return (
     <div className={styles["calendar-date-picker"]}>
       <section className={styles["title"]}>
@@ -111,7 +127,7 @@ const CalendarDatePicker = ({ mode, language, title }: CalendarDatePickerProps) 
         <p>{calendarDatePickerDictionary[language].saturday.slice(0, 1).toUpperCase()}</p>
         <p>{calendarDatePickerDictionary[language].sunday.slice(0, 1).toUpperCase()}</p>
       </section>
-      <section className={styles["calendar-scrollable-section"]}>
+      <section ref={monthsContainerRef} className={styles["calendar-scrollable-section"]}>
         {Array(5)
           .fill(0)
           .map((_, gridIndex) => {
@@ -125,6 +141,15 @@ const CalendarDatePicker = ({ mode, language, title }: CalendarDatePickerProps) 
             const firstDayInMonthDayOfWeek = dayOfTheWeekStartingOnMonday(referenceDate);
             return (
               <div
+                ref={(ref) => {
+                  if (ref) {
+                    monthsRefs.current[gridIndex] = {
+                      ...ref,
+                      month: referenceDate.getMonth(),
+                      year: referenceDate.getFullYear(),
+                    };
+                  }
+                }}
                 className={styles["days-grid"]}
                 key={`grid:${jsToSqlDate(referenceDate)}`}
               >
