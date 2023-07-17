@@ -24,6 +24,7 @@ code {
   --green-palette-three: #3a8117;
   --green-palette-four: #27580f;
   --green-palette-five: #1b3a0c;
+  --light-gray: #959595;
 }
 
 input[type="checkbox"] {

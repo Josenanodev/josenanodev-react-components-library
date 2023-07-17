@@ -5,6 +5,15 @@ const config: StorybookConfig = {
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
+    {
+      name: "@storybook/addon-styling",
+      options: {
+        sass: {
+          // Require your preprocessor
+          implementation: require("sass"),
+        },
+      },
+    },
   ],
   framework: {
     name: "@storybook/react-webpack5",
