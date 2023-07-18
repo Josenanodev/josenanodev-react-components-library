@@ -116,6 +116,17 @@ const CalendarDatePicker = ({ mode, language, title }: CalendarDatePickerProps) 
   });
   const [month, setMonth] = useState(new Date().getMonth());
   const [year, setYear] = useState(new Date().getFullYear());
+
+  const dateClassName = (date: Date): string => {
+    let className = styles["day"];
+    if (date.getMonth() === month) {
+      className += ` ${styles["day-in-month"]}`;
+    } else {
+      className += ` ${styles["day-not-in-month"]}`;
+    }
+    return className;
+  };
+
   useEffect(() => {
     monthsContainerRef.current?.scrollTo({
       top: 468,
@@ -131,7 +142,7 @@ const CalendarDatePicker = ({ mode, language, title }: CalendarDatePickerProps) 
       const referenceDate = new Date(year, month - 1, 1);
       setMonth(referenceDate.getMonth());
       setYear(referenceDate.getFullYear());
-    }  else if (isFourthMonthVisible) {
+    } else if (isFourthMonthVisible) {
       const referenceDate = new Date(year, month + 1, 1);
       setMonth(referenceDate.getMonth());
       setYear(referenceDate.getFullYear());
@@ -167,10 +178,7 @@ const CalendarDatePicker = ({ mode, language, title }: CalendarDatePickerProps) 
         <p>{calendarDatePickerDictionary[language].saturday.slice(0, 1).toUpperCase()}</p>
         <p>{calendarDatePickerDictionary[language].sunday.slice(0, 1).toUpperCase()}</p>
       </section>
-      <section
-        ref={monthsContainerRef}
-        className={styles["calendar-scrollable-section"]}
-      >
+      <section ref={monthsContainerRef} className={styles["calendar-scrollable-section"]}>
         {Array(5)
           .fill(0)
           .map((_, gridIndex) => {
@@ -207,13 +215,13 @@ const CalendarDatePicker = ({ mode, language, title }: CalendarDatePickerProps) 
                       {Array(7)
                         .fill(0)
                         .map((_, columnIndex) => {
-                          const numberOfMonth = month + gridIndex;
+                          const numberOfMonth = month + monthOffset;
                           const numberOfDay =
                             rowIndex * 7 + columnIndex + 1 - firstDayInMonthDayOfWeek;
                           const date = new Date(year, numberOfMonth, numberOfDay);
                           return (
                             <div className={styles["day-cell"]} key={jsToSqlDate(date)}>
-                              <p className={styles["day"]}>{date.getDate()}</p>
+                              <p className={dateClassName(date)}>{date.getDate()}</p>
                             </div>
                           );
                         })}

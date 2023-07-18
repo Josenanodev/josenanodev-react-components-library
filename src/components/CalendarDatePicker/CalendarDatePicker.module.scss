@@ -35,7 +35,7 @@
     }
     .days-grid {
       width: 100%;
-      scroll-snap-align: start;
+      scroll-snap-align: center;
       .days-row {
         width: 100%;
         display: flex;
@@ -55,6 +55,16 @@
             margin: 0px;
             border-radius: 23px;
             background-color: #f3f3f3;
+            transition: background-color 400ms ease-in-out;
+            transition: color 200ms ease-in-out delay 400ms;
+            &.day-in-month {
+              color: var(--medium-gray, #787878);
+              background-color: #f3f3f3;
+            }
+            &.day-not-in-month {
+              color: #dedede;
+              background-color: white;
+            }
           }
         }
       }
