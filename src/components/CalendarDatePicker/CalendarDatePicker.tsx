@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styles from "./CalendarDatePicker.module.scss";
 import { BsFillCalendar3WeekFill } from "react-icons/bs";
 import dayOfTheWeekStartingOnMonday from "../../utils/dayOfTheWeekStartingOnMonday";
@@ -89,24 +89,64 @@ const getMonthName = (month: number, language: "es" | "en") => {
 };
 
 const CalendarDatePicker = ({ mode, language, title }: CalendarDatePickerProps) => {
-  const monthsContainerRef =
-    useRef<HTMLDivElement & { month: number; year: number }>(null);
-  const monthsRefs = useRef<(HTMLDivElement & { month: number; year: number })[]>([]);
+  const monthsContainerRef = useRef<HTMLDivElement>(null);
+  const firstMonthRef = useRef<HTMLDivElement>(null);
+  const secondMonthRef = useRef<HTMLDivElement>(null);
+  const fourthMonthRef = useRef<HTMLDivElement>(null);
+  const fifthMonthRef = useRef<HTMLDivElement>(null);
+  const isFirstMonthVisible = useIntersectionObserver(firstMonthRef, {
+    root: monthsContainerRef.current,
+    rootMargin: "0px",
+    threshold: 1.0,
+  });
+  const isSecondMonthVisible = useIntersectionObserver(secondMonthRef, {
+    root: monthsContainerRef.current,
+    rootMargin: "0px",
+    threshold: 1.0,
+  });
+  const isFourthMonthVisible = useIntersectionObserver(fourthMonthRef, {
+    root: monthsContainerRef.current,
+    rootMargin: "0px",
+    threshold: 1.0,
+  });
+  const isFifthMonthVisible = useIntersectionObserver(fifthMonthRef, {
+    root: monthsContainerRef.current,
+    rootMargin: "0px",
+    threshold: 1.0,
+  });
   const [month, setMonth] = useState(new Date().getMonth());
   const [year, setYear] = useState(new Date().getFullYear());
-  const intersectionObservers = monthsRefs.current.map((ref) =>
-    useIntersectionObserver(
-      ref,
-      (entries) => {
-        if (entries.every((entry) => entry.isIntersecting)) {
-          setMonth(ref.month);
-          setYear(ref.year);
-        }
-      },
-      { root: monthsContainerRef.current, rootMargin: "0px", threshold: 1 }
-    )
-  );
-  intersectionObservers;
+  useEffect(() => {
+    monthsContainerRef.current?.scrollTo({
+      top: 468,
+    });
+  }, []);
+
+  useEffect(() => {
+    if (isFirstMonthVisible) {
+      const referenceDate = new Date(year, month - 2, 1);
+      setMonth(referenceDate.getMonth());
+      setYear(referenceDate.getFullYear());
+    } else if (isSecondMonthVisible) {
+      const referenceDate = new Date(year, month - 1, 1);
+      setMonth(referenceDate.getMonth());
+      setYear(referenceDate.getFullYear());
+    }  else if (isFourthMonthVisible) {
+      const referenceDate = new Date(year, month + 1, 1);
+      setMonth(referenceDate.getMonth());
+      setYear(referenceDate.getFullYear());
+    } else if (isFifthMonthVisible) {
+      const referenceDate = new Date(year, month + 2, 1);
+      setMonth(referenceDate.getMonth());
+      setYear(referenceDate.getFullYear());
+    }
+  }, [
+    isFirstMonthVisible,
+    isSecondMonthVisible,
+    isFourthMonthVisible,
+    isFifthMonthVisible,
+  ]);
+
   return (
     <div className={styles["calendar-date-picker"]}>
       <section className={styles["title"]}>
@@ -127,12 +167,16 @@ const CalendarDatePicker = ({ mode, language, title }: CalendarDatePickerProps) 
         <p>{calendarDatePickerDictionary[language].saturday.slice(0, 1).toUpperCase()}</p>
         <p>{calendarDatePickerDictionary[language].sunday.slice(0, 1).toUpperCase()}</p>
       </section>
-      <section ref={monthsContainerRef} className={styles["calendar-scrollable-section"]}>
+      <section
+        ref={monthsContainerRef}
+        className={styles["calendar-scrollable-section"]}
+      >
         {Array(5)
           .fill(0)
           .map((_, gridIndex) => {
-            const referenceDate = new Date(year, month + gridIndex, 1);
-            const lastDayOfTheMonth = new Date(year, month + gridIndex + 1, 0);
+            const monthOffset = gridIndex - 2;
+            const referenceDate = new Date(year, month + monthOffset, 1);
+            const lastDayOfTheMonth = new Date(year, month + monthOffset + 1, 0);
             const isLastDayOfTheMonthSunday = lastDayOfTheMonth.getDay() === 0;
             let numberOfWeeksInMonth = numberOfWeeksInAMonth(referenceDate);
             if (!isLastDayOfTheMonthSunday) {
@@ -141,15 +185,15 @@ const CalendarDatePicker = ({ mode, language, title }: CalendarDatePickerProps) 
             const firstDayInMonthDayOfWeek = dayOfTheWeekStartingOnMonday(referenceDate);
             return (
               <div
-                ref={(ref) => {
-                  if (ref) {
-                    monthsRefs.current[gridIndex] = {
-                      ...ref,
-                      month: referenceDate.getMonth(),
-                      year: referenceDate.getFullYear(),
-                    };
-                  }
-                }}
+                ref={
+                  gridIndex === 0
+                    ? firstMonthRef
+                    : gridIndex === 1
+                    ? secondMonthRef
+                    : gridIndex === 3
+                    ? fourthMonthRef
+                    : fifthMonthRef
+                }
                 className={styles["days-grid"]}
                 key={`grid:${jsToSqlDate(referenceDate)}`}
               >
