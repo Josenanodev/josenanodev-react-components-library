@@ -129,7 +129,7 @@ const CalendarDatePicker = ({ mode, language, title }: CalendarDatePickerProps) 
 
   useEffect(() => {
     monthsContainerRef.current?.scrollTo({
-      top: 468,
+      top: 416,
     });
   }, []);
 

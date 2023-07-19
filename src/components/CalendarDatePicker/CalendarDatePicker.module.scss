@@ -30,12 +30,13 @@
     height: 312px;
     overflow-y: scroll;
     scroll-snap-type: y mandatory;
+    scroll-snap-stop: always;
     &::-webkit-scrollbar {
       display: none;
     }
     .days-grid {
       width: 100%;
-      scroll-snap-align: center;
+      scroll-snap-align: start;
       .days-row {
         width: 100%;
         display: flex;
