@@ -97,22 +97,22 @@ const CalendarDatePicker = ({ mode, language, title }: CalendarDatePickerProps) 
   const isFirstMonthVisible = useIntersectionObserver(firstMonthRef, {
     root: monthsContainerRef.current,
     rootMargin: "0px",
-    threshold: 1.0,
+    threshold: 0.7,
   });
   const isSecondMonthVisible = useIntersectionObserver(secondMonthRef, {
     root: monthsContainerRef.current,
     rootMargin: "0px",
-    threshold: 1.0,
+    threshold: 0.7,
   });
   const isFourthMonthVisible = useIntersectionObserver(fourthMonthRef, {
     root: monthsContainerRef.current,
     rootMargin: "0px",
-    threshold: 1.0,
+    threshold: 0.7,
   });
   const isFifthMonthVisible = useIntersectionObserver(fifthMonthRef, {
     root: monthsContainerRef.current,
     rootMargin: "0px",
-    threshold: 1.0,
+    threshold: 0.7,
   });
   const [month, setMonth] = useState(new Date().getMonth());
   const [year, setYear] = useState(new Date().getFullYear());
