@@ -4,6 +4,18 @@ import CalendarDatePicker from "../components/CalendarDatePicker/CalendarDatePic
 const meta: Meta<typeof CalendarDatePicker> = {
   title: "CalendarDatePicker",
   component: CalendarDatePicker,
+  argTypes: {
+    minimumDate: {
+      table: {
+        disable: true,
+      },
+    },
+    maximumDate: {
+      table: {
+        disable: true,
+      },
+    },
+  },
 };
 
 export default meta;

@@ -7,14 +7,6 @@ import jsToSqlDate from "../../utils/jsToSqlDate";
 import useIntersectionObserver from "../../hooks/useIntersectionObserver";
 import InputBoxWithConfirmation from "../InputBoxWithConfirmation/InputBoxWithConfirmation";
 
-type CalendarDatePickerProps = {
-  mode: "single" | "range" | "booking";
-  language: "es" | "en";
-  title?: string;
-  minimumDate?: Date;
-  maximumDate?: Date;
-};
-
 const calendarDatePickerDictionary = {
   en: {
     january: "january",
@@ -91,12 +83,22 @@ const getMonthName = (month: number, language: "es" | "en") => {
   }
 };
 
+type CalendarDatePickerProps = {
+  mode: "single" | "range" | "booking";
+  language: "es" | "en";
+  title?: string;
+  minimumDate?: Date;
+  maximumDate?: Date;
+  customStyle?: React.CSSProperties;
+};
+
 const CalendarDatePicker = ({
   mode,
   language,
   title,
   minimumDate = new Date(1970, 0, 1),
   maximumDate = new Date(new Date().getFullYear() + 100, 1, 1),
+  customStyle,
 }: CalendarDatePickerProps) => {
   const monthsContainerRef = useRef<HTMLDivElement>(null);
   const firstMonthRef = useRef<HTMLDivElement>(null);
@@ -143,59 +145,58 @@ const CalendarDatePicker = ({
     });
   }, [monthsContainerRef]);
 
+  const monthVisibiliySideEffect = (
+    monthOffset: number,
+    timeReference: "past" | "future"
+  ) => {
+    const referenceDate = new Date(year, month + monthOffset, 1);
+    const isReferenceDateHigherThanMinimumDate =
+      referenceDate.valueOf() >= minimumDate.valueOf();
+    const isRefereceDateLowerThanMaximumDate =
+      referenceDate.valueOf() <= maximumDate.valueOf();
+    const timeReferenceIsValid =
+      timeReference === "past"
+        ? isReferenceDateHigherThanMinimumDate
+        : isRefereceDateLowerThanMaximumDate;
+    if (timeReferenceIsValid) {
+      setMonth(referenceDate.getMonth());
+      setYear(referenceDate.getFullYear());
+    }
+  };
+
   useEffect(() => {
     centerMonthsContainer();
   }, [monthsContainerKeyId]);
 
   useEffect(() => {
     if (isFirstMonthVisible) {
-      const referenceDate = new Date(year, month - 2, 1);
-      const isReferenceDateHigherThanMinimumDate =
-        referenceDate.valueOf() >= minimumDate.valueOf();
-      if (isReferenceDateHigherThanMinimumDate) {
-        setMonth(referenceDate.getMonth());
-        setYear(referenceDate.getFullYear());
-      }
-    } else if (isSecondMonthVisible) {
-      const referenceDate = new Date(year, month - 1, 1);
-      const isReferenceDateHigherThanMinimumDate =
-        referenceDate.valueOf() >= minimumDate.valueOf();
-      if (isReferenceDateHigherThanMinimumDate) {
-        setMonth(referenceDate.getMonth());
-        setYear(referenceDate.getFullYear());
-      }
-    } else if (isFourthMonthVisible) {
-      const referenceDate = new Date(year, month + 1, 1);
-      const isRefereceDateLowerThanMaximumDate =
-        referenceDate.valueOf() <= maximumDate.valueOf();
-      if (isRefereceDateLowerThanMaximumDate) {
-        setMonth(referenceDate.getMonth());
-        setYear(referenceDate.getFullYear());
-      }
-    } else if (isFifthMonthVisible) {
-      const referenceDate = new Date(year, month + 2, 1);
-      const isRefereceDateLowerThanMaximumDate =
-        referenceDate.valueOf() <= maximumDate.valueOf();
-      if (isRefereceDateLowerThanMaximumDate) {
-        setMonth(referenceDate.getMonth());
-        setYear(referenceDate.getFullYear());
-      }
+      monthVisibiliySideEffect(-2, "past");
     }
-  }, [
-    isFirstMonthVisible,
-    isSecondMonthVisible,
-    isFourthMonthVisible,
-    isFifthMonthVisible,
-  ]);
-
+  }, [isFirstMonthVisible]);
+  useEffect(() => {
+    if (isSecondMonthVisible) {
+      monthVisibiliySideEffect(-1, "past");
+    }
+  }, [isSecondMonthVisible]);
+  useEffect(() => {
+    if (isFourthMonthVisible) {
+      monthVisibiliySideEffect(1, "future");
+    }
+  }, [isFourthMonthVisible]);
+  useEffect(() => {
+    if (isFifthMonthVisible) {
+      monthVisibiliySideEffect(2, "future");
+    }
+  }, [isFifthMonthVisible]);
   return (
-    <div className={styles["calendar-date-picker"]}>
+    <div className={styles["calendar-date-picker"]} style={customStyle}>
       <section className={styles["title"]}>
         <BsFillCalendar3WeekFill />
         {title}
       </section>
       <section className={styles["month-and-year"]}>
         <select
+          style={{ fontFamily: customStyle?.fontFamily }}
           className={styles["month-input"]}
           value={month}
           onChange={(event) => {
@@ -213,7 +214,17 @@ const CalendarDatePicker = ({
         </select>
         <InputBoxWithConfirmation
           inputType="number"
-          aditionalClass={styles["year-input"]}
+          divWrapperCustomStyle={{
+            width: "4ch",
+            border: "none",
+            backgroundColor: "transparent",
+            fontFamily: customStyle?.fontFamily,
+          }}
+          inputBoxCustomStyle={{
+            padding: 0,
+            fontFamily: customStyle?.fontFamily,
+          }}
+          maxLength={4}
           defaultValue={year.toString()}
           overrideCurrentValue={year.toString()}
           minimumValue={minimumDate.getFullYear().toString()}
