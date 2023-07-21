@@ -1,3 +1,33 @@
+@property --angle {
+  sintax: "<angle>";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --color-default {
+  sintax: "<color>";
+  inherits: false;
+  initial-value: white;
+}
+
+@property --color-selected {
+  sintax: "<color>";
+  inherits: false;
+  initial-value: #e3f3e3;
+}
+
+@property --percentage-default {
+  sintax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+
+@property --percentage-selected {
+  sintax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+
 .calendar-date-picker {
   font-family: Arial, Helvetica, sans-serif;
   width: 390px;
@@ -64,6 +94,11 @@
           justify-content: center;
           width: calc(100% / 7);
           .day {
+            --angle: 0deg;
+            --color-default: #f3f3f3;
+            --color-selected: #b7d4b6;
+            --percentage-default: 100%;
+            --percentage-selected: 0%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -71,15 +106,49 @@
             height: 46px;
             margin: 0px;
             border-radius: 23px;
-            background-color: #f3f3f3;
-            transition: all 300ms ease-in-out;
-            &.day-in-month {
+            transition: --angle 1s 1s;
+            background: linear-gradient(
+              var(--angle),
+              var(--color-default) var(--percentage-default),
+              var(--color-selected) var(--percentage-selected)
+            );
+            user-select: none;
+            cursor: pointer;
+            &.in-month {
               color: var(--medium-gray, #787878);
-              background-color: #f3f3f3;
             }
-            &.day-not-in-month {
+            &.not-in-month {
               color: #dedede;
-              background-color: white;
+              --color-default: white;
+            }
+            &.selected {
+              --angle: 0deg;
+              --color-default: #b7d4b6;
+              --color-selected: #b7d4b6;
+              &.not-in-month {
+                --color-default: #e3f3e3;
+                --color-selected: #e3f3e3;
+              }
+            }
+            &.check-in {
+              --angle: 135deg;
+              --color-default: #f3f3f3;
+              --percentage-default: 50%;
+              --percentage-selected: 50%;
+              &.not-in-month {
+                --color-default: white;
+                --color-selected: #e3f3e3;
+              }
+            }
+            &.check-out {
+              --angle: 315deg;
+              --color-default: #f3f3f3;
+              --percentage-default: 50%;
+              --percentage-selected: 50%;
+              &.not-in-month {
+                --color-default: white;
+                --color-selected: #e3f3e3;
+              }
             }
           }
         }

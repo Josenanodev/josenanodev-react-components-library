@@ -26,5 +26,8 @@ export const TripPicker: Story = {
     mode: "booking",
     language: "en",
     title: "Select your trip dates",
+    onChange(dates) {
+      console.log(dates);
+    },
   },
 };

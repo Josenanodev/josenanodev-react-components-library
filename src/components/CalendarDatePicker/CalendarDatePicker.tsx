@@ -84,8 +84,9 @@ const getMonthName = (month: number, language: "es" | "en") => {
 };
 
 type CalendarDatePickerProps = {
-  mode: "single" | "range" | "booking";
+  mode: "single" | "multiple" | "range" | "booking";
   language: "es" | "en";
+  onChange: (dates: Date[]) => void;
   title?: string;
   minimumDate?: Date;
   maximumDate?: Date;
@@ -96,6 +97,7 @@ const CalendarDatePicker = ({
   mode,
   language,
   title,
+  onChange,
   minimumDate = new Date(1970, 0, 1),
   maximumDate = new Date(new Date().getFullYear() + 100, 1, 1),
   customStyle,
@@ -128,13 +130,35 @@ const CalendarDatePicker = ({
   const [month, setMonth] = useState(new Date().getMonth());
   const [year, setYear] = useState(new Date().getFullYear());
   const [monthsContainerKeyId, setMonthsContainerKeyId] = useState(Math.random());
+  const [dates, setDates] = useState<Date[]>([]);
 
   const dateClassName = (date: Date): string => {
     let className = styles["day"];
     if (date.getMonth() === month) {
-      className += ` ${styles["day-in-month"]}`;
+      className += ` ${styles["in-month"]}`;
     } else {
-      className += ` ${styles["day-not-in-month"]}`;
+      className += ` ${styles["not-in-month"]}`;
+    }
+    const isDateSelected = dates.some(
+      (includedDate) => includedDate.valueOf() === date.valueOf()
+    );
+    const isDateInRange =
+      (mode === "range" || mode === "booking") &&
+      dates.length === 2 &&
+      dates[0].valueOf() < date.valueOf() &&
+      date.valueOf() < dates[1].valueOf();
+    if (isDateSelected || isDateInRange) {
+      className += ` ${styles["selected"]}`;
+    }
+    if (mode === "booking") {
+      const isCheckInDate = dates.length === 2 && date.valueOf() === dates[0].valueOf();
+      if (isCheckInDate) {
+        className += ` ${styles["check-in"]}`;
+      }
+      const isCheckOutDate = dates.length === 2 && date.valueOf() === dates[1].valueOf();
+      if (isCheckOutDate) {
+        className += ` ${styles["check-out"]}`;
+      }
     }
     return className;
   };
@@ -164,6 +188,49 @@ const CalendarDatePicker = ({
     }
   };
 
+  const handleDateSelection = (date: Date) => {
+    if (mode === "single") {
+      setDates([date]);
+    }
+    if (mode === "multiple") {
+      if (dates.some((includedDate) => includedDate.valueOf() === date.valueOf())) {
+        setDates(
+          dates.filter((includedDate) => includedDate.valueOf() !== date.valueOf())
+        );
+      } else {
+        setDates([...dates, date]);
+      }
+    }
+    if (mode === "range") {
+      if (dates.length === 0) {
+        setDates([date]);
+      } else if (dates.length === 1) {
+        if (dates[0].valueOf() < date.valueOf()) {
+          setDates([...dates, date]);
+        } else {
+          setDates([date, dates[0]]);
+        }
+      } else {
+        setDates([date]);
+      }
+    }
+    if (mode === "booking") {
+      if (dates.length === 0) {
+        setDates([date]);
+      } else if (dates[0].valueOf() === date.valueOf()) {
+        setDates([]);
+      } else if (dates.length === 1) {
+        if (dates[0].valueOf() < date.valueOf()) {
+          setDates([...dates, date]);
+        } else {
+          setDates([date, dates[0]]);
+        }
+      } else {
+        setDates([date]);
+      }
+    }
+  };
+
   useEffect(() => {
     centerMonthsContainer();
   }, [monthsContainerKeyId]);
@@ -188,6 +255,11 @@ const CalendarDatePicker = ({
       monthVisibiliySideEffect(2, "future");
     }
   }, [isFifthMonthVisible]);
+
+  useEffect(() => {
+    onChange(dates);
+  }, [dates]);
+
   return (
     <div className={styles["calendar-date-picker"]} style={customStyle}>
       <section className={styles["title"]}>
@@ -305,7 +377,11 @@ const CalendarDatePicker = ({
                             rowIndex * 7 + columnIndex + 1 - firstDayInMonthDayOfWeek;
                           const date = new Date(year, numberOfMonth, numberOfDay);
                           return (
-                            <div className={styles["day-cell"]} key={jsToSqlDate(date)}>
+                            <div
+                              className={styles["day-cell"]}
+                              key={jsToSqlDate(date)}
+                              onClick={() => handleDateSelection(date)}
+                            >
                               <p className={dateClassName(date)}>{date.getDate()}</p>
                             </div>
                           );
