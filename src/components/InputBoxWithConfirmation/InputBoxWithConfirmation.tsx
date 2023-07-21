@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, Fragment } from "react";
-import "./InputBoxWithConfirmation.css";
+import styles from "./InputBoxWithConfirmation.module.scss";
 
 //Hooks
 import useOutsideClick from "../../hooks/useOutsideClick";
@@ -7,8 +7,19 @@ import useOutsideClick from "../../hooks/useOutsideClick";
 //Icons
 import { BsCheckLg, BsPencil } from "react-icons/bs";
 
-//Types
-import { InputBoxWithConfirmationPropsType } from "./types";
+type InputBoxWithConfirmationPropsType = {
+  onConfirmAction: (inputCurrentValue: string) => void;
+  inputType?: "text" | "number";
+  minimumValue?: HTMLInputElement["min"];
+  maximumValue?: HTMLInputElement["max"];
+  placeholder?: HTMLInputElement["placeholder"];
+  divWrapperCustomStyle?: React.CSSProperties;
+  inputBoxCustomStyle?: React.CSSProperties;
+  defaultValue?: string | number;
+  overrideCurrentValue?: string | number | null;
+  showConfirmationButton?: boolean;
+  disabled?: boolean;
+};
 
 const InputBoxWithConfirmation = ({
   onConfirmAction,
@@ -16,7 +27,8 @@ const InputBoxWithConfirmation = ({
   minimumValue = "",
   maximumValue = "",
   placeholder = "",
-  aditionalClass,
+  divWrapperCustomStyle,
+  inputBoxCustomStyle,
   defaultValue,
   overrideCurrentValue,
   showConfirmationButton,
@@ -81,16 +93,18 @@ const InputBoxWithConfirmation = ({
   return (
     <div
       ref={containerRef}
-      className={`trc-div-wrapper-input-box-with-confirmation ${
-        focused ? "focused" : ""
-      } ${aditionalClass ? aditionalClass : ""}`}
+      style={divWrapperCustomStyle}
+      className={`${styles["div-wrapper"]} ${focused ? styles["focused"] : ""}`}
     >
       <input
         ref={inputRef}
         disabled={disabled}
-        className="input-box-with-confirmation"
+        className={styles["input-box-with-confirmation"]}
         type={inputType}
-        style={{ width: `${(currentValue?.length ? currentValue.length : 0) + 7}ch` }}
+        style={{
+          width: `${(currentValue?.length ? currentValue.length : 0) + 7}ch`,
+          ...inputBoxCustomStyle,
+        }}
         min={minimumValue}
         max={maximumValue}
         placeholder={placeholder}
@@ -129,7 +143,7 @@ const InputBoxWithConfirmation = ({
         <Fragment>
           {focused ? (
             <button
-              className="button-for-input-box-with-confirmation"
+              className={styles["button-for-input-box-with-confirmation"]}
               onClick={() => {
                 onConfirmActionHandler();
                 setFocused(false);
@@ -139,7 +153,7 @@ const InputBoxWithConfirmation = ({
             </button>
           ) : (
             <button
-              className="button-for-input-box-with-confirmation"
+              className={styles["button-for-input-box-with-confirmation"]}
               onClick={() => {
                 if (inputRef.current) {
                   inputRef.current.focus();

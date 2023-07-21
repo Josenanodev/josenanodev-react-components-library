@@ -1,15 +1,18 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import styles from "./CalendarDatePicker.module.scss";
 import { BsFillCalendar3WeekFill } from "react-icons/bs";
 import dayOfTheWeekStartingOnMonday from "../../utils/dayOfTheWeekStartingOnMonday";
 import numberOfWeeksInAMonth from "../../utils/numberOfWeeksInAMonth";
 import jsToSqlDate from "../../utils/jsToSqlDate";
 import useIntersectionObserver from "../../hooks/useIntersectionObserver";
+import InputBoxWithConfirmation from "../InputBoxWithConfirmation/InputBoxWithConfirmation";
 
 type CalendarDatePickerProps = {
   mode: "single" | "range" | "booking";
   language: "es" | "en";
   title?: string;
+  minimumDate?: Date;
+  maximumDate?: Date;
 };
 
 const calendarDatePickerDictionary = {
@@ -88,7 +91,13 @@ const getMonthName = (month: number, language: "es" | "en") => {
   }
 };
 
-const CalendarDatePicker = ({ mode, language, title }: CalendarDatePickerProps) => {
+const CalendarDatePicker = ({
+  mode,
+  language,
+  title,
+  minimumDate = new Date(1970, 0, 1),
+  maximumDate = new Date(new Date().getFullYear() + 100, 1, 1),
+}: CalendarDatePickerProps) => {
   const monthsContainerRef = useRef<HTMLDivElement>(null);
   const firstMonthRef = useRef<HTMLDivElement>(null);
   const secondMonthRef = useRef<HTMLDivElement>(null);
@@ -97,25 +106,26 @@ const CalendarDatePicker = ({ mode, language, title }: CalendarDatePickerProps) 
   const isFirstMonthVisible = useIntersectionObserver(firstMonthRef, {
     root: monthsContainerRef.current,
     rootMargin: "0px",
-    threshold: 0.7,
+    threshold: 0.8,
   });
   const isSecondMonthVisible = useIntersectionObserver(secondMonthRef, {
     root: monthsContainerRef.current,
     rootMargin: "0px",
-    threshold: 0.7,
+    threshold: 0.8,
   });
   const isFourthMonthVisible = useIntersectionObserver(fourthMonthRef, {
     root: monthsContainerRef.current,
     rootMargin: "0px",
-    threshold: 0.7,
+    threshold: 0.8,
   });
   const isFifthMonthVisible = useIntersectionObserver(fifthMonthRef, {
     root: monthsContainerRef.current,
     rootMargin: "0px",
-    threshold: 0.7,
+    threshold: 0.8,
   });
   const [month, setMonth] = useState(new Date().getMonth());
   const [year, setYear] = useState(new Date().getFullYear());
+  const [monthsContainerKeyId, setMonthsContainerKeyId] = useState(Math.random());
 
   const dateClassName = (date: Date): string => {
     let className = styles["day"];
@@ -127,29 +137,49 @@ const CalendarDatePicker = ({ mode, language, title }: CalendarDatePickerProps) 
     return className;
   };
 
-  useEffect(() => {
+  const centerMonthsContainer = useCallback(() => {
     monthsContainerRef.current?.scrollTo({
       top: 416,
     });
-  }, []);
+  }, [monthsContainerRef]);
+
+  useEffect(() => {
+    centerMonthsContainer();
+  }, [monthsContainerKeyId]);
 
   useEffect(() => {
     if (isFirstMonthVisible) {
       const referenceDate = new Date(year, month - 2, 1);
-      setMonth(referenceDate.getMonth());
-      setYear(referenceDate.getFullYear());
+      const isReferenceDateHigherThanMinimumDate =
+        referenceDate.valueOf() >= minimumDate.valueOf();
+      if (isReferenceDateHigherThanMinimumDate) {
+        setMonth(referenceDate.getMonth());
+        setYear(referenceDate.getFullYear());
+      }
     } else if (isSecondMonthVisible) {
       const referenceDate = new Date(year, month - 1, 1);
-      setMonth(referenceDate.getMonth());
-      setYear(referenceDate.getFullYear());
+      const isReferenceDateHigherThanMinimumDate =
+        referenceDate.valueOf() >= minimumDate.valueOf();
+      if (isReferenceDateHigherThanMinimumDate) {
+        setMonth(referenceDate.getMonth());
+        setYear(referenceDate.getFullYear());
+      }
     } else if (isFourthMonthVisible) {
       const referenceDate = new Date(year, month + 1, 1);
-      setMonth(referenceDate.getMonth());
-      setYear(referenceDate.getFullYear());
+      const isRefereceDateLowerThanMaximumDate =
+        referenceDate.valueOf() <= maximumDate.valueOf();
+      if (isRefereceDateLowerThanMaximumDate) {
+        setMonth(referenceDate.getMonth());
+        setYear(referenceDate.getFullYear());
+      }
     } else if (isFifthMonthVisible) {
       const referenceDate = new Date(year, month + 2, 1);
-      setMonth(referenceDate.getMonth());
-      setYear(referenceDate.getFullYear());
+      const isRefereceDateLowerThanMaximumDate =
+        referenceDate.valueOf() <= maximumDate.valueOf();
+      if (isRefereceDateLowerThanMaximumDate) {
+        setMonth(referenceDate.getMonth());
+        setYear(referenceDate.getFullYear());
+      }
     }
   }, [
     isFirstMonthVisible,
@@ -165,7 +195,40 @@ const CalendarDatePicker = ({ mode, language, title }: CalendarDatePickerProps) 
         {title}
       </section>
       <section className={styles["month-and-year"]}>
-        <p>{`${getMonthName(month, language)} ${year}`}</p>
+        <select
+          className={styles["month-input"]}
+          value={month}
+          onChange={(event) => {
+            setMonth(Number(event.target.value));
+            setMonthsContainerKeyId(Math.random());
+          }}
+        >
+          {Array(12)
+            .fill(0)
+            .map((_, index) => (
+              <option key={getMonthName(index, language)} value={index}>
+                {getMonthName(index, language)}
+              </option>
+            ))}
+        </select>
+        <InputBoxWithConfirmation
+          inputType="number"
+          aditionalClass={styles["year-input"]}
+          defaultValue={year.toString()}
+          overrideCurrentValue={year.toString()}
+          minimumValue={minimumDate.getFullYear().toString()}
+          maximumValue={maximumDate?.getFullYear().toString()}
+          onConfirmAction={(inputCurrentValue) => {
+            let numericValue = Number(inputCurrentValue);
+            if (numericValue < minimumDate.getFullYear()) {
+              numericValue = minimumDate.getFullYear();
+            }
+            if (maximumDate && numericValue > maximumDate.getFullYear()) {
+              numericValue = maximumDate.getFullYear();
+            }
+            setYear(numericValue);
+          }}
+        />
       </section>
       <section className={styles["week-days"]}>
         <p>{calendarDatePickerDictionary[language].monday.slice(0, 1).toUpperCase()}</p>
@@ -178,12 +241,23 @@ const CalendarDatePicker = ({ mode, language, title }: CalendarDatePickerProps) 
         <p>{calendarDatePickerDictionary[language].saturday.slice(0, 1).toUpperCase()}</p>
         <p>{calendarDatePickerDictionary[language].sunday.slice(0, 1).toUpperCase()}</p>
       </section>
-      <section ref={monthsContainerRef} className={styles["calendar-scrollable-section"]}>
+      <section
+        key={monthsContainerKeyId}
+        ref={monthsContainerRef}
+        className={styles["calendar-scrollable-section"]}
+      >
         {Array(5)
           .fill(0)
           .map((_, gridIndex) => {
             const monthOffset = gridIndex - 2;
             const referenceDate = new Date(year, month + monthOffset, 1);
+            const isHigherThanMinimumDate =
+              referenceDate.valueOf() >= minimumDate.valueOf();
+            const isLowerThanMaximumDate =
+              referenceDate.valueOf() <= maximumDate.valueOf();
+            if (!isHigherThanMinimumDate || !isLowerThanMaximumDate) {
+              return null;
+            }
             const lastDayOfTheMonth = new Date(year, month + monthOffset + 1, 0);
             const isLastDayOfTheMonthSunday = lastDayOfTheMonth.getDay() === 0;
             let numberOfWeeksInMonth = numberOfWeeksInAMonth(referenceDate);
