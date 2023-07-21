@@ -28,6 +28,7 @@ const calendarDatePickerDictionary = {
     friday: "friday",
     saturday: "saturday",
     sunday: "sunday",
+    today: "today",
   },
   es: {
     january: "enero",
@@ -49,6 +50,7 @@ const calendarDatePickerDictionary = {
     friday: "viernes",
     saturday: "sábado",
     sunday: "domingo",
+    today: "hoy",
   },
 };
 
@@ -134,6 +136,10 @@ const CalendarDatePicker = ({
 
   const dateClassName = (date: Date): string => {
     let className = styles["day"];
+    const isToday = jsToSqlDate(date) === jsToSqlDate(new Date());
+    if (isToday) {
+      className += ` ${styles["today"]}`;
+    }
     if (date.getMonth() === month) {
       className += ` ${styles["in-month"]}`;
     } else {
@@ -211,7 +217,7 @@ const CalendarDatePicker = ({
           setDates([date, dates[0]]);
         }
       } else {
-        setDates([date]);
+        setDates([]);
       }
     }
     if (mode === "booking") {
@@ -226,7 +232,7 @@ const CalendarDatePicker = ({
           setDates([date, dates[0]]);
         }
       } else {
-        setDates([date]);
+        setDates([]);
       }
     }
   };
@@ -236,25 +242,16 @@ const CalendarDatePicker = ({
   }, [monthsContainerKeyId]);
 
   useEffect(() => {
-    if (isFirstMonthVisible) {
-      monthVisibiliySideEffect(-2, "past");
-    }
-  }, [isFirstMonthVisible]);
-  useEffect(() => {
-    if (isSecondMonthVisible) {
+    if (isFirstMonthVisible || isSecondMonthVisible) {
       monthVisibiliySideEffect(-1, "past");
     }
-  }, [isSecondMonthVisible]);
+  }, [isFirstMonthVisible, isSecondMonthVisible]);
+
   useEffect(() => {
-    if (isFourthMonthVisible) {
+    if (isFourthMonthVisible || isFifthMonthVisible) {
       monthVisibiliySideEffect(1, "future");
     }
-  }, [isFourthMonthVisible]);
-  useEffect(() => {
-    if (isFifthMonthVisible) {
-      monthVisibiliySideEffect(2, "future");
-    }
-  }, [isFifthMonthVisible]);
+  }, [isFourthMonthVisible, isFifthMonthVisible]);
 
   useEffect(() => {
     onChange(dates);
@@ -265,6 +262,18 @@ const CalendarDatePicker = ({
       <section className={styles["title"]}>
         <BsFillCalendar3WeekFill />
         {title}
+        <button
+          className={styles["today-button"]}
+          onClick={() => {
+            const today = new Date();
+            setMonth(today.getMonth());
+            setYear(today.getFullYear());
+            centerMonthsContainer();
+          }}
+        >
+          {calendarDatePickerDictionary[language]["today"].slice(0, 1).toUpperCase() +
+            calendarDatePickerDictionary[language]["today"].slice(1)}
+        </button>
       </section>
       <section className={styles["month-and-year"]}>
         <select

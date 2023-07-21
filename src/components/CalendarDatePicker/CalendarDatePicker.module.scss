@@ -1,7 +1,7 @@
 @property --angle {
   sintax: "<angle>";
   inherits: false;
-  initial-value: 90deg;
+  initial-value: 270deg;
 }
 
 @property --color-default {
@@ -37,9 +37,32 @@
   font-style: normal;
   line-height: normal;
   .title {
+    position: relative;
     display: flex;
     align-items: center;
+    width: 100%;
     font-size: 16px;
+    svg {
+      margin: 0px 5px;
+    }
+  }
+  .today-button {
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    border: solid 2px #787878;
+    border-radius: 6px;
+    padding: 4px 8px;
+    background-color: white;
+    color: #787878;
+    transition: all 0.1s ease-in-out;
+    cursor: pointer;
+    &:hover {
+      background-color: #f3f3f3;
+    }
+    &:active {
+      background-color: #cfcfcf;
+    }
   }
   .month-and-year {
     display: flex;
@@ -96,7 +119,7 @@
           width: calc(100% / 7);
           .day {
             position: relative;
-            --angle: 90deg;
+            --angle: 270deg;
             --color-default: #f3f3f3;
             --color-selected: #b7d4b6;
             --percentage-default: 100%;
@@ -137,6 +160,9 @@
                 transition: all 0.3s ease-in-out;
               }
             }
+            &.today {
+              outline: solid 2px #787878;
+            }
             &.in-month {
               color: var(--medium-gray, #787878);
             }
@@ -152,7 +178,7 @@
               }
             }
             &.check-in {
-              --angle: 45deg;
+              --angle: 405deg;
               --color-default: #f3f3f3;
               --percentage-default: 50%;
               --percentage-selected: 50%;
