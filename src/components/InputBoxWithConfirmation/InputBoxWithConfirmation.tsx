@@ -12,6 +12,7 @@ type InputBoxWithConfirmationPropsType = {
   inputType?: "text" | "number";
   minimumValue?: HTMLInputElement["min"];
   maximumValue?: HTMLInputElement["max"];
+  maxLength?: HTMLInputElement["maxLength"];
   placeholder?: HTMLInputElement["placeholder"];
   divWrapperCustomStyle?: React.CSSProperties;
   inputBoxCustomStyle?: React.CSSProperties;
@@ -26,6 +27,7 @@ const InputBoxWithConfirmation = ({
   inputType = "text",
   minimumValue = "",
   maximumValue = "",
+  maxLength,
   placeholder = "",
   divWrapperCustomStyle,
   inputBoxCustomStyle,
@@ -107,10 +109,15 @@ const InputBoxWithConfirmation = ({
         }}
         min={minimumValue}
         max={maximumValue}
+        maxLength={maxLength}
         placeholder={placeholder}
         value={focused ? currentValue : cachedValue}
         onChange={(event) => {
-          setCurrentValue(event.target.value);
+          let value = event.target.value;
+          if (maxLength && value.length > maxLength) {
+            value = value.slice(0, maxLength);
+          }
+          setCurrentValue(value);
         }}
         onFocus={(event) => {
           setCachedValue(event.target.value);
