@@ -1,7 +1,7 @@
 @property --angle {
   sintax: "<angle>";
   inherits: false;
-  initial-value: 0;
+  initial-value: 90deg;
 }
 
 @property --color-default {
@@ -88,13 +88,15 @@
         display: flex;
         align-items: center;
         .day-cell {
+          position: relative;
           height: 52px;
           display: flex;
           align-items: center;
           justify-content: center;
           width: calc(100% / 7);
           .day {
-            --angle: 0deg;
+            position: relative;
+            --angle: 90deg;
             --color-default: #f3f3f3;
             --color-selected: #b7d4b6;
             --percentage-default: 100%;
@@ -106,14 +108,35 @@
             height: 46px;
             margin: 0px;
             border-radius: 23px;
-            transition: --angle 1s 1s;
-            background: linear-gradient(
-              var(--angle),
-              var(--color-default) var(--percentage-default),
-              var(--color-selected) var(--percentage-selected)
-            );
+            overflow: hidden;
             user-select: none;
             cursor: pointer;
+            p {
+              z-index: 2;
+            }
+            .background {
+              z-index: 1;
+              position: absolute;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 100%;
+              height: 100%;
+              transform: rotate(var(--angle));
+              transition: all 0.5s ease-in-out;
+              .first-half {
+                width: var(--percentage-default);
+                height: 100%;
+                background-color: var(--color-default);
+                transition: all 0.3s ease-in-out;
+              }
+              .second-half {
+                width: var(--percentage-selected);
+                height: 100%;
+                background-color: var(--color-selected);
+                transition: all 0.3s ease-in-out;
+              }
+            }
             &.in-month {
               color: var(--medium-gray, #787878);
             }
@@ -122,16 +145,14 @@
               --color-default: white;
             }
             &.selected {
-              --angle: 0deg;
-              --color-default: #b7d4b6;
-              --color-selected: #b7d4b6;
+              --percentage-default: 0%;
+              --percentage-selected: 100%;
               &.not-in-month {
-                --color-default: #e3f3e3;
                 --color-selected: #e3f3e3;
               }
             }
             &.check-in {
-              --angle: 135deg;
+              --angle: 45deg;
               --color-default: #f3f3f3;
               --percentage-default: 50%;
               --percentage-selected: 50%;
@@ -141,7 +162,7 @@
               }
             }
             &.check-out {
-              --angle: 315deg;
+              --angle: 225deg;
               --color-default: #f3f3f3;
               --percentage-default: 50%;
               --percentage-selected: 50%;

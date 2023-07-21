@@ -382,7 +382,13 @@ const CalendarDatePicker = ({
                               key={jsToSqlDate(date)}
                               onClick={() => handleDateSelection(date)}
                             >
-                              <p className={dateClassName(date)}>{date.getDate()}</p>
+                              <div className={dateClassName(date)}>
+                                <div className={styles["background"]}>
+                                  <div className={styles["first-half"]}></div>
+                                  <div className={styles["second-half"]}></div>
+                                </div>
+                                <p>{date.getDate()}</p>
+                              </div>
                             </div>
                           );
                         })}
