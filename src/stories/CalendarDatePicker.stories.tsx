@@ -26,8 +26,10 @@ export const TripPicker: Story = {
     mode: "booking",
     language: "en",
     title: "Select your trip dates",
-    onChange(dates) {
+    onSelectedDatesChange(dates) {
       console.log(dates);
     },
+    minimumDate: new Date(new Date().getFullYear(), new Date().getMonth(), 21),
+    maximumDate: new Date(new Date().getFullYear() + 2, 3, 25),
   },
 };

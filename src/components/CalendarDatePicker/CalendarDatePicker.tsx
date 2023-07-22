@@ -1,11 +1,8 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState } from "react";
 import styles from "./CalendarDatePicker.module.scss";
 import { BsFillCalendar3WeekFill } from "react-icons/bs";
-import dayOfTheWeekStartingOnMonday from "../../utils/dayOfTheWeekStartingOnMonday";
-import numberOfWeeksInAMonth from "../../utils/numberOfWeeksInAMonth";
-import jsToSqlDate from "../../utils/jsToSqlDate";
-import useIntersectionObserver from "../../hooks/useIntersectionObserver";
 import InputBoxWithConfirmation from "../InputBoxWithConfirmation/InputBoxWithConfirmation";
+import CalendarScrollableSection from "./subcomponents/CalendarScrollableSection";
 
 const calendarDatePickerDictionary = {
   en: {
@@ -88,7 +85,7 @@ const getMonthName = (month: number, language: "es" | "en") => {
 type CalendarDatePickerProps = {
   mode: "single" | "multiple" | "range" | "booking";
   language: "es" | "en";
-  onChange: (dates: Date[]) => void;
+  onSelectedDatesChange: (dates: Date[]) => void;
   title?: string;
   minimumDate?: Date;
   maximumDate?: Date;
@@ -99,163 +96,32 @@ const CalendarDatePicker = ({
   mode,
   language,
   title,
-  onChange,
+  onSelectedDatesChange,
   minimumDate = new Date(1970, 0, 1),
   maximumDate = new Date(new Date().getFullYear() + 100, 1, 1),
   customStyle,
 }: CalendarDatePickerProps) => {
-  const monthsContainerRef = useRef<HTMLDivElement>(null);
-  const firstMonthRef = useRef<HTMLDivElement>(null);
-  const secondMonthRef = useRef<HTMLDivElement>(null);
-  const fourthMonthRef = useRef<HTMLDivElement>(null);
-  const fifthMonthRef = useRef<HTMLDivElement>(null);
-  const isFirstMonthVisible = useIntersectionObserver(firstMonthRef, {
-    root: monthsContainerRef.current,
-    rootMargin: "0px",
-    threshold: 0.8,
-  });
-  const isSecondMonthVisible = useIntersectionObserver(secondMonthRef, {
-    root: monthsContainerRef.current,
-    rootMargin: "0px",
-    threshold: 0.8,
-  });
-  const isFourthMonthVisible = useIntersectionObserver(fourthMonthRef, {
-    root: monthsContainerRef.current,
-    rootMargin: "0px",
-    threshold: 0.8,
-  });
-  const isFifthMonthVisible = useIntersectionObserver(fifthMonthRef, {
-    root: monthsContainerRef.current,
-    rootMargin: "0px",
-    threshold: 0.8,
-  });
-  const [month, setMonth] = useState(new Date().getMonth());
-  const [year, setYear] = useState(new Date().getFullYear());
-  const [monthsContainerKeyId, setMonthsContainerKeyId] = useState(Math.random());
-  const [dates, setDates] = useState<Date[]>([]);
+  const [year, setYear] = useState<number>(new Date().getFullYear());
+  const [month, setMonth] = useState<number>(new Date().getMonth());
+  const [reloadKey, setReloadKey] = useState(Math.random());
 
-  const dateClassName = (date: Date): string => {
-    let className = styles["day"];
-    const isToday = jsToSqlDate(date) === jsToSqlDate(new Date());
-    if (isToday) {
-      className += ` ${styles["today"]}`;
-    }
-    if (date.getMonth() === month) {
-      className += ` ${styles["in-month"]}`;
-    } else {
-      className += ` ${styles["not-in-month"]}`;
-    }
-    const isDateSelected = dates.some(
-      (includedDate) => includedDate.valueOf() === date.valueOf()
+  const isDateValidForChange = (date: Date) => {
+    const minimumMonthFirstDate = new Date(
+      minimumDate.getFullYear(),
+      minimumDate.getMonth(),
+      1
     );
-    const isDateInRange =
-      (mode === "range" || mode === "booking") &&
-      dates.length === 2 &&
-      dates[0].valueOf() < date.valueOf() &&
-      date.valueOf() < dates[1].valueOf();
-    if (isDateSelected || isDateInRange) {
-      className += ` ${styles["selected"]}`;
-    }
-    if (mode === "booking") {
-      const isCheckInDate = dates.length === 2 && date.valueOf() === dates[0].valueOf();
-      if (isCheckInDate) {
-        className += ` ${styles["check-in"]}`;
-      }
-      const isCheckOutDate = dates.length === 2 && date.valueOf() === dates[1].valueOf();
-      if (isCheckOutDate) {
-        className += ` ${styles["check-out"]}`;
-      }
-    }
-    return className;
+    const maximumMonthLastDate = new Date(
+      maximumDate.getFullYear(),
+      maximumDate.getMonth() + 1,
+      0
+    );
+    const isDateHigherThanMinimumMonthFirstDate =
+      date.valueOf() >= minimumMonthFirstDate.valueOf();
+    const isDateLowerThanMaximumMonthLastDate =
+      date.valueOf() <= maximumMonthLastDate.valueOf();
+    return isDateHigherThanMinimumMonthFirstDate && isDateLowerThanMaximumMonthLastDate;
   };
-
-  const centerMonthsContainer = useCallback(() => {
-    monthsContainerRef.current?.scrollTo({
-      top: 416,
-    });
-  }, [monthsContainerRef]);
-
-  const monthVisibiliySideEffect = (
-    monthOffset: number,
-    timeReference: "past" | "future"
-  ) => {
-    const referenceDate = new Date(year, month + monthOffset, 1);
-    const isReferenceDateHigherThanMinimumDate =
-      referenceDate.valueOf() >= minimumDate.valueOf();
-    const isRefereceDateLowerThanMaximumDate =
-      referenceDate.valueOf() <= maximumDate.valueOf();
-    const timeReferenceIsValid =
-      timeReference === "past"
-        ? isReferenceDateHigherThanMinimumDate
-        : isRefereceDateLowerThanMaximumDate;
-    if (timeReferenceIsValid) {
-      setMonth(referenceDate.getMonth());
-      setYear(referenceDate.getFullYear());
-    }
-  };
-
-  const handleDateSelection = (date: Date) => {
-    if (mode === "single") {
-      setDates([date]);
-    }
-    if (mode === "multiple") {
-      if (dates.some((includedDate) => includedDate.valueOf() === date.valueOf())) {
-        setDates(
-          dates.filter((includedDate) => includedDate.valueOf() !== date.valueOf())
-        );
-      } else {
-        setDates([...dates, date]);
-      }
-    }
-    if (mode === "range") {
-      if (dates.length === 0) {
-        setDates([date]);
-      } else if (dates.length === 1) {
-        if (dates[0].valueOf() < date.valueOf()) {
-          setDates([...dates, date]);
-        } else {
-          setDates([date, dates[0]]);
-        }
-      } else {
-        setDates([]);
-      }
-    }
-    if (mode === "booking") {
-      if (dates.length === 0) {
-        setDates([date]);
-      } else if (dates[0].valueOf() === date.valueOf()) {
-        setDates([]);
-      } else if (dates.length === 1) {
-        if (dates[0].valueOf() < date.valueOf()) {
-          setDates([...dates, date]);
-        } else {
-          setDates([date, dates[0]]);
-        }
-      } else {
-        setDates([]);
-      }
-    }
-  };
-
-  useEffect(() => {
-    centerMonthsContainer();
-  }, [monthsContainerKeyId]);
-
-  useEffect(() => {
-    if (isFirstMonthVisible || isSecondMonthVisible) {
-      monthVisibiliySideEffect(-1, "past");
-    }
-  }, [isFirstMonthVisible, isSecondMonthVisible]);
-
-  useEffect(() => {
-    if (isFourthMonthVisible || isFifthMonthVisible) {
-      monthVisibiliySideEffect(1, "future");
-    }
-  }, [isFourthMonthVisible, isFifthMonthVisible]);
-
-  useEffect(() => {
-    onChange(dates);
-  }, [dates]);
 
   return (
     <div className={styles["calendar-date-picker"]} style={customStyle}>
@@ -266,9 +132,11 @@ const CalendarDatePicker = ({
           className={styles["today-button"]}
           onClick={() => {
             const today = new Date();
-            setMonth(today.getMonth());
-            setYear(today.getFullYear());
-            centerMonthsContainer();
+            if (isDateValidForChange(today)) {
+              setMonth(today.getMonth());
+              setYear(today.getFullYear());
+              setReloadKey(Math.random());
+            }
           }}
         >
           {calendarDatePickerDictionary[language]["today"].slice(0, 1).toUpperCase() +
@@ -281,17 +149,26 @@ const CalendarDatePicker = ({
           className={styles["month-input"]}
           value={month}
           onChange={(event) => {
-            setMonth(Number(event.target.value));
-            setMonthsContainerKeyId(Math.random());
+            const numericValue = Number(event.target.value);
+            setMonth(numericValue);
+            setReloadKey(Math.random());
           }}
         >
           {Array(12)
             .fill(0)
-            .map((_, index) => (
-              <option key={getMonthName(index, language)} value={index}>
-                {getMonthName(index, language)}
-              </option>
-            ))}
+            .map((_, index) => {
+              const referenceDate = new Date(year, index, 1);
+              const isDisabled = !isDateValidForChange(referenceDate);
+              return (
+                <option
+                  key={getMonthName(index, language)}
+                  value={index}
+                  disabled={isDisabled}
+                >
+                  {getMonthName(index, language)}
+                </option>
+              );
+            })}
         </select>
         <InputBoxWithConfirmation
           inputType="number"
@@ -309,16 +186,24 @@ const CalendarDatePicker = ({
           defaultValue={year.toString()}
           overrideCurrentValue={year.toString()}
           minimumValue={minimumDate.getFullYear().toString()}
-          maximumValue={maximumDate?.getFullYear().toString()}
+          maximumValue={maximumDate.getFullYear().toString()}
           onConfirmAction={(inputCurrentValue) => {
             let numericValue = Number(inputCurrentValue);
-            if (numericValue < minimumDate.getFullYear()) {
-              numericValue = minimumDate.getFullYear();
+            const referenceDate = new Date(numericValue, month, 1);
+            if (!isDateValidForChange(referenceDate)) {
+              if (referenceDate.valueOf() < minimumDate.valueOf()) {
+                setYear(minimumDate.getFullYear());
+                setMonth(minimumDate.getMonth());
+                setReloadKey(Math.random());
+              } else if (referenceDate.valueOf() > maximumDate.valueOf()) {
+                setYear(maximumDate.getFullYear());
+                setMonth(maximumDate.getMonth());
+                setReloadKey(Math.random());
+              }
+            } else {
+              setYear(numericValue);
+              setReloadKey(Math.random());
             }
-            if (maximumDate && numericValue > maximumDate.getFullYear()) {
-              numericValue = maximumDate.getFullYear();
-            }
-            setYear(numericValue);
           }}
         />
       </section>
@@ -333,80 +218,19 @@ const CalendarDatePicker = ({
         <p>{calendarDatePickerDictionary[language].saturday.slice(0, 1).toUpperCase()}</p>
         <p>{calendarDatePickerDictionary[language].sunday.slice(0, 1).toUpperCase()}</p>
       </section>
-      <section
-        key={monthsContainerKeyId}
-        ref={monthsContainerRef}
-        className={styles["calendar-scrollable-section"]}
-      >
-        {Array(5)
-          .fill(0)
-          .map((_, gridIndex) => {
-            const monthOffset = gridIndex - 2;
-            const referenceDate = new Date(year, month + monthOffset, 1);
-            const isHigherThanMinimumDate =
-              referenceDate.valueOf() >= minimumDate.valueOf();
-            const isLowerThanMaximumDate =
-              referenceDate.valueOf() <= maximumDate.valueOf();
-            if (!isHigherThanMinimumDate || !isLowerThanMaximumDate) {
-              return null;
-            }
-            const lastDayOfTheMonth = new Date(year, month + monthOffset + 1, 0);
-            const isLastDayOfTheMonthSunday = lastDayOfTheMonth.getDay() === 0;
-            let numberOfWeeksInMonth = numberOfWeeksInAMonth(referenceDate);
-            if (!isLastDayOfTheMonthSunday) {
-              numberOfWeeksInMonth = numberOfWeeksInMonth - 1;
-            }
-            const firstDayInMonthDayOfWeek = dayOfTheWeekStartingOnMonday(referenceDate);
-            return (
-              <div
-                ref={
-                  gridIndex === 0
-                    ? firstMonthRef
-                    : gridIndex === 1
-                    ? secondMonthRef
-                    : gridIndex === 3
-                    ? fourthMonthRef
-                    : fifthMonthRef
-                }
-                className={styles["days-grid"]}
-                key={`grid:${jsToSqlDate(referenceDate)}`}
-              >
-                {Array(numberOfWeeksInMonth)
-                  .fill(0)
-                  .map((_, rowIndex) => (
-                    <div
-                      className={styles["days-row"]}
-                      key={`grid:${jsToSqlDate(referenceDate)}-row:${rowIndex}`}
-                    >
-                      {Array(7)
-                        .fill(0)
-                        .map((_, columnIndex) => {
-                          const numberOfMonth = month + monthOffset;
-                          const numberOfDay =
-                            rowIndex * 7 + columnIndex + 1 - firstDayInMonthDayOfWeek;
-                          const date = new Date(year, numberOfMonth, numberOfDay);
-                          return (
-                            <div
-                              className={styles["day-cell"]}
-                              key={jsToSqlDate(date)}
-                              onClick={() => handleDateSelection(date)}
-                            >
-                              <div className={dateClassName(date)}>
-                                <div className={styles["background"]}>
-                                  <div className={styles["first-half"]}></div>
-                                  <div className={styles["second-half"]}></div>
-                                </div>
-                                <p>{date.getDate()}</p>
-                              </div>
-                            </div>
-                          );
-                        })}
-                    </div>
-                  ))}
-              </div>
-            );
-          })}
-      </section>
+      <CalendarScrollableSection
+        key={reloadKey}
+        year={year}
+        month={month}
+        mode={mode}
+        onSelectedDatesChange={onSelectedDatesChange}
+        onFocusedMonth={(month, year) => {
+          setMonth(month);
+          setYear(year);
+        }}
+        minimumDate={minimumDate}
+        maximumDate={maximumDate}
+      />
     </div>
   );
 };
