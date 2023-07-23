@@ -101,6 +101,7 @@ const CalendarDatePicker = ({
   maximumDate = new Date(new Date().getFullYear() + 100, 1, 1),
   customStyle,
 }: CalendarDatePickerProps) => {
+  const [dates, setDates] = useState<Date[]>([]);
   const [year, setYear] = useState<number>(new Date().getFullYear());
   const [month, setMonth] = useState<number>(new Date().getMonth());
   const [reloadKey, setReloadKey] = useState(Math.random());
@@ -220,10 +221,14 @@ const CalendarDatePicker = ({
       </section>
       <CalendarScrollableSection
         key={reloadKey}
+        dates={dates}
         year={year}
         month={month}
         mode={mode}
-        onSelectedDatesChange={onSelectedDatesChange}
+        onSelectedDatesChange={(selectedDates) => {
+          onSelectedDatesChange(selectedDates);
+          setDates(selectedDates);
+        }}
         onFocusedMonth={(month, year) => {
           setMonth(month);
           setYear(year);

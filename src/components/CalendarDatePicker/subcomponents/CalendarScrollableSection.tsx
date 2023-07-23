@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useReducer } from "react";
+import React, { useRef, useEffect, useReducer } from "react";
 import styles from "./CalendarScrollableSection.module.scss";
 import dayOfTheWeekStartingOnMonday from "../../../utils/dayOfTheWeekStartingOnMonday";
 import numberOfWeeksInAMonth from "../../../utils/numberOfWeeksInAMonth";
@@ -93,6 +93,7 @@ const reducer = (
 };
 
 type CalendarScrollableSectionProps = {
+  dates: Date[];
   month: number;
   year: number;
   mode: "single" | "multiple" | "range" | "booking";
@@ -103,6 +104,7 @@ type CalendarScrollableSectionProps = {
 };
 
 const CalendarScrollableSection = ({
+  dates,
   month,
   year,
   mode,
@@ -117,7 +119,6 @@ const CalendarScrollableSection = ({
     minimumDate: minimumDate,
     maximumDate: maximumDate,
   });
-  const [dates, setDates] = useState<Date[]>([]);
   const monthsContainerRef = useRef<HTMLDivElement>(null);
   const firstMonthRef = useRef<HTMLDivElement>(null);
   const secondMonthRef = useRef<HTMLDivElement>(null);
@@ -226,7 +227,6 @@ const CalendarScrollableSection = ({
       }
     }
     onSelectedDatesChange(datesClone)
-    setDates(datesClone)
   };
 
   useEffect(() => {
