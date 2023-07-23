@@ -21,7 +21,7 @@ const meta: Meta<typeof CalendarDatePicker> = {
 export default meta;
 type Story = StoryObj<typeof CalendarDatePicker>;
 
-export const TripPicker: Story = {
+export const Default: Story = {
   args: {
     mode: "booking",
     language: "en",
