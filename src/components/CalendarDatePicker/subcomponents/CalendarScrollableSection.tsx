@@ -4,6 +4,7 @@ import dayOfTheWeekStartingOnMonday from "../../../utils/dayOfTheWeekStartingOnM
 import numberOfWeeksInAMonth from "../../../utils/numberOfWeeksInAMonth";
 import jsToSqlDate from "../../../utils/jsToSqlDate";
 import useIntersectionObserver from "../../../hooks/useIntersectionObserver";
+import { CalendarDatePickerProps } from "../CalendarDatePicker";
 
 type ReducerStateType = {
   month: number;
@@ -96,11 +97,12 @@ type CalendarScrollableSectionProps = {
   dates: Date[];
   month: number;
   year: number;
-  mode: "single" | "multiple" | "range" | "booking";
-  onSelectedDatesChange: (dates: Date[]) => void;
+  mode: CalendarDatePickerProps["mode"];
+  onSelectedDatesChange: CalendarDatePickerProps["onSelectedDatesChange"];
   onFocusedMonth: (month: number, year: number) => void;
-  minimumDate?: Date;
-  maximumDate?: Date;
+  customDates: CalendarDatePickerProps["customDates"];
+  minimumDate?: CalendarDatePickerProps["minimumDate"];
+  maximumDate?: CalendarDatePickerProps["maximumDate"];
 };
 
 const CalendarScrollableSection = ({
@@ -110,6 +112,7 @@ const CalendarScrollableSection = ({
   mode,
   onSelectedDatesChange,
   onFocusedMonth,
+  customDates = [],
   minimumDate = new Date(1970, 0, 1),
   maximumDate = new Date(new Date().getFullYear() + 100, 1, 1),
 }: CalendarScrollableSectionProps) => {
@@ -140,6 +143,33 @@ const CalendarScrollableSection = ({
     rootMargin: "0px",
     threshold: 1.0,
   });
+
+  const isDateSelectable = (date: Date): boolean => {
+    // * If date is not found in custom dates or selectable preoperty is set to true, it returns true
+    const isNotSelectable = customDates.some((customDate) => {
+      return (
+        customDate.dates.some(
+          (includedDate) => includedDate.valueOf() === date.valueOf()
+        ) && !customDate.selectable
+      );
+    });
+    return !isNotSelectable;
+  };
+
+  const dayCellClassName = (date: Date): string => {
+    let className = styles["day-cell"];
+    const isCrosssed = customDates.some((customDate) => {
+      return (
+        customDate.dates.some(
+          (includedDate) => includedDate.valueOf() === date.valueOf()
+        ) && customDate.crossed
+      );
+    });
+    if (isCrosssed) {
+      className += ` ${styles["crossed"]}`;
+    }
+    return className;
+  };
 
   const dateClassName = (date: Date): string => {
     let className = styles["day"];
@@ -173,6 +203,11 @@ const CalendarScrollableSection = ({
         className += ` ${styles["check-out"]}`;
       }
     }
+    if (isDateSelectable(date)) {
+      className += ` ${styles["selectable"]}`;
+    } else {
+      className += ` ${styles["not-selectable"]}`;
+    }
     const isOutOfSelection =
       date.valueOf() < minimumDate.valueOf() || date.valueOf() > maximumDate.valueOf();
     if (isOutOfSelection) {
@@ -182,18 +217,35 @@ const CalendarScrollableSection = ({
   };
 
   const handleDateSelection = (date: Date) => {
+    // custom side effects
+    customDates.forEach((customDate) => {
+      if (
+        customDate.dates.some(
+          (includedDate) => includedDate.valueOf() === date.valueOf()
+        ) &&
+        customDate.clickSideEffect
+      ) {
+        customDate.clickSideEffect(date);
+      }
+    });
+    const isSelectable = isDateSelectable(date);
+    if (!isSelectable) {
+      return;
+    }
     const isOutOfSelection =
       date.valueOf() < minimumDate.valueOf() || date.valueOf() > maximumDate.valueOf();
     if (isOutOfSelection) {
       return;
     }
-    let datesClone = [...dates]
+    let datesClone = [...dates];
     if (mode === "single") {
-      datesClone = [date]
+      datesClone = [date];
     }
     if (mode === "multiple") {
       if (dates.some((includedDate) => includedDate.valueOf() === date.valueOf())) {
-         datesClone = dates.filter((includedDate) => includedDate.valueOf() !== date.valueOf())
+        datesClone = dates.filter(
+          (includedDate) => includedDate.valueOf() !== date.valueOf()
+        );
       } else {
         datesClone = [...dates, date];
       }
@@ -226,7 +278,20 @@ const CalendarScrollableSection = ({
         datesClone = [];
       }
     }
-    onSelectedDatesChange(datesClone)
+    onSelectedDatesChange(datesClone);
+  };
+
+  const customColorStyleObject = (date: Date): React.CSSProperties | undefined => {
+    const customDate = customDates.find((customDate) =>
+      customDate.dates.some((includedDate) => includedDate.valueOf() === date.valueOf())
+    );
+    if (customDate) {
+      return {
+        backgroundColor: customDate.color,
+      };
+    } else {
+      return undefined;
+    }
   };
 
   useEffect(() => {
@@ -237,8 +302,7 @@ const CalendarScrollableSection = ({
 
   useEffect(() => {
     onFocusedMonth(state.month, state.year);
-  }, [state.year, state.month, onFocusedMonth])
-  
+  }, [state.year, state.month, onFocusedMonth]);
 
   useEffect(() => {
     if (isSecondMonthVisible || isFirstMonthVisible) {
@@ -296,14 +360,21 @@ const CalendarScrollableSection = ({
                         const date = new Date(state.year, numberOfMonth, numberOfDay);
                         return (
                           <div
-                            className={styles["day-cell"]}
+                            className={dayCellClassName(date)}
                             key={jsToSqlDate(date)}
                             onClick={() => handleDateSelection(date)}
                           >
+                            <div className={styles["cross-line"]}></div>
                             <div className={dateClassName(date)}>
                               <div className={styles["background"]}>
-                                <div className={styles["first-half"]}></div>
-                                <div className={styles["second-half"]}></div>
+                                <div
+                                  className={styles["first-half"]}
+                                  style={customColorStyleObject(date)}
+                                ></div>
+                                <div
+                                  className={styles["second-half"]}
+                                  style={customColorStyleObject(date)}
+                                ></div>
                               </div>
                               <p>{date.getDate()}</p>
                             </div>

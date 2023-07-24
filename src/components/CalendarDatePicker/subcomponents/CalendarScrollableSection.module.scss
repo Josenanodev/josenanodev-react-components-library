@@ -28,118 +28,124 @@
   initial-value: 0%;
 }
 
-  
-  .calendar-scrollable-section {
+.calendar-scrollable-section {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  border-bottom: 1px solid #ebebeb;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  .days-grid {
     width: 100%;
-    aspect-ratio: 1 / 1;
-    overflow-y: scroll;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    border-bottom: 1px solid #ebebeb;
-    &::-webkit-scrollbar {
-      display: none;
-    }
-    .days-grid {
+    .days-row {
       width: 100%;
-      .days-row {
-        width: 100%;
+      display: flex;
+      align-items: center;
+      .day-cell {
+        position: relative;
         display: flex;
         align-items: center;
-        .day-cell {
+        justify-content: center;
+        width: calc(100% / 7);
+        aspect-ratio: 1 / 1;
+
+        .day {
           position: relative;
+          --angle: 270deg;
+          --color-default: #f3f3f3;
+          --color-selected: #b7d4b6;
+          --percentage-default: 100%;
+          --percentage-selected: 0%;
           display: flex;
           align-items: center;
           justify-content: center;
-          width: calc(100% / 7);
-          aspect-ratio: 1 / 1;
-          .day {
-            position: relative;
-            --angle: 270deg;
-            --color-default: #f3f3f3;
-            --color-selected: #b7d4b6;
-            --percentage-default: 100%;
-            --percentage-selected: 0%;
+          width: calc(100% - 8px);
+          height: calc(100% - 8px);
+          margin: 0px;
+          border-radius: 1000px;
+          overflow: hidden;
+          user-select: none;
+          transition: all 0.5s ease-in-out;
+          cursor: pointer;
+          p {
+            z-index: 2;
+            margin: 0px;
+          }
+
+          .background {
+            z-index: 1;
+            position: absolute;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: calc(100% - 8px);
-            height: calc(100% - 8px);
-            margin: 0px;
-            border-radius: 1000px;
-            overflow: hidden;
-            user-select: none;
+            width: 100%;
+            height: 100%;
+            transform: rotate(var(--angle));
             transition: all 0.5s ease-in-out;
-            cursor: pointer;
-            p {
-              z-index: 2;
-              margin: 0px;
-            }
-            .background {
-              z-index: 1;
-              position: absolute;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              width: 100%;
+            .first-half {
+              width: var(--percentage-default);
               height: 100%;
-              transform: rotate(var(--angle));
-              transition: all 0.5s ease-in-out;
-              .first-half {
-                width: var(--percentage-default);
-                height: 100%;
-                background-color: var(--color-default);
-                transition: all 0.3s ease-in-out;
-              }
-              .second-half {
-                width: var(--percentage-selected);
-                height: 100%;
-                background-color: var(--color-selected);
-                transition: all 0.3s ease-in-out;
-              }
+              background-color: var(--color-default);
+              transition: all 0.3s ease-in-out;
             }
-            &.today {
-              outline: solid 2px #787878;
+            .second-half {
+              width: var(--percentage-selected);
+              height: 100%;
+              background-color: var(--color-selected);
+              transition: all 0.3s ease-in-out;
             }
-            &.in-month {
-              color: var(--medium-gray, #787878);
-            }
-            &.not-in-month {
-              color: #dedede;
-              --color-default: white;
-            }
-            &.selected {
-              --percentage-default: 0%;
-              --percentage-selected: 100%;
-              &.not-in-month {
-                --color-selected: #e3f3e3;
-              }
-            }
-            &.check-in {
-              --angle: 405deg;
-              --color-default: #f3f3f3;
-              --percentage-default: 50%;
-              --percentage-selected: 50%;
-              &.not-in-month {
-                --color-default: white;
-                --color-selected: #e3f3e3;
-              }
-            }
-            &.check-out {
-              --angle: 225deg;
-              --color-default: #f3f3f3;
-              --percentage-default: 50%;
-              --percentage-selected: 50%;
-              &.not-in-month {
-                --color-default: white;
-                --color-selected: #e3f3e3;
-              }
-            }
-            &.out-of-selection {
-              opacity: 0.2;
-              cursor: not-allowed;
-            }
+          }
+          &.today {
+            outline: solid 2px #787878;
+          }
+          &.in-month {
+            color: var(--medium-gray, #787878);
+          }
+          &.not-in-month {
+            opacity: 0.35;
+          }
+          &.selected {
+            --percentage-default: 0%;
+            --percentage-selected: 100%;
+          }
+          &.check-in {
+            --angle: 405deg;
+            --color-default: #f3f3f3;
+            --percentage-default: 50%;
+            --percentage-selected: 50%;
+          }
+          &.check-out {
+            --angle: 225deg;
+            --color-default: #f3f3f3;
+            --percentage-default: 50%;
+            --percentage-selected: 50%;
+          }
+          &.not-selectable {
+            cursor: not-allowed;
+          }
+          &.out-of-selection {
+            opacity: 0.1;
+            cursor: not-allowed;
+          }
+        }
+        .cross-line {
+          z-index: 2;
+          position: absolute;
+          width: 120%;
+          height: 3px;
+          background-color: #bbb;
+          transform: rotate(-45deg);
+          display: none;
+        }
+        &.crossed {
+          .cross-line {
+            display: block;
           }
         }
       }
     }
   }
+}

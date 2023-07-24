@@ -34,6 +34,6 @@ export {
   Slider,
   MultipleJoinedButtonsBar,
   ExportToExcelButton,
-  InputBoxWithConfirmation,
   CalendarDatePicker,
+  InputBoxWithConfirmation,
 };
