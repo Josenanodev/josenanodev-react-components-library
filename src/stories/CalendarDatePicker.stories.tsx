@@ -1,29 +1,19 @@
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import CalendarDatePicker from "../components/CalendarDatePicker/CalendarDatePicker";
+import CalendarDatePickerMask from "./CalendarDatePickerMask";
 
-const meta: Meta<typeof CalendarDatePicker> = {
+const meta: Meta<typeof CalendarDatePickerMask> = {
   title: "CalendarDatePicker",
-  component: CalendarDatePicker,
-  argTypes: {
-    minimumDate: {
-      table: {
-        disable: true,
-      },
-    },
-    maximumDate: {
-      table: {
-        disable: true,
-      },
-    },
-  },
+  component: CalendarDatePickerMask,
+  tags: ["autodocs"],
 };
 
 export default meta;
-type Story = StoryObj<typeof CalendarDatePicker>;
+type Story = StoryObj<typeof CalendarDatePickerMask>;
 
 export const Default: Story = {
   args: {
-    mode: "booking",
+    mode: "single",
     language: "en",
     title: "Select your trip dates",
     onSelectedDatesChange(dates) {

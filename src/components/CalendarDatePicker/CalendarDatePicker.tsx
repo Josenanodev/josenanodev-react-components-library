@@ -84,15 +84,15 @@ const getMonthName = (month: number, language: "es" | "en") => {
 
 export type CalendarDatePickerProps = {
   mode: "single" | "multiple" | "range" | "booking";
-  language: "es" | "en";
   onSelectedDatesChange: (dates: Date[]) => void;
+  language?: "es" | "en";
   customDates?: {
     color: string;
     dates: Date[];
     selectable: boolean;
     crossed?: boolean;
     clickSideEffect?: (date: Date) => void;
-  }[]
+  }[];
   title?: string;
   minimumDate?: Date;
   maximumDate?: Date;
@@ -101,10 +101,10 @@ export type CalendarDatePickerProps = {
 
 const CalendarDatePicker = ({
   mode,
-  language,
-  title,
-  onSelectedDatesChange,
+  onSelectedDatesChange = () => {},
+  language = "en",
   customDates = [],
+  title,
   minimumDate = new Date(1970, 0, 1),
   maximumDate = new Date(new Date().getFullYear() + 100, 1, 1),
   customStyle,

@@ -4,6 +4,7 @@ import InputBoxWithConfirmation from "../components/InputBoxWithConfirmation/Inp
 const meta: Meta<typeof InputBoxWithConfirmation> = {
   title: "InputBoxWithConfirmation",
   component: InputBoxWithConfirmation,
+  tags: ["autodocs"],
 };
 
 export default meta;
