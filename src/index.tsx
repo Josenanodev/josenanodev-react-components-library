@@ -10,6 +10,7 @@ import MultipleJoinedButtonsBar from "./components/MultipleJoinedButtonsBar/Mult
 import ExportToExcelButton from "./components/ExportToExcelButton/ExportToExcelButton";
 import InputBoxWithConfirmation from "./components/InputBoxWithConfirmation/InputBoxWithConfirmation";
 import CalendarDatePicker from "./components/CalendarDatePicker/CalendarDatePicker";
+import IntegerControl from "./components/IntegerControl/IntegerControl";
 import {
   setMulticalendarScrollTopPosition,
   setMulticalendarScrollLeftPosition,
@@ -36,4 +37,5 @@ export {
   ExportToExcelButton,
   CalendarDatePicker,
   InputBoxWithConfirmation,
+  IntegerControl,
 };
