@@ -58,7 +58,7 @@
     "react-icons": "^4.7.1"
   },
   "scripts": {
-    "build": "rm -rf ./dist && npm run build:esm && npm run build:cjs && npm run copy-dts:cjs  && npm run copy-dts:esm  && npm run copy-css:cjs  && npm run copy-css:esm ",
+    "build": "rm -rf ./dist && npm run build:esm && npm run build:cjs && npm run copy-dts:cjs  && npm run copy-dts:esm  && npm run copy-css:cjs  && npm run copy-css:esm  && copyfiles -u 1 \"src/**/*.scss\" dist/cjs  && copyfiles -u 1 \"src/**/*.scss\" dist/esm",
     "test": "jest --coverage",
     "tsc": "tsc",
     "build:esm": "tsc",
@@ -67,6 +67,8 @@
     "copy-dts:esm": "copyfiles -u 1 \"src/**/*.d.ts\" dist/esm",
     "copy-css:cjs": "copyfiles -u 1 \"src/**/*.css\" dist/cjs",
     "copy-css:esm": "copyfiles -u 1 \"src/**/*.css\" dist/esm",
+    "copy-scss:cjs": "copyfiles -u 1 \"src/**/*.scss\" dist/cjs",
+    "copy-scss:esm": "copyfiles -u 1 \"src/**/*.scss\" dist/esm",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },

@@ -1,0 +1,68 @@
+.screen-steps {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  .steps {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .step {
+      width: 62px;
+      height: 62px;
+      border-radius: 31px;
+      background-color: #959595;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.2;
+      color: #000000;
+      text-align: center;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 15px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      cursor: pointer;
+      transition: all 300ms ease-in-out;
+      &.completed {
+        opacity: 0.4;
+        background-color: #705a00;
+        color: #000000;
+      }
+      &.current {
+        opacity: 0.4;
+        background-color: #705a00;
+        color: #000000;
+      }
+    }
+  }
+  .outer-text {
+    color: #787878;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
+  }
+  .frame {
+    height: calc(100% - 82px);
+    width: 100%;
+    overflow: hidden;
+    .steps-content {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      transition: all 300ms ease-in-out;
+      .step-component {
+        height: 100%;
+      }
+    }
+  }
+}
