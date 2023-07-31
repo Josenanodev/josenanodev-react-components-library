@@ -16,7 +16,6 @@
     "jsx": "react",
     "sourceMap": true,
     "declaration": true,
-    "declarationDir": "types",
     "types": ["node"],
     "noImplicitAny": false,
     "noUnusedLocals": true,
