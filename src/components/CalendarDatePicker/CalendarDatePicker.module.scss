@@ -1,0 +1,104 @@
+@property --angle {
+  sintax: "<angle>";
+  inherits: false;
+  initial-value: 270deg;
+}
+
+@property --color-default {
+  sintax: "<color>";
+  inherits: false;
+  initial-value: white;
+}
+
+@property --color-selected {
+  sintax: "<color>";
+  inherits: false;
+  initial-value: #e3f3e3;
+}
+
+@property --percentage-default {
+  sintax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+
+@property --percentage-selected {
+  sintax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+
+.calendar-date-picker {
+  font-family: Arial, Helvetica, sans-serif;
+  width: 390px;
+  color: #959595;
+  font-weight: 600;
+  font-style: normal;
+  line-height: normal;
+  .title {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    font-size: 16px;
+    svg {
+      margin: 0px 5px;
+    }
+  }
+  .today-button {
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    border: solid 2px #787878;
+    border-radius: 6px;
+    padding: 4px 8px;
+    background-color: white;
+    color: #787878;
+    transition: all 0.1s ease-in-out;
+    cursor: pointer;
+    &:hover {
+      background-color: #f3f3f3;
+    }
+    &:active {
+      background-color: #cfcfcf;
+    }
+  }
+  .month-and-year {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+    font-size: 22px;
+    padding: 10px 0px;
+    .month-input {
+      width: fit-content;
+      background-color: transparent;
+      border: transparent;
+      text-align: right;
+      font-size: 18px;
+      color: #959595;
+      cursor: pointer;
+      &:focus {
+        outline: transparent;
+      }
+      option {
+        background-color: white;
+        color: #959595;
+        &:disabled {
+          color: #cfcfcf;
+        }
+      }
+    }
+  }
+  .week-days {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ebebeb;
+    p {
+      width: calc(100% / 7);
+      margin: 0px;
+      text-align: center;
+    }
+  }
+}

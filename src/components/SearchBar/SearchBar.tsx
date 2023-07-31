@@ -21,7 +21,7 @@ const SearchBar = ({
   const [searchValue, setSearchValue] = useState<string>(initialValue);
   return (
     <form
-      className="search-bar"
+      className="trc-search-bar"
       onSubmit={(e) => {
         e.preventDefault();
         let searchElement = (e.target as HTMLFormElement).elements.namedItem(

@@ -1,7 +1,7 @@
 export interface SliderPropsType {
   minimumValue: number;
   maximumValue: number;
-  onChange: (newValue: number) => Function;
+  onChange: (newValue: number) => void;
   initialValue?: number;
   value?: number;
   showValueInsideButton?: boolean;
@@ -10,4 +10,5 @@ export interface SliderPropsType {
   width?: number;
   sufix?: string;
   prefix?: string;
+  disabled?: boolean;
 }

@@ -28,7 +28,7 @@ export function scrollByDate(
     elementRef.current.scrollLeft =
       ((Date.parse(dateObject.toString()) -
         (Date.parse(new Date().toString()) -
-          (leftPagination + 1) * millisecondsOfOneDay)) /
+          (leftPagination) * millisecondsOfOneDay)) /
         millisecondsOfOneDay) *
       cellsWidth;
   }
@@ -248,3 +248,7 @@ export function authomaticScrollInGrid(
     }
   }
 }
+
+
+
+

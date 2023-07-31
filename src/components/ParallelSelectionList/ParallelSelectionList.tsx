@@ -27,7 +27,7 @@ const ParallelSelectionList = ({
   leftListApplyAllButtonText,
   rightListApplyAllButtonText,
   searchBarsVisible,
-  applyButonText,
+  applyButtonText,
   cancelButtonText,
   preSelectedDatumsIds = [],
   listElementsHeight = 50,
@@ -140,160 +140,174 @@ const ParallelSelectionList = ({
   }, [selectedDatumsIds]);
 
   return (
-    <div className="parallel-selection-list">
-      <div className="div-left-list">
-        <p className="list-title">{leftListTitle}</p>
-        {searchBarsVisible && (
-          <div className="div-search-bar">
-            <BsSearch />
-            <input
-              type="text"
-              value={leftListSearchValue}
-              onChange={(event) => setLeftListSearchValue(event.target.value)}
-            />
-          </div>
-        )}
-        <div className="list-container">
-          <button
-            className="apply-all-button"
-            onClick={() =>
-              addToSelectedDatumsIds(filteredLeftList.map((datum) => datum._id))
-            }
-          >
-            {leftListApplyAllButtonText} <BsChevronDoubleRight />
-          </button>
-          <div
-            ref={leftListRef}
-            className="scrollable-section"
-            onScroll={(event) =>
-              setLeftListFirstVisibleElementIndex(
-                Math.floor(
-                  (event.target as HTMLDivElement).scrollTop / listElementsHeight
-                )
-              )
-            }
-          >
-            <div
-              className="resizable-div-for-scroll"
-              style={{
-                paddingTop: leftListFirstVisibleElementIndex * listElementsHeight,
-                height: filteredLeftList.length * listElementsHeight,
-              }}
+    <div className="trc-parallel-selection-list">
+      <div className="div-lists">
+        <div className="div-left-list">
+          <p className="list-title">{leftListTitle}</p>
+          {searchBarsVisible && (
+            <div className="div-search-bar">
+              <BsSearch />
+              <input
+                type="text"
+                value={leftListSearchValue}
+                onChange={(event) => setLeftListSearchValue(event.target.value)}
+              />
+            </div>
+          )}
+          <div className="list-container">
+            <button
+              className="apply-all-button"
+              onClick={() =>
+                addToSelectedDatumsIds(filteredLeftList.map((datum) => datum._id))
+              }
             >
-              {filteredLeftList
-                .slice(leftListFirstVisibleElementIndex, leftListLastVisibleElementIndex)
-                .map((datum) => (
-                  <div
-                    key={datum._id}
-                    className="div-datum-wrapper"
-                    style={{ height: listElementsHeight }}
-                  >
-                    {datum.customComponent ? (
-                      <div className="div-custom-component-wrapper">
-                        {datum.customComponent}
-                      </div>
-                    ) : (
-                      <p
-                        className="visible-default-name"
-                        title={datum.visibleDefaultName}
-                      >
-                        {datum.visibleDefaultName}
-                      </p>
-                    )}
-                    <button
-                      className="apply-to-one-button"
-                      onClick={() => addToSelectedDatumsIds([datum._id])}
+              {leftListApplyAllButtonText} <BsChevronDoubleRight />
+            </button>
+            <div
+              ref={leftListRef}
+              className="scrollable-section"
+              onScroll={(event) =>
+                setLeftListFirstVisibleElementIndex(
+                  Math.floor(
+                    (event.target as HTMLDivElement).scrollTop / listElementsHeight
+                  )
+                )
+              }
+            >
+              <div
+                className="resizable-div-for-scroll"
+                style={{
+                  paddingTop: leftListFirstVisibleElementIndex * listElementsHeight,
+                  height: filteredLeftList.length * listElementsHeight,
+                }}
+              >
+                {filteredLeftList
+                  .slice(
+                    leftListFirstVisibleElementIndex,
+                    leftListLastVisibleElementIndex
+                  )
+                  .map((datum) => (
+                    <div
+                      key={datum._id}
+                      className="div-datum-wrapper"
+                      style={{ height: listElementsHeight }}
                     >
-                      <BsChevronRight />
-                    </button>
-                  </div>
-                ))}
+                      {datum.customComponent ? (
+                        <div className="div-custom-component-wrapper">
+                          {datum.customComponent}
+                        </div>
+                      ) : (
+                        <p
+                          className="visible-default-name"
+                          title={datum.visibleDefaultName}
+                        >
+                          {datum.visibleDefaultName}
+                        </p>
+                      )}
+                      <button
+                        className="apply-to-one-button"
+                        onClick={() => addToSelectedDatumsIds([datum._id])}
+                      >
+                        <BsChevronRight />
+                      </button>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="div-right-list">
+          <p className="list-title">{rightListTitle}</p>
+          {searchBarsVisible && (
+            <div className="div-search-bar">
+              <BsSearch />
+              <input
+                type="text"
+                value={rightListSearchValue}
+                onChange={(event) => setRightListSearchValue(event.target.value)}
+              />
+            </div>
+          )}
+          <div className="list-container">
+            <button
+              className="apply-all-button"
+              onClick={() =>
+                removeFromSelectedDatumsIds(filteredRightList.map((datum) => datum._id))
+              }
+            >
+              <BsChevronDoubleLeft /> {rightListApplyAllButtonText}
+            </button>
+            <div
+              ref={rightListRef}
+              className="scrollable-section"
+              onScroll={(event) =>
+                setRightListFirstVisibleElementIndex(
+                  Math.floor(
+                    (event.target as HTMLDivElement).scrollTop / listElementsHeight
+                  )
+                )
+              }
+            >
+              <div
+                className="resizable-div-for-scroll"
+                style={{
+                  paddingTop: rightListFirstVisibleElementIndex * listElementsHeight,
+                  height: filteredRightList.length * listElementsHeight,
+                }}
+              >
+                {filteredRightList
+                  .slice(
+                    rightListFirstVisibleElementIndex,
+                    rightListLastVisibleElementIndex
+                  )
+                  .map((datum) => (
+                    <div
+                      key={datum._id}
+                      className="div-datum-wrapper"
+                      style={{ height: listElementsHeight }}
+                    >
+                      <button
+                        className="apply-to-one-button"
+                        onClick={() => removeFromSelectedDatumsIds([datum._id])}
+                      >
+                        <BsChevronLeft />
+                      </button>
+                      {datum.customComponent ? (
+                        <div className="div-custom-component-wrapper">
+                          {datum.customComponent}
+                        </div>
+                      ) : (
+                        <p
+                          className="visible-default-name"
+                          title={datum.visibleDefaultName}
+                        >
+                          {datum.visibleDefaultName}
+                        </p>
+                      )}
+                    </div>
+                  ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="div-right-list">
-        <p className="list-title">{rightListTitle}</p>
-        {searchBarsVisible && (
-          <div className="div-search-bar">
-            <BsSearch />
-            <input
-              type="text"
-              value={rightListSearchValue}
-              onChange={(event) => setRightListSearchValue(event.target.value)}
-            />
-          </div>
-        )}
-        <div className="list-container">
-          <button
-            className="apply-all-button"
-            onClick={() =>
-              removeFromSelectedDatumsIds(filteredRightList.map((datum) => datum._id))
-            }
-          >
-            <BsChevronDoubleLeft /> {rightListApplyAllButtonText}
-          </button>
-          <div
-            ref={rightListRef}
-            className="scrollable-section"
-            onScroll={(event) =>
-              setRightListFirstVisibleElementIndex(
-                Math.floor(
-                  (event.target as HTMLDivElement).scrollTop / listElementsHeight
-                )
-              )
-            }
-          >
-            <div
-              className="resizable-div-for-scroll"
-              style={{
-                paddingTop: rightListFirstVisibleElementIndex * listElementsHeight,
-                height: filteredRightList.length * listElementsHeight,
-              }}
+      {(cancelAction || applyAction) && (
+        <div className="div-action-buttons">
+          {cancelAction && (
+            <button className="cancel-button" onClick={() => cancelAction()}>
+              {cancelButtonText ? cancelButtonText : "Cancel"}
+            </button>
+          )}
+          {applyAction && (
+            <button
+              className="apply-button"
+              onClick={() => applyAction(selectedDatumsIds)}
             >
-              {filteredRightList
-                .slice(
-                  rightListFirstVisibleElementIndex,
-                  rightListLastVisibleElementIndex
-                )
-                .map((datum) => (
-                  <div
-                    key={datum._id}
-                    className="div-datum-wrapper"
-                    style={{ height: listElementsHeight }}
-                  >
-                    <button
-                      className="apply-to-one-button"
-                      onClick={() => removeFromSelectedDatumsIds([datum._id])}
-                    >
-                      <BsChevronLeft />
-                    </button>
-                    {datum.customComponent ? (
-                      <div className="div-custom-component-wrapper">
-                        {datum.customComponent}
-                      </div>
-                    ) : (
-                      <p
-                        className="visible-default-name"
-                        title={datum.visibleDefaultName}
-                      >
-                        {datum.visibleDefaultName}
-                      </p>
-                    )}
-                  </div>
-                ))}
-            </div>
-          </div>
+              {applyButtonText ? applyButtonText : "Apply"}
+            </button>
+          )}
         </div>
-      </div>
-      <div className="div-action-buttons">
-        <button className="cancel-button" onClick={() => cancelAction()}>
-          {cancelButtonText ? cancelButtonText : "Cancel"}
-        </button>
-        <button className="apply-button" onClick={() => applyAction(selectedDatumsIds)}>
-          {applyButonText ? applyButonText : "Apply"}
-        </button>
-      </div>
+      )}
     </div>
   );
 };

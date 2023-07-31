@@ -1,25 +1,25 @@
-.modal,
-.close-modal {
+.trc-modal,
+.trc-close-modal {
   position: fixed;
   width: 100vw;
   height: 100vh;
   backdrop-filter: blur(10px);
   top: 0;
   left: 0;
-  z-index: 10;
+  z-index: 1010;
   display: flex;
   justify-content: center;
   align-items: center;
-  animation-name: modal;
+  animation-name: trc-open-modal-animation;
   animation-duration: 500ms;
 }
 
-.close-modal {
-  animation-name: close-modal;
+.trc-close-modal {
+  animation-name: trc-close-modal-animation;
   animation-duration: 500ms;
 }
 
-@keyframes modal {
+@keyframes trc-open-modal-animation {
   from {
     backdrop-filter: none;
     opacity: 0;
@@ -30,7 +30,7 @@
   }
 }
 
-@keyframes close-modal {
+@keyframes trc-close-modal-animation {
   from {
     backdrop-filter: blur(10px);
     opacity: 1;

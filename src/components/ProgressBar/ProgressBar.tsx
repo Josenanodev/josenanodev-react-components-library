@@ -30,7 +30,7 @@ const ProgressBar = ({
     }
   }, [fillableBodyRef.current?.clientHeight]);
   return (
-    <div className="progress-bar">
+    <div className="trc-progress-bar">
       <div ref={fillableBodyRef} className="fillable-body">
         <div
           className="filler"

@@ -1,28 +1,17 @@
-import React from "react";
-import "./css-presets.css";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-
-//Types
+import type { Meta, StoryObj } from "@storybook/react";
 import InputBoxWithConfirmation from "../components/InputBoxWithConfirmation/InputBoxWithConfirmation";
-import { InputBoxWithConfirmationPropsType } from "../components/InputBoxWithConfirmation/types";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
+const meta: Meta<typeof InputBoxWithConfirmation> = {
   title: "InputBoxWithConfirmation",
   component: InputBoxWithConfirmation,
-} as ComponentMeta<typeof InputBoxWithConfirmation>;
+  tags: ["autodocs"],
+};
 
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof InputBoxWithConfirmation> = (args) => (
-  <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-    <InputBoxWithConfirmation {...args} />
-  </div>
-);
+export default meta;
+type Story = StoryObj<typeof InputBoxWithConfirmation>;
 
-export const Primary = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-Primary.args = {
-  onConfirmAction: (inputValue) => alert(inputValue),
-  inputType: "number",
-  defaultValue: 10,
-} as InputBoxWithConfirmationPropsType;
+export const Default: Story = {
+  args: {
+    onConfirmAction: (inputValue) => alert(`The value is: ${inputValue}`),
+  },
+};

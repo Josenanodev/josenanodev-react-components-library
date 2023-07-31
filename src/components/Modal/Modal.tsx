@@ -47,7 +47,7 @@ const Modal = ({
     return ReactDOM.createPortal(
       <div
         ref={modalRef}
-        className={visibility ? "modal" : "close-modal"}
+        className={visibility ? "trc-modal" : "trc-close-modal"}
         style={{ animationDuration: `${transitionTime}ms` }}
         onClick={(event) => {
           if ((event.target as HTMLDivElement).id === "modal" && !forced) {
@@ -61,7 +61,7 @@ const Modal = ({
       >
         {children}
       </div>,
-      document.body
+       document.getElementById("root") || document.body
     );
   } else {
     return <></>;

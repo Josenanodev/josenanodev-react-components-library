@@ -1,10 +1,10 @@
-.multiple-joined-buttons-bar {
+.trc-multiple-joined-buttons-bar {
   display: flex;
   align-items: stretch;
   justify-content: center;
 }
 
-.multiple-joined-buttons-bar button {
+.trc-multiple-joined-buttons-bar button {
   border: var(--primary-color) solid 2px;
   border-left-width: 1px;
   border-right-width: 1px;
@@ -18,22 +18,22 @@
   transition: all 0.3s;
 }
 
-.multiple-joined-buttons-bar button:hover {
+.trc-multiple-joined-buttons-bar button:hover {
   background-color: rgb(240, 240, 240);
 }
 
-.multiple-joined-buttons-bar button.selected {
+.trc-multiple-joined-buttons-bar button.selected {
   background-color: var(--primary-color);
   color: white;
 }
 
-.multiple-joined-buttons-bar button.left-side-button {
+.trc-multiple-joined-buttons-bar button.left-side-button {
   border-left-width: 2px;
   border-top-left-radius: 6px;
   border-bottom-left-radius: 6px;
 }
 
-.multiple-joined-buttons-bar button.right-side-button {
+.trc-multiple-joined-buttons-bar button.right-side-button {
   border-right-width: 2px;
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
