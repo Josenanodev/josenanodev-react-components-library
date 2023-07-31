@@ -81,7 +81,11 @@ const ScrollSnapGallery = ({
   }, [minimumVisibleIndicator]);
   return (
     <section className={styles["scroll-snap-gallery"]}>
-      <div className={styles["frame"]} style={{ ...frameStyle, width, height }} onScroll={handleScroll}>
+      <div
+        className={styles["frame"]}
+        style={{ ...frameStyle, width, height }}
+        onScroll={handleScroll}
+      >
         {urls.map((url, index) => {
           return <img key={url + index} src={url} alt="gallery item" />;
         })}
