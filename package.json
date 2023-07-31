@@ -1,23 +1,20 @@
 {
   "name": "josenanodev-react-components-library",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": {
     "name": "Jose Carlos Cardenas Martinez"
   },
   "description": "Libreria de componentes React personales",
   "license": "MIT",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
   "files": [
-    "dist",
-    "README.md"
+    "dist"
   ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Josenanodev/josenanodev-react-components-library.git"
   },
-  "type": "module",
-  "types": "dist/index.d.ts",
   "devDependencies": {
     "@babel/core": "^7.22.9",
     "@babel/preset-typescript": "^7.22.5",
