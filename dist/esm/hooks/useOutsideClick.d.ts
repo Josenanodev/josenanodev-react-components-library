@@ -1,6 +1,3 @@
 /// <reference types="react" />
-/**
- * Hook that alerts clicks outside of the passed ref
- */
-declare function useOutsideClick(elementRef: React.MutableRefObject<HTMLElement | null>, onOutsideClickAction: Function): void;
+declare function useOutsideClick(elementRef: React.MutableRefObject<HTMLElement | null>, onOutsideClickAction: Function, elementsRefsExceptions?: React.MutableRefObject<HTMLElement | null>[]): void;
 export default useOutsideClick;

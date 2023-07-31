@@ -1,6 +1,6 @@
 {
   "name": "josenanodev-react-components-library",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": {
     "name": "Jose Carlos Cardenas Martinez"
   },
@@ -16,10 +16,15 @@
     "type": "git",
     "url": "git+https://github.com/Josenanodev/josenanodev-react-components-library.git"
   },
+  "type": "module",
+  "types": "dist/index.d.ts",
   "devDependencies": {
     "@babel/core": "^7.22.9",
     "@babel/preset-typescript": "^7.22.5",
     "@babel/runtime": "^7.22.6",
+    "@rollup/plugin-commonjs": "^25.0.3",
+    "@rollup/plugin-node-resolve": "^15.1.0",
+    "@rollup/plugin-typescript": "^11.1.2",
     "@storybook/addon-essentials": "^7.1.1",
     "@storybook/addon-interactions": "^7.1.1",
     "@storybook/addon-links": "^7.1.1",
@@ -43,12 +48,17 @@
     "chromatic": "^6.19.9",
     "copyfiles": "^2.4.1",
     "eslint-plugin-storybook": "^0.6.13",
+    "node-sass": "^9.0.0",
+    "postcss": "^8.4.27",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
     "react-scripts": "5.0.1",
-    "sass": "^1.64.0",
+    "rollup": "^3.27.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.2",
+    "sass": "^1.64.1",
     "storybook": "^7.1.1",
     "typescript": "^5.1.6"
   },
@@ -70,7 +80,8 @@
     "copy-scss:cjs": "copyfiles -u 1 \"src/**/*.scss\" dist/cjs",
     "copy-scss:esm": "copyfiles -u 1 \"src/**/*.scss\" dist/esm",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "rollup": "rollup -c"
   },
   "eslintConfig": {
     "extends": [

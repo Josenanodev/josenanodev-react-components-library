@@ -14,13 +14,20 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react",
-    "sourceMap": false,
+    "sourceMap": true,
     "declaration": true,
     "types": ["node"],
     "noImplicitAny": false,
     "noUnusedLocals": true,
-    "outDir": "dist/esm"
+    "outDir": "dist",
+    "emitDeclarationOnly": true
   },
   "include": ["src/**/*"],
-  "exclude": ["dist", "node_modules", "src/**/*.test.tsx", "src/**/*.test.ts", "src/**/*.stories.tsx"]
+  "exclude": [
+    "dist",
+    "node_modules",
+    "src/**/*.test.tsx",
+    "src/**/*.test.ts",
+    "src/**/*.stories.tsx"
+  ]
 }
