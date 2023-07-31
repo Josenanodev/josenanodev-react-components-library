@@ -1,1 +1,1 @@
-export { default } from "./InputBoxWithConfirmation";
+export * from "./InputBoxWithConfirmation";
