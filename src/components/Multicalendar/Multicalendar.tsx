@@ -27,7 +27,6 @@ import {
   setMulticalendarScrollLeftPosition,
   setMulticalendarScrollTopPosition,
 } from "../../Services/MulticalendarStatesAndSettings";
-import statisticalMode from "../../utils/statisticalMode";
 
 const Multicalendar = ({
   multicalendarId,
@@ -99,12 +98,15 @@ const Multicalendar = ({
   });
   const [initialPositioningDone, setInitialPositioningDone] = useState<boolean>(false);
   const [minimumVisibleDate, setMinimumVisibleDate] = useState<Date>(new Date());
-  const [idTimeoutForCalls, setIdTimeoutForCalls] =
-    useState<NodeJS.Timeout | undefined>(undefined);
-  const [clientXPositionOnGrid, setClientXPositionOnGrid] =
-    useState<number | undefined>(undefined);
-  const [clientYPositionOnGrid, setClientYPositionOnGrid] =
-    useState<number | undefined>(undefined);
+  const [idTimeoutForCalls, setIdTimeoutForCalls] = useState<NodeJS.Timeout | undefined>(
+    undefined
+  );
+  const [clientXPositionOnGrid, setClientXPositionOnGrid] = useState<number | undefined>(
+    undefined
+  );
+  const [clientYPositionOnGrid, setClientYPositionOnGrid] = useState<number | undefined>(
+    undefined
+  );
   const [scrollingOnCourse, setScrollingOnCourse] = useState<boolean>(false);
   const [controlsWrapperHeight, setControlsWrapperHeight] = useState(
     controlsWrapperRef.current?.clientHeight ? controlsWrapperRef.current.clientHeight : 0
@@ -356,14 +358,8 @@ const Multicalendar = ({
       <div ref={controlsWrapperRef} className="controls">
         <div className="div-dates-navigation">
           <DropdownMonthNavigation
-            visibleYear={
-              statisticalMode(visibleDates.map((date) => date.getFullYear())) ||
-              minimumVisibleDate.getFullYear()
-            }
-            visibleMonth={
-              statisticalMode(visibleDates.map((date) => date.getMonth())) ||
-              minimumVisibleDate.getMonth()
-            }
+            visibleYear={minimumVisibleDate.getFullYear()}
+            visibleMonth={minimumVisibleDate.getMonth()}
             onChangeAction={(valorDeOpcion: string) => {
               Funciones.scrollByDate(
                 new Date(Number(Date.parse(sqlToJsDate(valorDeOpcion).toString()))),
