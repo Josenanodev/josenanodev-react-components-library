@@ -1,1 +1,1 @@
-export { default } from "./CalendarDatePicker";
+export * from "./CalendarDatePicker";

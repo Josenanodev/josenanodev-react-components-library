@@ -1,1 +1,1 @@
-export { default } from "./ParallelSelectionList";
+export * from "./ParallelSelectionList";
