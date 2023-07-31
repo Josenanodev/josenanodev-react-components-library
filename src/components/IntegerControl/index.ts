@@ -1,1 +1,1 @@
-export { default } from "./IntegerControl";
+export * from "./IntegerControl";

@@ -1,1 +1,1 @@
-export { default } from "./ScreenSteps";
+export * from "./ScreenSteps";
