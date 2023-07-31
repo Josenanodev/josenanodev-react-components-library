@@ -3632,4 +3632,4 @@ const Slider = ({ minimumValue, maximumValue, onChange, initialValue = 0, value,
 };
 
 export { BubbleMenu, CalendarDatePicker, ExportToExcelButton, InputBoxWithConfirmation, IntegerControl, LabeledInput, Modal, Multicalendar, MultipleJoinedButtonsBar, ParallelSelectionList, PopUp, ProgressBar, ScreenSteps, ScrollSnapGallery, SearchBar, Slider };
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=index.esm.js.map
