@@ -7,7 +7,6 @@ import ProgressBar from "./components/ProgressBar/ProgressBar";
 import ParallelSelectionList from "./components/ParallelSelectionList/ParallelSelectionList";
 import Slider from "./components/Slider/Slider";
 import MultipleJoinedButtonsBar from "./components/MultipleJoinedButtonsBar/MultipleJoinedButtonsBar";
-import ExportToExcelButton from "./components/ExportToExcelButton/ExportToExcelButton";
 import InputBoxWithConfirmation from "./components/InputBoxWithConfirmation/InputBoxWithConfirmation";
 import CalendarDatePicker from "./components/CalendarDatePicker/CalendarDatePicker";
 import IntegerControl from "./components/IntegerControl/IntegerControl";
@@ -21,8 +20,6 @@ import {
   eraseMulticalendarScrollLeftPosition,
   eraseMulticalendarScrollTopPosition,
 } from "./Services/MulticalendarStatesAndSettings";
-
-export type { ExportToExcelButtonPropsType } from "./components/ExportToExcelButton/types";
 
 export {
   Multicalendar,
@@ -38,7 +35,6 @@ export {
   ParallelSelectionList,
   Slider,
   MultipleJoinedButtonsBar,
-  ExportToExcelButton,
   CalendarDatePicker,
   InputBoxWithConfirmation,
   IntegerControl,
