@@ -11,6 +11,10 @@ import ExportToExcelButton from "./components/ExportToExcelButton/ExportToExcelB
 import InputBoxWithConfirmation from "./components/InputBoxWithConfirmation/InputBoxWithConfirmation";
 import CalendarDatePicker from "./components/CalendarDatePicker/CalendarDatePicker";
 import IntegerControl from "./components/IntegerControl/IntegerControl";
+import BubbleMenu from "./components/BubbleMenu/BubbleMenu";
+import LabeledInput from "./components/LabeledInput/LabeledInput";
+import ScreenSteps from "./components/ScreenSteps/ScreenSteps";
+import ScrollSnapGallery from "./components/ScrollSnapGallery/ScrollSnapGallery";
 import {
   setMulticalendarScrollTopPosition,
   setMulticalendarScrollLeftPosition,
@@ -38,4 +42,8 @@ export {
   CalendarDatePicker,
   InputBoxWithConfirmation,
   IntegerControl,
+  BubbleMenu,
+  LabeledInput,
+  ScreenSteps,
+  ScrollSnapGallery
 };
