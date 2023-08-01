@@ -27,7 +27,7 @@ type BubbleMenuProps = {
 };
 
 const BubbleMenu = ({ options, language = "en" }: BubbleMenuProps) => {
-  const [showMenu, setShowMenu] = useState(false);
+  const [showMenu, setShowMenu] = useState<boolean | null>(null);
   return (
     <Fragment>
       <button className={styles["menu-button"]} onClick={() => setShowMenu(!showMenu)}>
@@ -40,7 +40,7 @@ const BubbleMenu = ({ options, language = "en" }: BubbleMenuProps) => {
       </button>
       <section
         className={styles["menu-container"]}
-        data-status={showMenu ? "visible" : "hidden"}
+        data-status={showMenu === true ? "visible" : showMenu === false ? "hidden" : "idle"}
         onClick={() => setShowMenu(false)}
       >
         <ul>
