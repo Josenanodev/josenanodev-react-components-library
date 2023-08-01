@@ -1,1 +1,1 @@
-export * from "./MultipleJoinedButtonsBar";
+export { default } from "./MultipleJoinedButtonsBar";

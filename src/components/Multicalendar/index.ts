@@ -1,1 +1,1 @@
-export * from "./Multicalendar";
+export { default } from "./Multicalendar";
