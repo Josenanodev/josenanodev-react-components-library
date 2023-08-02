@@ -48,7 +48,7 @@ const InputBoxWithConfirmation = ({
   );
   const [focused, setFocused] = useState<boolean>(false);
   //Functions
-  const currentValueValueValidated = () => {
+  const currentValueValidated = () => {
     if (!currentValue) {
       return cachedValue;
     }
@@ -65,10 +65,11 @@ const InputBoxWithConfirmation = ({
     }
   };
   const onConfirmActionHandler = () => {
-    setCurrentValue(currentValueValueValidated());
-    if (currentValueValueValidated()) {
-      onConfirmAction(currentValueValueValidated());
-      setCachedValue(currentValueValueValidated());
+    const currentValue = currentValueValidated()
+    setCurrentValue(currentValue);
+    if (currentValue) {
+      onConfirmAction(currentValue);
+      setCachedValue(currentValue);
     }
   };
   //Hooks
@@ -124,20 +125,26 @@ const InputBoxWithConfirmation = ({
           setCurrentValue(event.target.value);
           setFocused(true);
         }}
+        onBlur={() => {
+          if (showConfirmationButton) {
+            setCurrentValue(cachedValue);
+          } else {
+            onConfirmActionHandler();
+          }
+          setFocused(false);
+        }}
         onKeyDown={(event) => {
-          if (event.key === "Enter") {
+          if (
+            event.key === "Enter" ||
+            event.key === "NumpadEnter" ||
+            event.key === "Tab"
+          ) {
             onConfirmActionHandler();
             setFocused(false);
             if (inputRef.current) {
               inputRef.current.blur();
             }
-          } else if (event.key === "Tab") {
-            onConfirmActionHandler();
-            setFocused(false);
-            if (inputRef.current) {
-              inputRef.current.blur();
-            }
-          } else if (event.key === "Escape") {
+          } else if (event.key === "Escape" || event.key === "Esc") {
             setCurrentValue(cachedValue);
             setFocused(false);
             if (inputRef.current) {

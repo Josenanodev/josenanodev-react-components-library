@@ -3,7 +3,6 @@ import styles from "./CalendarScrollableSection.module.scss";
 import dayOfTheWeekStartingOnMonday from "../../../utils/dayOfTheWeekStartingOnMonday";
 import numberOfWeeksInAMonth from "../../../utils/numberOfWeeksInAMonth";
 import jsToSqlDate from "../../../utils/jsToSqlDate";
-import useIntersectionObserver from "../../../hooks/useIntersectionObserver";
 import { CalendarDatePickerProps } from "../CalendarDatePicker";
 
 type ReducerStateType = {
@@ -123,29 +122,9 @@ const CalendarScrollableSection = ({
     maximumDate: maximumDate,
   });
   const monthsContainerRef = useRef<HTMLDivElement>(null);
-  const firstMonthRef = useRef<HTMLDivElement>(null);
-  const secondMonthRef = useRef<HTMLDivElement>(null);
-  const fourthMonthRef = useRef<HTMLDivElement>(null);
-  const fifthMonthRef = useRef<HTMLDivElement>(null);
-  const isFirstMonthVisible = useIntersectionObserver(firstMonthRef, {
-    rootMargin: "0px",
-    threshold: 1.0,
-  });
-  const isSecondMonthVisible = useIntersectionObserver(secondMonthRef, {
-    rootMargin: "0px",
-    threshold: 1.0,
-  });
-  const isFourthMonthVisible = useIntersectionObserver(fourthMonthRef, {
-    rootMargin: "0px",
-    threshold: 1.0,
-  });
-  const isFifthMonthVisible = useIntersectionObserver(fifthMonthRef, {
-    rootMargin: "0px",
-    threshold: 1.0,
-  });
 
   const isDateSelectable = (date: Date): boolean => {
-    // * If date is not found in custom dates or selectable preoperty is set to true, it returns true
+    // * If date is not found in custom dates or selectable property is set to true, it returns true
     const isNotSelectable = customDates.some((customDate) => {
       return (
         customDate.dates.some(
@@ -217,7 +196,6 @@ const CalendarScrollableSection = ({
   };
 
   const handleDateSelection = (date: Date) => {
-    // custom side effects
     customDates.forEach((customDate) => {
       if (
         customDate.dates.some(
@@ -296,7 +274,7 @@ const CalendarScrollableSection = ({
 
   useEffect(() => {
     if (monthsContainerRef.current) {
-      monthsContainerRef.current.scrollTop = 416;
+      monthsContainerRef.current.scrollTop = monthsContainerRef.current.scrollHeight / 5 * 2;
     }
   }, []);
 
@@ -304,20 +282,22 @@ const CalendarScrollableSection = ({
     onFocusedMonth(state.month, state.year);
   }, [state.year, state.month, onFocusedMonth]);
 
-  useEffect(() => {
-    if (isSecondMonthVisible || isFirstMonthVisible) {
-      dispatch({ type: "changeByMonthOffset", value: -1 });
-    }
-  }, [isFirstMonthVisible, isSecondMonthVisible]);
-
-  useEffect(() => {
-    if (isFourthMonthVisible || isFifthMonthVisible) {
-      dispatch({ type: "changeByMonthOffset", value: 1 });
-    }
-  }, [isFourthMonthVisible, isFifthMonthVisible]);
-
   return (
-    <section ref={monthsContainerRef} className={styles["calendar-scrollable-section"]}>
+    <section
+      ref={monthsContainerRef}
+      className={styles["calendar-scrollable-section"]}
+      onScroll={(event: React.UIEvent<HTMLDivElement, UIEvent>) => {
+        const target = event.target as HTMLDivElement;
+        const sectionHeight = target.scrollHeight / 5;
+        const upperLimit = sectionHeight * 1.25;
+        const lowerLimit = sectionHeight * 2.75;
+        if (target.scrollTop < upperLimit) {
+          dispatch({ type: "changeByMonthOffset", value: -1 });
+        }  if (target.scrollTop > lowerLimit) {
+          dispatch({ type: "changeByMonthOffset", value: 1 });
+        }
+      }}
+    >
       {Array(5)
         .fill(0)
         .map((_, gridIndex) => {
@@ -336,11 +316,6 @@ const CalendarScrollableSection = ({
           const firstDayInMonthDayOfWeek = dayOfTheWeekStartingOnMonday(referenceDate);
           return (
             <div
-              ref={
-                [firstMonthRef, secondMonthRef, null, fourthMonthRef, fifthMonthRef][
-                  gridIndex
-                ]
-              }
               className={styles["days-grid"]}
               key={`grid:${jsToSqlDate(referenceDate)}}`}
             >

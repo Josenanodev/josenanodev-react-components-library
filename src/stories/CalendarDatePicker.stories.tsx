@@ -35,7 +35,46 @@ export const Default: Story = {
         },
       },
     ],
-    minimumDate: new Date(new Date().getFullYear(), new Date().getMonth(), 21),
-    maximumDate: new Date(new Date().getFullYear() + 2, 3, 25),
+    minimumDate: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+    maximumDate: new Date(new Date().getFullYear() + 5, 3, 25),
+    customStyle: {
+      width: "100%",
+    }
+  },
+};
+
+export const Single: Story = {
+  args: {
+    mode: "single",
+    onSelectedDatesChange(dates) {
+      console.log(dates);
+    },
+  },
+};
+
+export const Range: Story = {
+  args: {
+    mode: "range",
+    onSelectedDatesChange(dates) {
+      console.log(dates);
+    }
+  },
+};
+
+export const Multiple: Story = {
+  args: {
+    mode: "multiple",
+    onSelectedDatesChange(dates) {
+      console.log(dates);
+    }
+  },
+};
+
+export const Booking: Story = {
+  args: {
+    mode: "booking",
+    onSelectedDatesChange(dates) {
+      console.log(dates);
+    },
   },
 };
