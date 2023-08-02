@@ -29,6 +29,7 @@ jobs:
           node-version: 16
           registry-url: https://registry.npmjs.org/
       - run: npm ci
+      - run: npm i rollup rollup-plugin-dts rollup-plugin-peer-deps-external rollup-plugin-postcss tslib @rollup/plugin-commonjs @rollup/plugin-node-resolve @rollup/plugin-terser @rollup/plugin-typescript
       - run: npm run rollup-build-lib
       - run: npm publish
         env:
