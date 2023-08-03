@@ -1,3 +1,4 @@
+"use client";
 import React, { Fragment, useState } from "react";
 import styles from "./BubbleMenu.module.scss";
 
@@ -40,7 +41,9 @@ const BubbleMenu = ({ options, language = "en" }: BubbleMenuProps) => {
       </button>
       <section
         className={styles["menu-container"]}
-        data-status={showMenu === true ? "visible" : showMenu === false ? "hidden" : "idle"}
+        data-status={
+          showMenu === true ? "visible" : showMenu === false ? "hidden" : "idle"
+        }
         onClick={() => setShowMenu(false)}
       >
         <ul>

@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useRef, useEffect, Fragment } from "react";
 import * as ownFunctions from "./SliderOwnFunctions";
 import "./Slider.css";

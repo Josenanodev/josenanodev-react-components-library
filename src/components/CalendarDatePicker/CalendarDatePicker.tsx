@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import styles from "./CalendarDatePicker.module.scss";
 import { BsFillCalendar3WeekFill } from "react-icons/bs";
