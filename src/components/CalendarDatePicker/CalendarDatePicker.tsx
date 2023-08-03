@@ -190,6 +190,7 @@ const CalendarDatePicker = ({
           inputBoxCustomStyle={{
             padding: 0,
             fontFamily: customStyle?.fontFamily,
+            fontSize: 24,
           }}
           maxLength={4}
           defaultValue={year.toString()}

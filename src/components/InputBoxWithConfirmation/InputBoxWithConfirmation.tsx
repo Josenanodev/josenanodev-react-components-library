@@ -125,14 +125,6 @@ const InputBoxWithConfirmation = ({
           setCurrentValue(event.target.value);
           setFocused(true);
         }}
-        onBlur={() => {
-          if (showConfirmationButton) {
-            setCurrentValue(cachedValue);
-          } else {
-            onConfirmActionHandler();
-          }
-          setFocused(false);
-        }}
         onKeyDown={(event) => {
           if (
             event.key === "Enter" ||
