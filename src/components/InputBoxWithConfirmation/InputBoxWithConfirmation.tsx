@@ -1,4 +1,3 @@
-"use client";
 import React, { useState, useEffect, useRef, Fragment } from "react";
 import styles from "./InputBoxWithConfirmation.module.scss";
 

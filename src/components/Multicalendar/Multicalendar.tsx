@@ -1,4 +1,3 @@
-"use client";
 import React, { useEffect, useState, useRef } from "react";
 import * as Funciones from "./MulticalendarOwnFunctions";
 import "./Multicalendar.css";
