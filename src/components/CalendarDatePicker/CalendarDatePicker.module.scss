@@ -29,6 +29,7 @@
 }
 
 .calendar-date-picker {
+  position: relative;
   font-family: Arial, Helvetica, sans-serif;
   width: 390px;
   color: #959595;
@@ -36,16 +37,6 @@
   font-style: normal;
   line-height: normal;
   -webkit-tap-highlight-color: transparent;
-  .title {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    font-size: 16px;
-    svg {
-      margin: 0px 5px;
-    }
-  }
   .today-button {
     position: absolute;
     top: 0px;
@@ -53,7 +44,7 @@
     border: solid 2px #787878;
     border-radius: 6px;
     padding: 4px 8px;
-    font-size: 20px;
+    font-size: 18px;
     background-color: white;
     color: #787878;
     transition: all 0.1s ease-in-out;

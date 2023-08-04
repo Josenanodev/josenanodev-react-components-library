@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styles from "./CalendarDatePicker.module.scss";
-import { BsFillCalendar3WeekFill } from "react-icons/bs";
 import InputBoxWithConfirmation from "../InputBoxWithConfirmation/InputBoxWithConfirmation";
 import CalendarScrollableSection from "./subcomponents/CalendarScrollableSection";
 
@@ -93,7 +92,6 @@ export type CalendarDatePickerProps = {
     crossed?: boolean;
     clickSideEffect?: (date: Date) => void;
   }[];
-  title?: string;
   minimumDate?: Date;
   maximumDate?: Date;
   customStyle?: React.CSSProperties;
@@ -104,7 +102,6 @@ const CalendarDatePicker = ({
   onSelectedDatesChange = () => {},
   language = "en",
   customDates = [],
-  title,
   minimumDate = new Date(1970, 0, 1),
   maximumDate = new Date(new Date().getFullYear() + 100, 1, 1),
   customStyle,
@@ -134,9 +131,6 @@ const CalendarDatePicker = ({
 
   return (
     <div className={styles["calendar-date-picker"]} style={customStyle}>
-      <section className={styles["title"]}>
-        <BsFillCalendar3WeekFill />
-        {title}
         <button
           className={styles["today-button"]}
           onClick={() => {
@@ -151,7 +145,6 @@ const CalendarDatePicker = ({
           {calendarDatePickerDictionary[language]["today"].slice(0, 1).toUpperCase() +
             calendarDatePickerDictionary[language]["today"].slice(1)}
         </button>
-      </section>
       <section className={styles["month-and-year"]}>
         <select
           style={{ fontFamily: customStyle?.fontFamily }}

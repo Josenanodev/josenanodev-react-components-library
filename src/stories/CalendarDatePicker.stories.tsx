@@ -14,7 +14,6 @@ export const Default: Story = {
   args: {
     mode: "single",
     language: "en",
-    title: "Select your trip dates",
     onSelectedDatesChange(dates) {
       console.log(dates);
     },
