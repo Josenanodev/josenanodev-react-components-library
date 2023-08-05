@@ -1,6 +1,7 @@
 .integer-control {
   display: flex;
   align-items: center;
+  -webkit-tap-highlight-color: transparent;
   button {
     border: none;
     background: none;
