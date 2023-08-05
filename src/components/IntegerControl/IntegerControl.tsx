@@ -43,7 +43,6 @@ const IntegerControl = ({
         }}
         value={currentValue}
         type="number"
-        defaultValue={String(defaultValue)}
         min={String(minimumValue)}
         max={String(maximumValue)}
         style={{ width: currentValue.toString().length + 1 + "ch" }}
