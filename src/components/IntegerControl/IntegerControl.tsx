@@ -22,9 +22,9 @@ const IntegerControl = ({
   const [currentValue, setCurrentValue] = useState(defaultValue);
   const handleValueChange = (value: number) => {
     let valueClone = value;
-    if (minimumValue && value < minimumValue) {
+    if ((minimumValue || minimumValue === 0) && value < minimumValue) {
       valueClone = minimumValue;
-    } else if (maximumValue && value > maximumValue) {
+    } else if ((maximumValue || maximumValue === 0) && value > maximumValue) {
       valueClone = maximumValue;
     }
     setCurrentValue(valueClone);
