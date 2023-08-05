@@ -20,6 +20,16 @@ const IntegerControl = ({
   customStyle,
 }: IntegerControlProps) => {
   const [currentValue, setCurrentValue] = useState(defaultValue);
+  const handleValueChange = (value: number) => {
+    let valueClone = value;
+    if (minimumValue && value < minimumValue) {
+      valueClone = minimumValue;
+    } else if (maximumValue && value > maximumValue) {
+      valueClone = maximumValue;
+    }
+    setCurrentValue(valueClone);
+    onChange(valueClone);
+  };
   return (
     <div
       className={`${styles["integer-control"]} ${
@@ -27,32 +37,18 @@ const IntegerControl = ({
       }`}
       style={customStyle}
     >
-      <button
-        onClick={() => {
-          setCurrentValue(currentValue - 1);
-          onChange(currentValue - 1);
-        }}
-      >
+      <button onClick={() => handleValueChange(currentValue - 1)}>
         <AiFillMinusCircle />
       </button>
       <input
-        onChange={(event) => {
-          const numericValue = Number(event.target.value);
-          setCurrentValue(numericValue);
-          onChange(numericValue);
-        }}
+        onChange={(event) => handleValueChange(Number(event.target.value))}
         value={currentValue}
         type="number"
         min={String(minimumValue)}
         max={String(maximumValue)}
         style={{ width: currentValue.toString().length + 1 + "ch" }}
       />
-      <button
-        onClick={() => {
-          setCurrentValue(currentValue + 1);
-          onChange(currentValue + 1);
-        }}
-      >
+      <button onClick={() => handleValueChange(currentValue + 1)}>
         <AiFillPlusCircle />
       </button>
     </div>
