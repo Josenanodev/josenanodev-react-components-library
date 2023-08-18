@@ -5,7 +5,7 @@ import "./CellsRow.css";
 import Cell from "../../individuals/Cell/Cell";
 
 //Utils
-import jsToSqlDate from "../../../../../utils/jsToSqlDate";
+import { jsToSqlDate } from "josenanodev-generic-utils";
 
 //Types
 import { CellsRowsPropsType } from "./types";

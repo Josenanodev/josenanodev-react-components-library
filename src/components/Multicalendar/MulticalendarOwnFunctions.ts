@@ -1,14 +1,10 @@
 import React from "react";
 
-//Utils
-import jsToSqlDate from "../../utils/jsToSqlDate";
-import monthYearString from "../../utils/monthYearString";
-
 //Variables
 import { millisecondsOfOneDay } from "../../common/constants";
 
-//Types
-import { languageType } from "../../languages/types";
+//Utils
+import { jsToSqlDate, monthYearString } from "josenanodev-generic-utils";
 
 /**
  *
@@ -152,7 +148,7 @@ export function defineListElementsArrayVisibleList(
 export function defineMonthsArray(
   leftPagination: number,
   rightPagination: number,
-  language: languageType
+  language: "es_ES" | "en_EN"
 ) {
   let minimumDateMilliseconds =
     Date.parse(new Date().toString()) - leftPagination * millisecondsOfOneDay;
