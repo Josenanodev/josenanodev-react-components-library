@@ -1,9 +1,11 @@
 import React, { useRef, useEffect, useReducer } from "react";
 import styles from "./CalendarScrollableSection.module.scss";
-import dayOfTheWeekStartingOnMonday from "../../../utils/dayOfTheWeekStartingOnMonday";
-import numberOfWeeksInAMonth from "../../../utils/numberOfWeeksInAMonth";
-import jsToSqlDate from "../../../utils/jsToSqlDate";
 import { CalendarDatePickerProps } from "../CalendarDatePicker";
+import {
+  dayOfTheWeekStartingOnMonday,
+  jsToSqlDate,
+  numberOfWeeksInAMonth,
+} from "josenanodev-generic-utils";
 
 type ReducerStateType = {
   month: number;
@@ -274,7 +276,8 @@ const CalendarScrollableSection = ({
 
   useEffect(() => {
     if (monthsContainerRef.current) {
-      monthsContainerRef.current.scrollTop = monthsContainerRef.current.scrollHeight / 5 * 2;
+      monthsContainerRef.current.scrollTop =
+        (monthsContainerRef.current.scrollHeight / 5) * 2;
     }
   }, []);
 
@@ -293,7 +296,8 @@ const CalendarScrollableSection = ({
         const lowerLimit = sectionHeight * 2.75;
         if (target.scrollTop < upperLimit) {
           dispatch({ type: "changeByMonthOffset", value: -1 });
-        }  if (target.scrollTop > lowerLimit) {
+        }
+        if (target.scrollTop > lowerLimit) {
           dispatch({ type: "changeByMonthOffset", value: 1 });
         }
       }}

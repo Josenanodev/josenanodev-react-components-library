@@ -1,5 +1,3 @@
-import { languageType } from "../../../../../languages/types";
-
 export interface DatesRowPropsType {
     visibleDates: Date[];
     width: number;
@@ -7,5 +5,5 @@ export interface DatesRowPropsType {
     cellsWidth: number;
     cellsHeight: number;
     offset: number;
-    language: languageType;
+    language: "es_ES" | "en_EN";
   }

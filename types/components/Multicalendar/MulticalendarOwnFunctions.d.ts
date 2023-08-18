@@ -1,5 +1,4 @@
 import React from "react";
-import { languageType } from "../../languages/types";
 /**
  *
  * @param dateObject Date Object
@@ -63,7 +62,7 @@ export declare function defineListElementsArrayVisibleList(paginationHeight: num
  * @param language language object for traductions
  * @returns string of the date, month followed by year
  */
-export declare function defineMonthsArray(leftPagination: number, rightPagination: number, language: languageType): JSX.Element[];
+export declare function defineMonthsArray(leftPagination: number, rightPagination: number, language: "es_ES" | "en_EN"): JSX.Element[];
 /**
  *
  * @param holdingClic boolean to know if mouse id down

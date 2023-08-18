@@ -10,10 +10,9 @@ export type CalendarDatePickerProps = {
         crossed?: boolean;
         clickSideEffect?: (date: Date) => void;
     }[];
-    title?: string;
     minimumDate?: Date;
     maximumDate?: Date;
     customStyle?: React.CSSProperties;
 };
-declare const CalendarDatePicker: ({ mode, onSelectedDatesChange, language, customDates, title, minimumDate, maximumDate, customStyle, }: CalendarDatePickerProps) => React.JSX.Element;
+declare const CalendarDatePicker: ({ mode, onSelectedDatesChange, language, customDates, minimumDate, maximumDate, customStyle, }: CalendarDatePickerProps) => React.JSX.Element;
 export default CalendarDatePicker;
