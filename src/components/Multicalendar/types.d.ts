@@ -1,11 +1,9 @@
-import { languageType } from "../../languages/types";
-
 export interface MulticalendarPropsType {
   multicalendarId: string;
   ReactCellChildren: ReactCellChildrenType;
   ReactListElementChildren: ReactListElementChildrenType;
   listElementsIdsArray: string[] | number[];
-  language: languageType;
+  language: "es_ES" | "en_EN";
   pastDatesVisible?: boolean;
   cellsWidth?: number;
   cellsHeight?: number;

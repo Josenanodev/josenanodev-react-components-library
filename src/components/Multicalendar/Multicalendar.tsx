@@ -14,9 +14,6 @@ import DropdownMonthNavigation from "./subcomponents/individuals/DropdownMonthNa
 //Hooks
 import useWindowSize from "../../hooks/useWindowsSize";
 
-//Utils
-import sqlToJsDate from "../../utils/sqlToJsDate";
-
 //Types
 import { MulticalendarPropsType, RenderCoordinatesType } from "./types";
 
@@ -27,6 +24,18 @@ import {
   setMulticalendarScrollLeftPosition,
   setMulticalendarScrollTopPosition,
 } from "../../Services/MulticalendarStatesAndSettings";
+
+//Utils
+import { sqlToJsDate } from "josenanodev-generic-utils";
+
+const languageDictionary = {
+  en_EN: {
+    Today: "Today",
+  },
+  es_ES: {
+    Today: "Hoy",
+  },
+};
 
 const Multicalendar = ({
   multicalendarId,
@@ -384,7 +393,7 @@ const Multicalendar = ({
               )
             }
           >
-            {language["Today"]}
+            {languageDictionary[language]["Today"]}
           </button>
         </div>
         {aditionalControlsComponents && (

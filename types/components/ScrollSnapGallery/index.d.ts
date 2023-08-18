@@ -1,1 +1,1 @@
-export * from "./ScrollSnapGallery";
+export { default } from "./ScrollSnapGallery";
