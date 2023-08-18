@@ -1,10 +1,10 @@
 import { useLayoutEffect, useState } from "react";
 
 /**
- * @returns Array [ancho, alto], de dichos valores refieren
- * los valores de window.innerWidth y window.innerHeight
+ * Hook that observes the size of the window
+ * @returns Array [windowWidth, windowHeight], that represent the current
+ * values of width and height of window
  */
-
 function useWindowSize() {
   const [size, setSize] = useState<[number, number]>([0, 0]);
   useLayoutEffect(() => {
