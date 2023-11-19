@@ -13,3 +13,4 @@ export { default as ScreenSteps } from "./ScreenSteps";
 export { default as ScrollSnapGallery } from "./ScrollSnapGallery";
 // export { default as SearchBar } from "./SearchBar";
 // export { default as Slider } from "./Slider";
+export { default as StackedCards } from "./StackedCards";
