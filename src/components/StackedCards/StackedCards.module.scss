@@ -1,0 +1,31 @@
+.stacked-cards {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .card {
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    background-color: #fff;
+    border-radius: 10px;
+    border: 2px solid #ccc;
+    transition: all 0.4s ease-out;
+    .content {
+      opacity: 1;
+      transition: opacity 0.6s ease-out;
+    }
+    &[data-is-selectable="true"] {
+      cursor: pointer;
+      &[data-should-card-rise="true"]:hover {
+        transform: translateY(-20px);
+      }
+      .content {
+        opacity: 0;
+      }
+    }
+  }
+}
