@@ -49,7 +49,7 @@ const InputBoxWithConfirmation = ({
   const [focused, setFocused] = useState<boolean>(false);
   //Functions
   const currentValueValidated = () => {
-    if (!currentValue) {
+    if (!currentValue && currentValue !== "0" && currentValue !== "") {
       return cachedValue;
     }
     if (inputType === "number") {
@@ -65,7 +65,7 @@ const InputBoxWithConfirmation = ({
     }
   };
   const onConfirmActionHandler = () => {
-    const currentValue = currentValueValidated()
+    const currentValue = currentValueValidated();
     setCurrentValue(currentValue);
     if (currentValue) {
       onConfirmAction(currentValue);
@@ -98,6 +98,11 @@ const InputBoxWithConfirmation = ({
       ref={containerRef}
       style={divWrapperCustomStyle}
       className={`${styles["div-wrapper"]} ${focused ? styles["focused"] : ""}`}
+      onClick={() => {
+        if (inputRef.current) {
+          inputRef.current.focus();
+        }
+      }}
     >
       <input
         ref={inputRef}
@@ -113,6 +118,9 @@ const InputBoxWithConfirmation = ({
         maxLength={maxLength}
         placeholder={placeholder}
         value={focused ? currentValue : cachedValue}
+        onClick={(event) => {
+          event.stopPropagation();
+        }}
         onChange={(event) => {
           let value = event.target.value;
           if (maxLength && value.length > maxLength) {
@@ -149,6 +157,8 @@ const InputBoxWithConfirmation = ({
         <Fragment>
           {focused ? (
             <button
+              title="Confirm"
+              type="button"
               className={styles["button-for-input-box-with-confirmation"]}
               onClick={() => {
                 onConfirmActionHandler();
@@ -159,6 +169,8 @@ const InputBoxWithConfirmation = ({
             </button>
           ) : (
             <button
+              title="Edit"
+              type="button"
               className={styles["button-for-input-box-with-confirmation"]}
               onClick={() => {
                 if (inputRef.current) {
