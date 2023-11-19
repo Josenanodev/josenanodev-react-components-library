@@ -1,71 +1,65 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
-import "./Modal.css";
+import styles from "./Modal.module.scss";
 
-//Hooks
-import useOutsideClick from "../../hooks/useOutsideClick";
+type ModalProps = {
+  children: JSX.Element;
+  visibility: boolean;
+  forced?: boolean;
+  onOpen?: Function;
+  onClose?: Function;
+  transitionTime?: number;
+};
 
-//Types
-import { ModalPropsType } from "./types";
-
-const Modal = ({
-  children,
-  visibility,
-  forced = false,
-  onOpen,
-  onClose,
-  transitionTime = 500,
-}: ModalPropsType) => {
-  //Refs
-  const modalRef = useRef<HTMLDivElement | null>(null);
+const Modal = ({ children, visibility, forced = false, onOpen, onClose }: ModalProps) => {
   //Estados
-  const [visible, setVisible] = useState<boolean>(visibility);
-  //Hooks
-  useOutsideClick(modalRef, () => {
-    if (modalRef.current !== null && !forced) {
-      modalRef.current.className = "close-modal";
-      setTimeout(() => {
-        setVisible(false);
-        if (onClose) onClose();
-      }, transitionTime - 50);
-    }
-  });
+  const [isVisible, setIsVisible] = useState(visibility);
+  const [isDisplayable, setIsDisplayable] = useState(visibility);
   //UseEffect
   useEffect(() => {
     if (visibility) {
-      setVisible(true);
+      setIsVisible(true);
       if (onOpen) onOpen();
     } else if (!visibility) {
-      setTimeout(() => {
-        setVisible(false);
-        if (onClose) onClose();
-      }, transitionTime - 50);
+      setIsVisible(false);
+      if (onClose) onClose();
     }
-  }, [visibility, transitionTime, onOpen, onClose]);
+  }, [visibility, onOpen, onClose]);
+  useEffect(() => {
+    if (isVisible) {
+      setIsDisplayable(true);
+    } else if (!isVisible) {
+      setTimeout(() => {
+        setIsDisplayable(false);
+      }, 500);
+    }
+  }, [isVisible])
   //Render
-  if (visible) {
-    return ReactDOM.createPortal(
-      <div
-        ref={modalRef}
-        className={visibility ? "trc-modal" : "trc-close-modal"}
-        style={{ animationDuration: `${transitionTime}ms` }}
-        onClick={(event) => {
-          if ((event.target as HTMLDivElement).id === "modal" && !forced) {
-            (event.target as HTMLDivElement).id = "close-modal";
-            setTimeout(() => {
-              setVisible(false);
-              if (onClose) onClose();
-            }, transitionTime - 50);
-          }
-        }}
-      >
-        {children}
-      </div>,
-       document.getElementById("root") || document.body
-    );
-  } else {
-    return <></>;
-  }
+  if (!isDisplayable) return <></>;
+  return ReactDOM.createPortal(
+    <div
+      className={styles["blured-background"]}
+      data-is-visible={isVisible}
+      onClick={() => {
+        if (forced) return;
+        setIsVisible(false);
+        if (onClose) onClose();
+      }}
+    >
+      <div>
+        <div
+          className={styles["modal"]}
+          data-closed={!visibility}
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
+          {children}
+        </div>
+      </div>
+    </div>,
+    document.getElementById("root") || document.body
+  );
 };
 
 export default Modal;
