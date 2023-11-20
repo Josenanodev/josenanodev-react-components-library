@@ -1,11 +1,23 @@
-import React from "react"
-import "./DatesGrid.css";
+import React from "react";
+import styles from "./DatesGrid.module.scss";
 
 //Componentes
 import CellsRow from "../CellsRow/CellsRow";
 
 //Types
-import { DatesGridPropTypes } from "./types";
+import { ReactCellChildren } from "../../../types";
+
+type DatesGridProps = {
+  gridWidth: number;
+  gridHeight: number;
+  xOffset: number;
+  yOffset: number;
+  cellsWidth: number;
+  cellsHeight: number;
+  visibleListElementsIdsArray: string[] | number[];
+  visibleDates: Date[];
+  ReactCellChildren: ReactCellChildren;
+}
 
 const DatesGrid = ({
   gridWidth,
@@ -17,20 +29,23 @@ const DatesGrid = ({
   visibleListElementsIdsArray,
   visibleDates,
   ReactCellChildren,
-}: DatesGridPropTypes) => {
+}: DatesGridProps) => {
+  const maximumPaddingLeft = gridWidth - visibleDates.length * cellsWidth;
+  const paddingLeft =
+    xOffset * cellsWidth > maximumPaddingLeft ? maximumPaddingLeft : xOffset * cellsWidth;
   return (
     <div
-      className="dates-grid"
+      className={styles["dates-grid"]}
       style={{
         width: gridWidth,
       }}
     >
       <div
-        className="div-cells-row-height"
+        className={styles["div-cells-row-height"]}
         style={{
           height: gridHeight,
           paddingTop: yOffset * cellsHeight,
-          paddingLeft: xOffset * cellsWidth,
+          paddingLeft: paddingLeft,
         }}
       >
         {visibleListElementsIdsArray.map((listElementId) => (

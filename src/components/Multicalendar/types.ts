@@ -1,9 +1,9 @@
-export interface MulticalendarPropsType {
+export interface MulticalendarProps {
   multicalendarId: string;
-  ReactCellChildren: ReactCellChildrenType;
-  ReactListElementChildren: ReactListElementChildrenType;
+  ReactCellChildren: ReactCellChildren;
+  ReactListElementChildren: ReactListElementChildren;
   listElementsIdsArray: string[] | number[];
-  language: "es_ES" | "en_EN";
+  language?: "es_ES" | "en_EN";
   pastDatesVisible?: boolean;
   cellsWidth?: number;
   cellsHeight?: number;
@@ -25,22 +25,22 @@ export interface MulticalendarPropsType {
   onScrollLeftChanges?: (scrollLeft: number) => void
 }
 
-export interface RenderCoordinatesType {
+export interface RenderCoordinates {
   x: number;
   y: number;
 }
 
-export type ReactCellChildrenType = React.ElementType<CellChildrenPropsType>;
+export type ReactCellChildren = React.ElementType<CellChildrenProps>;
 
-export type ReactListElementChildrenType =
-  React.ElementType<ListElementChildrenPropsType>;
+export type ReactListElementChildren =
+  React.ElementType<ListElementChildrenProps>;
 
-export type CellChildrenPropsType = { [key: string]: any } & {
+export type CellChildrenProps = { [key: string]: any } & {
   /**Date in SQL format, i.e. 1993-03-29 */
   date: string;
   listElementId: string | number;
 };
 
-export type ListElementChildrenPropsType = { [key: string]: any } & {
+export type ListElementChildrenProps = { [key: string]: any } & {
   listElementId: string | number;
 };

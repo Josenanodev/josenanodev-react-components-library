@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import * as Funciones from "./MulticalendarOwnFunctions";
-import "./Multicalendar.css";
+import styles from "./Multicalendar.module.scss"
 
 //Assets
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
@@ -15,7 +15,7 @@ import DropdownMonthNavigation from "./subcomponents/individuals/DropdownMonthNa
 import useWindowSize from "../../hooks/useWindowsSize";
 
 //Types
-import { MulticalendarPropsType, RenderCoordinatesType } from "./types";
+import { MulticalendarProps, RenderCoordinates } from "./types";
 
 //Services
 import {
@@ -42,7 +42,7 @@ const Multicalendar = ({
   ReactCellChildren,
   ReactListElementChildren,
   listElementsIdsArray,
-  language,
+  language="en_EN",
   pastDatesVisible = true,
   cellsWidth = 120,
   cellsHeight = 80,
@@ -61,7 +61,7 @@ const Multicalendar = ({
   autoSavePosition,
   onScrollTopChanges,
   onScrollLeftChanges,
-}: MulticalendarPropsType) => {
+}: MulticalendarProps) => {
   //Constantes del componente
   const initialDateOffset = 1 + chunkRenderX;
   //Refs
@@ -89,7 +89,7 @@ const Multicalendar = ({
     string[] | number[]
   >([]);
   const [updateList, setUpdateList] = useState<boolean>(false);
-  const [origin, setOrigin] = useState<RenderCoordinatesType>({
+  const [origin, setOrigin] = useState<RenderCoordinates>({
     x: getMulticalendarScrollLeftPosition(multicalendarId)
       ? Number(getMulticalendarScrollLeftPosition(multicalendarId))
       : pastDatesVisible
@@ -101,7 +101,7 @@ const Multicalendar = ({
   });
   const [xPosition, setXPosition] = useState<number>(origin.x);
   const [yPosition, setYPosition] = useState<number>(origin.y);
-  const [renderCoordinates, setRenderCoordinates] = useState<RenderCoordinatesType>({
+  const [renderCoordinates, setRenderCoordinates] = useState<RenderCoordinates>({
     x: origin.x,
     y: origin.y,
   });
@@ -356,7 +356,7 @@ const Multicalendar = ({
       key={multicalendarId}
       id={multicalendarId}
       data-testid={multicalendarId}
-      className="trc-multicalendar"
+      className={styles["multicalendar"]}
       style={{
         gridTemplateColumns: `${verticalAxisWidth}px`,
         gridTemplateRows: `auto auto calc(100% - ${
@@ -364,8 +364,8 @@ const Multicalendar = ({
         }px`,
       }}
     >
-      <div ref={controlsWrapperRef} className="controls">
-        <div className="div-dates-navigation">
+      <div ref={controlsWrapperRef} className={styles["controls"]}>
+        <div className={styles["div-dates-navigation"]}>
           <DropdownMonthNavigation
             visibleYear={minimumVisibleDate.getFullYear()}
             visibleMonth={minimumVisibleDate.getMonth()}
@@ -384,6 +384,8 @@ const Multicalendar = ({
             )}
           />
           <button
+            type="button"
+            className={styles["today-button"]}
             onClick={() =>
               Funciones.scrollByDate(
                 new Date(),
@@ -397,16 +399,16 @@ const Multicalendar = ({
           </button>
         </div>
         {aditionalControlsComponents && (
-          <div className="div-aditional-controls-components">
+          <div className={styles["div-aditional-controls-components"]}>
             {aditionalControlsComponents}
           </div>
         )}
       </div>
-      <div className="div-upper-left-component">{upperLeftComponent}</div>
-      <div className="vertical-axis">
+      <div className={styles["div-upper-left-component"]}>{upperLeftComponent}</div>
+      <div className={styles["vertical-axis"]}>
         <div
           ref={destiniesColumnRef}
-          className="div-list-element-column"
+          className={styles["div-list-element-column"]}
           onScroll={(e) => {
             // Se puede hacer funcion
             if (gridWrapperRef.current !== null)
@@ -422,11 +424,13 @@ const Multicalendar = ({
           />
         </div>
       </div>
-      <div ref={horizontalAxisWrapperRef} className="horizontal-axis">
-        <div className="div-weeks-buttons">
+      <div ref={horizontalAxisWrapperRef} className={styles["horizontal-axis"]}>
+        <div className={styles["div-weeks-buttons"]}>
           {/* Se Puede hacer componente */}
           <button
-            className="past-week-button"
+            type="button"
+            title="Past Week"
+            className={styles["past-week-button"]}
             onClick={() => {
               // Se puede hacer funcion
               if (datesRowRef.current !== null)
@@ -439,6 +443,8 @@ const Multicalendar = ({
           </button>
           {/* Se Puede hacer componente */}
           <button
+            type="button"
+            title="Next Week"
             onClick={() => {
               // Se puede hacer funcion
               if (datesRowRef.current !== null)
@@ -446,14 +452,14 @@ const Multicalendar = ({
                   left: datesRowRef.current.scrollLeft + cellsWidth * 7,
                 });
             }}
-            className="next-week-button"
+            className={styles["next-week-button"]}
           >
             <BsChevronRight />
           </button>
         </div>
         <div
           ref={datesRowRef}
-          className="div-dates-row"
+          className={styles["div-dates-row"]}
           onScroll={(e) => {
             if (gridWrapperRef.current !== null)
               gridWrapperRef.current.scrollLeft = (e.target as HTMLDivElement).scrollLeft;
@@ -470,10 +476,10 @@ const Multicalendar = ({
           />
         </div>
       </div>
-      <div className="div-main-container">
+      <div className={styles["div-main-container"]}>
         <div
           ref={gridWrapperRef}
-          className="main-container"
+          className={styles["main-container"]}
           onScroll={(e) => {
             if (datesRowRef.current !== null) {
               const scrollLeft = (e.target as HTMLDivElement).scrollLeft;
