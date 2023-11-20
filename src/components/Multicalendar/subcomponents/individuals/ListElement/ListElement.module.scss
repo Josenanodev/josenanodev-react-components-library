@@ -5,10 +5,9 @@
   background-color: white;
   cursor: pointer;
   overflow: hidden;
-}
-
-.list-element:hover {
-  background-color: rgb(240, 240, 240);
+  &:hover {
+    background-color: rgb(240, 240, 240);
+  }
 }
 
 
