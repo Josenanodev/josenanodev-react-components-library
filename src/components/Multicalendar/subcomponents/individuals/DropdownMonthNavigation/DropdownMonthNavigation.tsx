@@ -1,20 +1,26 @@
 import React from "react";
-import "./DropdownMonthNavigation.css";
+import styles from "./DropdownMonthNavigation.module.scss";
 
 //Utils
 import { jsToSqlDate } from "josenanodev-generic-utils";
 
-//Types
-import { DropdownMonthNavigationPropsType } from "./types";
+type DropdownMonthNavigationProps = {
+  visibleMonth: number;
+  visibleYear: number;
+  onChangeAction: Function;
+  options: JSX.Element[];
+};
+
 const DropdownMonthNavigation = ({
   visibleMonth,
   visibleYear,
   onChangeAction,
   options,
-}: DropdownMonthNavigationPropsType) => {
+}: DropdownMonthNavigationProps) => {
   return (
     <select
-      className="dropdown-month-navigation"
+      title="Select a month"
+      className={styles["dropdown-month-navigation"]}
       value={jsToSqlDate(new Date(visibleYear, visibleMonth, 1, 12, 0, 0, 0))}
       onChange={(e) => onChangeAction(e.target.value)}
     >

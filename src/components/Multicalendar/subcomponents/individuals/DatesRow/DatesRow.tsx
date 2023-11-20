@@ -1,8 +1,15 @@
 import React from "react";
-import "./DatesRow.css";
+import styles from "./DatesRow.module.scss";
 
-//Types
-import { DatesRowPropsType } from "./types";
+type DatesRowProps = {
+  visibleDates: Date[];
+  width: number;
+  height: number;
+  cellsWidth: number;
+  cellsHeight: number;
+  offset: number;
+  language: "es_ES" | "en_EN";
+};
 
 const DatesRow = ({
   visibleDates,
@@ -12,7 +19,7 @@ const DatesRow = ({
   cellsHeight,
   offset,
   language,
-}: DatesRowPropsType) => {
+}: DatesRowProps) => {
   const languageDictionary = {
     en_EN: {
       sunday: "Sunday",
@@ -84,7 +91,7 @@ const DatesRow = ({
   ];
   return (
     <div
-      className="dates-row"
+      className={styles["dates-row"]}
       style={{
         width: width,
         height: height,
@@ -95,19 +102,20 @@ const DatesRow = ({
         visibleDates.map((dateObject) => (
           <div
             key={dateObject.toString()}
-            className="date-cell"
+            className={styles["date-cell"]}
             style={{
               width: cellsWidth,
               height: cellsHeight,
             }}
           >
             <div
-              className={
+              className={styles["div-date-cell"]}
+              data-is-today={
                 dateObject.getDate() === new Date().getDate() &&
                 dateObject.getMonth() === new Date().getMonth() &&
                 dateObject.getFullYear() === new Date().getFullYear()
-                  ? "div-date-cell-today"
-                  : "div-date-cell"
+                  ? true
+                  : false
               }
             >
               <div>
@@ -116,7 +124,7 @@ const DatesRow = ({
               </div>
             </div>
             {dateObject.getDate() === 1 && (
-              <div className="month-start">
+              <div className={styles["month-start"]}>
                 <p>
                   {monthsNames[dateObject.getMonth()]} {dateObject.getFullYear()}
                 </p>

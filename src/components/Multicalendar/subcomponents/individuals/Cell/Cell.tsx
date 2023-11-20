@@ -1,12 +1,21 @@
-import React from "react"
-import "./Cell.css";
+import React from "react";
+import styles from "./Cell.module.scss";
 
 //Types
-import { CellPropsType } from "./types";
+import { ReactCellChildren } from "../../../types";
 
-const Cell = ({ date, listElementId, width, heigth, ReactCellChildren }: CellPropsType) => {
+type CellProps = {
+  date: string;
+  /**Date in SQL format, i.e. 1993-03-29 */
+  listElementId: string | number;
+  width: number;
+  heigth: number;
+  ReactCellChildren: ReactCellChildren;
+}
+
+const Cell = ({ date, listElementId, width, heigth, ReactCellChildren }: CellProps) => {
   return (
-    <div className="cell" style={{ width: width, height: heigth }}>
+    <div className={styles["cell"]} style={{ width: width, height: heigth }}>
       <ReactCellChildren date={date} listElementId={listElementId} />
     </div>
   );

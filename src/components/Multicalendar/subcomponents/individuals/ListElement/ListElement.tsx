@@ -1,17 +1,23 @@
 import React from "react"
-import "./ListElement.css";
+import styles from "./ListElement.module.scss"
 
 //Types
-import { ListElementPropsType } from "./types";
+import { ReactListElementChildren } from "../../../types";
+
+type ListElementProps= {
+  listElementId: string | number;
+  ReactListElementChildren: ReactListElementChildren;
+  height: number;
+}
 
 const ListElement = ({
   listElementId,
   ReactListElementChildren,
   height,
-}: ListElementPropsType) => {
+}: ListElementProps) => {
   return (
     <div
-      className="list-element"
+      className={styles["list-element"]}
       style={{
         height: height,
       }}

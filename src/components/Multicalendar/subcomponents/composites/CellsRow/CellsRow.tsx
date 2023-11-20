@@ -1,5 +1,5 @@
 import React from "react"
-import "./CellsRow.css";
+import styles from "./CellsRow.module.scss"
 
 //Componentes
 import Cell from "../../individuals/Cell/Cell";
@@ -8,7 +8,17 @@ import Cell from "../../individuals/Cell/Cell";
 import { jsToSqlDate } from "josenanodev-generic-utils";
 
 //Types
-import { CellsRowsPropsType } from "./types";
+import { ReactCellChildren } from "../../../types";
+
+type CellsRowsProps = {
+  listElementId: string | number;
+  visibleDatesArray: Date[];
+  width: number;
+  height: number;
+  cellsWidth: number;
+  cellsHeight: number;
+  ReactCellChildren: ReactCellChildren;
+}
 
 const CellsRow = ({
   listElementId,
@@ -18,11 +28,11 @@ const CellsRow = ({
   cellsWidth,
   cellsHeight,
   ReactCellChildren,
-}: CellsRowsPropsType) => {
+}: CellsRowsProps) => {
   //Render
   return (
     <div
-      className="cells-row"
+      className={styles["cells-row"]}
       style={{
         width: width,
         height: height,
