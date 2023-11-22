@@ -6,13 +6,6 @@ const meta: Meta<typeof StackedCards> = {
   title: "StackedCards",
   component: StackedCards,
   tags: ["autodocs"],
-  decorators: [
-    (Story) => (
-      <div style={{ width: 390, height: 500 }}>
-        <Story />
-      </div>
-    ),
-  ],
 };
 
 export default meta;
