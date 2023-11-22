@@ -9,6 +9,7 @@ type Card = {
 type StackedCardsProps = {
   cards: Card[];
   initialCard: number;
+  onCardChangeByUser?: (cardIndex: number) => void;
   overrideSelectedCard?: number;
   stackingOrientation?: number;
   cardHeight?: number;
@@ -23,6 +24,7 @@ const degreesInOneObtuseAngle = 270;
 const StackedCards = ({
   cards,
   initialCard,
+  onCardChangeByUser,
   overrideSelectedCard,
   stackingOrientation = 60,
   cardWidth = 300,
@@ -151,7 +153,10 @@ const StackedCards = ({
               ...positioningStyleOfCardByIndex(index),
             }}
             onClick={() => {
-              if (currentCard !== index) setCurrentCard(index);
+              if (currentCard !== index) {
+                setCurrentCard(index);
+                if (onCardChangeByUser) onCardChangeByUser(index);
+              }
             }}
           >
             <div className={style["title"]}>{card.title}</div>
