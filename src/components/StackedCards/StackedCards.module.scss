@@ -20,6 +20,9 @@
       flex-grow: 1;
       width: 100%;
       overflow: auto;
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
     &[data-is-selectable="true"] {
       cursor: pointer;
@@ -29,3 +32,4 @@
     }
   }
 }
+
