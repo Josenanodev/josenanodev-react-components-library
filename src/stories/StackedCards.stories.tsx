@@ -40,3 +40,17 @@ export const Default: Story = {
     initialCard: 0,
   },
 };
+
+export const TwoCards: Story = {
+  args: {
+    cards: [
+      { title: <strong>Card One</strong>, content: <p>Card one content</p> },
+
+      {
+        title: <strong>Card Seven</strong>,
+        content: <img src="https://picsum.photos/300/350" alt="pic" />,
+      },
+    ],
+    initialCard: 0,
+  },
+};

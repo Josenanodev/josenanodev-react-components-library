@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import style from "./StackedCards.module.scss";
 
 type Card = {
@@ -9,6 +9,7 @@ type Card = {
 type StackedCardsProps = {
   cards: Card[];
   initialCard: number;
+  overrideSelectedCard?: number;
   stackingOrientation?: number;
   cardHeight?: number;
   cardWidth?: number;
@@ -22,6 +23,7 @@ const degreesInOneObtuseAngle = 270;
 const StackedCards = ({
   cards,
   initialCard,
+  overrideSelectedCard,
   stackingOrientation = 60,
   cardWidth = 300,
   cardHeight = 350,
@@ -124,6 +126,14 @@ const StackedCards = ({
     }
     return cssObject;
   };
+  useEffect(() => {
+    if (
+      overrideSelectedCard !== undefined &&
+      overrideSelectedCard >= 0 &&
+      overrideSelectedCard < cards.length
+    )
+      setCurrentCard(overrideSelectedCard);
+  }, [overrideSelectedCard]);
   return (
     <div className={style["stacked-cards"]} style={cardStackContainerStyleSize()}>
       {cards.map((card, index) => {
