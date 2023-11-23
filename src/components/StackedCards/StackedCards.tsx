@@ -52,8 +52,11 @@ const StackedCards = ({
     return { horizontalOffset, verticalOffset };
   };
   const cardStackContainerStyleSize = (): React.CSSProperties => {
-    const horizontalOffset = calculateCardOffsetByIndex(cards.length).horizontalOffset;
-    const verticalOffset = calculateCardOffsetByIndex(cards.length).verticalOffset;
+    const borderCompensation = 4;
+    const horizontalOffset =
+      calculateCardOffsetByIndex(cards.length - 1).horizontalOffset + borderCompensation;
+    const verticalOffset =
+      calculateCardOffsetByIndex(cards.length - 1).verticalOffset + borderCompensation;
     const width = cardWidth + Math.abs(horizontalOffset);
     const height = cardHeight + Math.abs(verticalOffset);
     return { width, height };
