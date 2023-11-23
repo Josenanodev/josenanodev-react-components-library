@@ -1,7 +1,7 @@
 import React from "react";
-import { CellChildrenPropsType } from "../../components/Multicalendar/types";
+import { CellChildrenProps } from "../../components/Multicalendar/types";
 
-const CellChildrenMock = ({ date, listElementId }: CellChildrenPropsType) => {
+const CellChildrenMock = ({ date, listElementId }: CellChildrenProps) => {
   return (
     <div style={{userSelect: "none"}}>
       {date}
