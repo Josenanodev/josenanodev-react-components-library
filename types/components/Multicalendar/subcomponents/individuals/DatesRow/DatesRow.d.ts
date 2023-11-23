@@ -1,5 +1,12 @@
 import React from "react";
-import "./DatesRow.css";
-import { DatesRowPropsType } from "./types";
-declare const DatesRow: ({ visibleDates, width, height, cellsWidth, cellsHeight, offset, language, }: DatesRowPropsType) => React.JSX.Element;
+type DatesRowProps = {
+    visibleDates: Date[];
+    width: number;
+    height: number;
+    cellsWidth: number;
+    cellsHeight: number;
+    offset: number;
+    language: "es_ES" | "en_EN";
+};
+declare const DatesRow: ({ visibleDates, width, height, cellsWidth, cellsHeight, offset, language, }: DatesRowProps) => React.JSX.Element;
 export default DatesRow;

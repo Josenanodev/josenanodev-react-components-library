@@ -1,4 +1,4 @@
 import React from "react";
-import { ListElementChildrenPropsType } from "../../components/Multicalendar/types";
-declare const ListElementChildrenMock: ({ listElementId }: ListElementChildrenPropsType) => React.JSX.Element;
+import { ListElementChildrenProps } from "../../components/Multicalendar/types";
+declare const ListElementChildrenMock: ({ listElementId }: ListElementChildrenProps) => React.JSX.Element;
 export default ListElementChildrenMock;

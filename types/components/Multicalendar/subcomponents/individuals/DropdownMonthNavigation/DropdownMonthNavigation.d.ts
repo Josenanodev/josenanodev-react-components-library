@@ -1,5 +1,9 @@
 import React from "react";
-import "./DropdownMonthNavigation.css";
-import { DropdownMonthNavigationPropsType } from "./types";
-declare const DropdownMonthNavigation: ({ visibleMonth, visibleYear, onChangeAction, options, }: DropdownMonthNavigationPropsType) => React.JSX.Element;
+type DropdownMonthNavigationProps = {
+    visibleMonth: number;
+    visibleYear: number;
+    onChangeAction: Function;
+    options: JSX.Element[];
+};
+declare const DropdownMonthNavigation: ({ visibleMonth, visibleYear, onChangeAction, options, }: DropdownMonthNavigationProps) => React.JSX.Element;
 export default DropdownMonthNavigation;

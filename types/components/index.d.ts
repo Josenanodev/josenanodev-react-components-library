@@ -3,5 +3,8 @@ export { default as CalendarDatePicker } from "./CalendarDatePicker";
 export { default as InputBoxWithConfirmation } from "./InputBoxWithConfirmation";
 export { default as IntegerControl } from "./IntegerControl";
 export { default as LabeledInput } from "./LabeledInput";
+export { default as Modal } from "./Modal";
+export { default as Multicalendar } from "./Multicalendar";
 export { default as ScreenSteps } from "./ScreenSteps";
 export { default as ScrollSnapGallery } from "./ScrollSnapGallery";
+export { default as StackedCards } from "./StackedCards";
