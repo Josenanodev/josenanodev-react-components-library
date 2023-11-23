@@ -1,5 +1,11 @@
 import React from "react";
-import "./Modal.css";
-import { ModalPropsType } from "./types";
-declare const Modal: ({ children, visibility, forced, onOpen, onClose, transitionTime, }: ModalPropsType) => React.JSX.Element;
+type ModalProps = {
+    children: JSX.Element;
+    visibility: boolean;
+    forced?: boolean;
+    onOpen?: Function;
+    onClose?: Function;
+    transitionTime?: number;
+};
+declare const Modal: ({ children, visibility, forced, onOpen, onClose }: ModalProps) => React.JSX.Element;
 export default Modal;

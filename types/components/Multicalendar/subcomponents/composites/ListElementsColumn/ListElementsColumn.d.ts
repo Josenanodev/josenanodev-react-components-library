@@ -1,5 +1,11 @@
 import React from "react";
-import "./ListElementsColumn.css";
-import { ListElementsColumnPropsType } from "./types";
-declare const ListElementsColumn: ({ ReactListElementChildren, listHeight, yOffset, elementsHeight, idsArray, }: ListElementsColumnPropsType) => React.JSX.Element;
+import { ReactListElementChildren } from "../../../types";
+type ListElementsColumnProps = {
+    ReactListElementChildren: ReactListElementChildren;
+    listHeight: number | string;
+    yOffset: number;
+    elementsHeight: number;
+    idsArray: string[] | number[];
+};
+declare const ListElementsColumn: ({ ReactListElementChildren, listHeight, yOffset, elementsHeight, idsArray, }: ListElementsColumnProps) => React.JSX.Element;
 export default ListElementsColumn;

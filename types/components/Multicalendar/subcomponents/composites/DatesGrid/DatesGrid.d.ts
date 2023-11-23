@@ -1,5 +1,15 @@
 import React from "react";
-import "./DatesGrid.css";
-import { DatesGridPropTypes } from "./types";
-declare const DatesGrid: ({ gridWidth, gridHeight, xOffset, yOffset, cellsWidth, cellsHeight, visibleListElementsIdsArray, visibleDates, ReactCellChildren, }: DatesGridPropTypes) => React.JSX.Element;
+import { ReactCellChildren } from "../../../types";
+type DatesGridProps = {
+    gridWidth: number;
+    gridHeight: number;
+    xOffset: number;
+    yOffset: number;
+    cellsWidth: number;
+    cellsHeight: number;
+    visibleListElementsIdsArray: string[] | number[];
+    visibleDates: Date[];
+    ReactCellChildren: ReactCellChildren;
+};
+declare const DatesGrid: ({ gridWidth, gridHeight, xOffset, yOffset, cellsWidth, cellsHeight, visibleListElementsIdsArray, visibleDates, ReactCellChildren, }: DatesGridProps) => React.JSX.Element;
 export default DatesGrid;
