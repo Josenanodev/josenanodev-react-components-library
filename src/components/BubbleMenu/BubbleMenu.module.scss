@@ -4,13 +4,13 @@
   top: 0px;
   padding-top: 80px;
   box-sizing: border-box;
-  width: 100vw;
-  height: 100vh;
+  min-width: 100vw;
+  min-height: 100vh;
   &[data-status="visible"] {
     animation: show-background 300ms ease-in-out forwards;
     ul li {
       opacity: 1;
-      transform: translateX(0px);
+      transform: translateX(5px);
     }
   }
   &[data-status="hidden"] {
@@ -30,7 +30,8 @@
   }
   ul {
     list-style: none;
-    padding-inline-start: 5px;
+    padding-inline-start: 0px;
+    margin: 0;
     li {
       transition: all 300ms ease-in-out;
       button {
@@ -41,6 +42,7 @@
         color: #959595;
         background-color: rgba(255, 255, 255, 0.9);
         -webkit-tap-highlight-color: transparent;
+        -webkit-user-select: none;
         user-select: none;
         cursor: pointer;
         transition: all 100ms ease-in-out;
@@ -85,6 +87,7 @@
   color: #959595;
   background-color: rgba(255, 255, 255, 0.9);
   -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
   user-select: none;
   cursor: pointer;
   transition: all 100ms ease-in-out;
@@ -121,29 +124,29 @@
 @keyframes show-background {
   0% {
     background-color: transparent;
-    width: 0vw;
+    min-width: 0vw;
   }
   1% {
     background-color: transparent;
-    width: 100vw;
+    min-width: 100vw;
   }
   100% {
     background-color: rgba(0, 0, 0, 0.3);
-    width: 100vw;
+    min-width: 100vw;
   }
 }
 
 @keyframes hide-background {
   0% {
     background-color: rgba(0, 0, 0, 0.3);
-    width: 100vw;
+    min-width: 100vw;
   }
   99% {
     background-color: transparent;
-    width: 100vw;
+    min-width: 100vw;
   }
   100% {
     background-color: transparent;
-    width: 0vw;
+    min-width: 0vw;
   }
 }
