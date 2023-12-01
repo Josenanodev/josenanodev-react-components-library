@@ -6,8 +6,11 @@ import { GoDotFill } from "react-icons/go";
 import { IconType } from "react-icons/lib";
 import { BsArrowLeftCircle, BsArrowRightCircle } from "react-icons/bs";
 
+const frameRandomId = Math.random().toString(36).substring(7);
+
 type ScrollSnapGalleryProps = {
   urls: string[];
+  alts?: string[];
   width?: string;
   height?: string;
   IndicatorIcon?: IconType;
@@ -15,10 +18,13 @@ type ScrollSnapGalleryProps = {
   iconSize?: number;
   showArrows?: boolean;
   frameStyle?: React.CSSProperties;
+  onSlideChange?: (index: number) => void;
+  autoChange?: boolean;
 };
 
 const ScrollSnapGallery = ({
   urls = [],
+  alts,
   width = "400px",
   height = "300px",
   IndicatorIcon = GoDotFill,
@@ -26,6 +32,8 @@ const ScrollSnapGallery = ({
   iconSize = 16,
   showArrows = false,
   frameStyle = {},
+  onSlideChange = () => {},
+  autoChange = false,
 }: ScrollSnapGalleryProps) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [minimumVisibleIndicator, setMinimumVisibleIndicator] = useState(0);
@@ -79,15 +87,38 @@ const ScrollSnapGallery = ({
   useEffect(() => {
     setPositionIndicatorXtranslateValue(minimumVisibleIndicator * iconSize);
   }, [minimumVisibleIndicator]);
+  useEffect(() => {
+    onSlideChange(currentSlide);
+  }, [currentSlide]);
+  useEffect(() => {
+    if (autoChange) {
+      const interval = setInterval(() => {
+        const frame = document.getElementById(`frame-${frameRandomId}`);
+        if (frame && frame.scrollLeft === frame.scrollWidth - frame.clientWidth) {
+          frame.scrollLeft = 0;
+        } else if (frame) {
+          frame.scrollLeft += frame.clientWidth;
+        }
+      }, 3000);
+      return () => clearInterval(interval);
+    }
+  }, [autoChange]);
   return (
     <section className={styles["scroll-snap-gallery"]}>
       <div
+        id={`frame-${frameRandomId}`}
         className={styles["frame"]}
         style={{ ...frameStyle, width, height }}
         onScroll={handleScroll}
       >
         {urls.map((url, index) => {
-          return <img key={url + index} src={url} alt="gallery item" />;
+          return (
+            <img
+              key={url + index}
+              src={url}
+              alt={alts ? alts[index] : "gallery picture"}
+            />
+          );
         })}
       </div>
       <div className={styles["arrow-controls"]}>
