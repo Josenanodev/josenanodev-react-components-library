@@ -125,10 +125,8 @@ const ScrollSnapGallery = ({
           <BsArrowLeftCircle
             className={styles["arrow"]}
             onClick={() => {
-              const frame = document.querySelector(
-                `.${styles["frame"]}`
-              ) as HTMLDivElement;
-              frame.scrollLeft -= frame.clientWidth;
+              const frame = frameRef.current;
+              if (frame) frame.scrollLeft -= frame.clientWidth;
             }}
           />
         )}
@@ -152,10 +150,8 @@ const ScrollSnapGallery = ({
           <BsArrowRightCircle
             className={styles["arrow"]}
             onClick={() => {
-              const frame = document.querySelector(
-                `.${styles["frame"]}`
-              ) as HTMLDivElement;
-              frame.scrollLeft += frame.clientWidth;
+              const frame = frameRef.current;
+              if (frame) frame.scrollLeft += frame.clientWidth;
             }}
           />
         )}
