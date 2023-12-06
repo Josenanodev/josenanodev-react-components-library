@@ -41,6 +41,7 @@ const ScrollSnapGallery = ({
   );
   const [positionIndicatorXtranslateValue, setPositionIndicatorXtranslateValue] =
     useState(0);
+  const [autoChangeFlag, setAutoChangeFlag] = useState(0);
   const indicatorIconStyle = (index: number) => {
     let className = styles["indicator-icon"];
     if (currentSlide === index) {
@@ -91,17 +92,22 @@ const ScrollSnapGallery = ({
   }, [currentSlide]);
   useEffect(() => {
     if (autoChange) {
-      const frame = frameRef.current;
       const interval = setInterval(() => {
-        if (frame && frame.scrollLeft === frame.scrollWidth - frame.clientWidth) {
-          frame.scrollLeft = 0;
-        } else if (frame) {
-          frame.scrollLeft += frame.clientWidth;
-        }
+        setAutoChangeFlag((prev) => prev + 1);
       }, 3000);
       return () => clearInterval(interval);
     }
   }, [autoChange]);
+  useEffect(() => {
+    if (autoChange) {
+      const frame = frameRef.current;
+      if (frame && frame.scrollLeft === frame.scrollWidth - frame.clientWidth) {
+        frame.scrollLeft = 0;
+      } else if (frame) {
+        frame.scrollLeft += frame.clientWidth;
+      }
+    }
+  }, [autoChange, autoChangeFlag]);
   return (
     <section className={styles["scroll-snap-gallery"]}>
       <div
