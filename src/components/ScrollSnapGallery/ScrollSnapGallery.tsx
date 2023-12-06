@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./ScrollSnapGallery.module.scss";
 
 //Icons
 import { GoDotFill } from "react-icons/go";
 import { IconType } from "react-icons/lib";
 import { BsArrowLeftCircle, BsArrowRightCircle } from "react-icons/bs";
-
-const frameRandomId = Math.random().toString(36).substring(7);
 
 type ScrollSnapGalleryProps = {
   urls: string[];
@@ -35,6 +33,7 @@ const ScrollSnapGallery = ({
   onSlideChange = () => {},
   autoChange = false,
 }: ScrollSnapGalleryProps) => {
+  const frameRef = useRef<HTMLDivElement | null>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [minimumVisibleIndicator, setMinimumVisibleIndicator] = useState(0);
   const [maximumVisibleIndicator, setMaximumVisibleIndicator] = useState(
@@ -92,8 +91,8 @@ const ScrollSnapGallery = ({
   }, [currentSlide]);
   useEffect(() => {
     if (autoChange) {
+      const frame = frameRef.current;
       const interval = setInterval(() => {
-        const frame = document.getElementById(`frame-${frameRandomId}`);
         if (frame && frame.scrollLeft === frame.scrollWidth - frame.clientWidth) {
           frame.scrollLeft = 0;
         } else if (frame) {
@@ -106,7 +105,7 @@ const ScrollSnapGallery = ({
   return (
     <section className={styles["scroll-snap-gallery"]}>
       <div
-        id={`frame-${frameRandomId}`}
+        ref={frameRef}
         className={styles["frame"]}
         style={{ ...frameStyle, width, height }}
         onScroll={handleScroll}
