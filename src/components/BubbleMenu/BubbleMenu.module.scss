@@ -1,12 +1,13 @@
 .menu-container {
   position: fixed;
-  z-index: 100;
+  z-index: -1;
   top: 0px;
   padding-top: 80px;
   box-sizing: border-box;
-  min-width: 100vw;
-  min-height: 100vh;
   &[data-status="visible"] {
+    z-index: 100;
+    width: 100vw;
+    height: 100vh;
     animation: show-background 300ms ease-in-out forwards;
     ul li {
       opacity: 1;
@@ -22,6 +23,7 @@
   }
   &[data-status="idle"] {
     width: 0vw;
+    height: 0vh;
     background-color: transparent;
     ul li {
       opacity: 0;
@@ -33,6 +35,8 @@
     padding-inline-start: 0px;
     margin: 0;
     li {
+      width: -moz-fit-content;
+      width: fit-content;
       transition: all 300ms ease-in-out;
       button {
         border-width: 3px;
