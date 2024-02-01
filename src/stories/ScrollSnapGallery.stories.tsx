@@ -21,7 +21,6 @@ export const Default: Story = {
       "https://usabilitygeek.com/wp-content/uploads/2019/02/psychology-web-design-00-lead.jpg",
       "https://www.daac.in/blog/wp-content/uploads/2022/03/Future-of-Web-Designing.jpg",
       "https://static-cse.canva.com/blob/569638/20webdesignprinciplestofollowfeaturedimage.png",
-      "https://parachutedesign.ca/wp-content/uploads/2022/09/pro-services-web-design.jpg",
       "https://www.ed2go.com/common/images/1/16302/web-design-classes/jpg.jpg",
       "https://kinsta.com/wp-content/uploads/2020/02/web-design-best-practices-1024x512.jpg",
     ],
