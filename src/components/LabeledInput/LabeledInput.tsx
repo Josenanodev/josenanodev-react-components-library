@@ -1,6 +1,8 @@
 import React, { useState, useRef } from "react";
 import styles from "./LabeledInput.module.scss";
 
+type SpecialType = "credit-card-number" | "expiration-date" | "cvv";
+
 type LabeledInputProps = {
   label: string;
   defaultValue?: string;
@@ -12,6 +14,7 @@ type LabeledInputProps = {
   highlightError?: boolean;
   errorMessage?: string;
   inputProps?: React.ComponentProps<"input">;
+  specialType?: SpecialType;
 };
 
 const LabeledInput = ({
@@ -38,7 +41,9 @@ const LabeledInput = ({
       }}
       style={{ width, height, backgroundColor }}
     >
-      <label className={shrinkLabel ? styles["focused"] : ""}>{label}</label>
+      <label data-is-shrinked={shrinkLabel}>
+        {label}
+      </label>
       <input
         ref={inputRef}
         {...inputProps}
