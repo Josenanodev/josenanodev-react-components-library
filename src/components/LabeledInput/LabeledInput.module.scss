@@ -16,13 +16,17 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    top: calc(50% - 10px);
+    top: calc(50%);
     left: 28px;
     padding: 0;
-    transition: all 200ms ease-in-out;
+    height: 2px;
+    display: flex;
+    align-items: center;
+    transition: all 250ms ease-in-out;
+    -webkit-user-select: none;
     user-select: none;
-    &.focused {
-      top: 2px;
+    &[data-is-shrinked='true'] {
+      top: -2px;
       left: 10px;
       font-weight: 600;
       font-size: 12px;
@@ -51,7 +55,7 @@
       cursor: text;
     }
   }
-  &.error {
+  &[data-has-error='true'] {
     border-color: #f34d1b;
     label {
       color: #e17959;
