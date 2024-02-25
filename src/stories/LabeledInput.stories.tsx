@@ -26,7 +26,7 @@ export const DifferentBackground: Story = {
   },
   decorators: [
     (Story) => (
-      <div style={{ padding: "30px", backgroundColor: "#ffebeb" }}>
+      <div style={{ padding: "30px" }}>
         <Story />
       </div>
     ),
