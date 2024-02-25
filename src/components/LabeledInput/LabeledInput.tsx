@@ -1,5 +1,10 @@
 import React, { useState, useRef } from "react";
 import styles from "./LabeledInput.module.scss";
+import {
+  formatValueToCVV,
+  formatValueToCreditCard,
+  formatValueToExpirationDate,
+} from "./valueFormatters";
 
 type SpecialType = "credit-card-number" | "expiration-date" | "cvv";
 
@@ -28,12 +33,32 @@ const LabeledInput = ({
   highlightError = false,
   errorMessage,
   inputProps,
+  specialType,
 }: LabeledInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [shrinkLabel, setShrinkLabel] = useState(defaultValue ? true : false);
+  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let value = event.target.value;
+    switch (specialType) {
+      case "credit-card-number":
+        value = formatValueToCreditCard(value);
+        break;
+      case "expiration-date":
+        value = formatValueToExpirationDate(value);
+        break;
+      case "cvv":
+        value = formatValueToCVV(value);
+        break;
+      default:
+        break;
+    }
+    event.target.value = value;
+    onChange(value);
+  };
   return (
     <div
-      className={styles["labeled-input"] + (highlightError ? ` ${styles["error"]}` : "")}
+      className={styles["labeled-input"]}
+      data-has-error={highlightError}
       onClick={() => {
         if (inputRef.current) {
           inputRef.current.focus();
@@ -41,7 +66,7 @@ const LabeledInput = ({
       }}
       style={{ width, height, backgroundColor }}
     >
-      <label data-is-shrinked={shrinkLabel}>
+      <label data-is-shrinked={shrinkLabel} style={{ backgroundColor }}>
         {label}
       </label>
       <input
@@ -54,7 +79,7 @@ const LabeledInput = ({
           }
         }}
         defaultValue={defaultValue}
-        onChange={(event) => onChange(event.target.value)}
+        onChange={onChangeHandler}
         style={{ textAlign }}
       />
       {highlightError && errorMessage && (
