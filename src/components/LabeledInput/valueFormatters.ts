@@ -1,4 +1,3 @@
-
 /**
  * Formats a value to a credit card format
  * @param value - The value to be formatted
@@ -7,8 +6,15 @@
 export const formatValueToCreditCard = (value: string) => {
   const digitsOnly = value.replace(/\D/g, "");
   const slicedDigits = digitsOnly.slice(0, 16);
-  const fourDigitsGroups = slicedDigits.match(/.{1,4}/g);
-  const finalValue = fourDigitsGroups?.join(" ") ?? "";
+  let digitsGroups = slicedDigits.match(/.{1,4}/g);
+  if (slicedDigits.length === 15) {
+    digitsGroups = [
+      slicedDigits.slice(0, 5),
+      slicedDigits.slice(5, 11),
+      slicedDigits.slice(11, 16),
+    ];
+  }
+  const finalValue = digitsGroups?.join(" ") ?? "";
   return finalValue;
 };
 /**
@@ -30,6 +36,6 @@ export const formatValueToExpirationDate = (value: string) => {
  */
 export const formatValueToCVV = (value: string) => {
   const digitsOnly = value.replace(/\D/g, "");
-  const slicedDigits = digitsOnly.slice(0, 3);
+  const slicedDigits = digitsOnly.slice(0, 4);
   return slicedDigits;
 };
