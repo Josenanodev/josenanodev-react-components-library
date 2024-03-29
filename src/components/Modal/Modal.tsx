@@ -4,52 +4,58 @@ import styles from "./Modal.module.scss";
 
 type ModalProps = {
   children: JSX.Element;
-  visibility: boolean;
+  overrideOpenState?: boolean;
   forced?: boolean;
   onOpen?: Function;
   onClose?: Function;
   transitionTime?: number;
 };
 
-const Modal = ({ children, visibility, forced = false, onOpen, onClose }: ModalProps) => {
+const Modal = ({
+  children,
+  overrideOpenState = false,
+  forced = false,
+  onOpen,
+  onClose,
+}: ModalProps) => {
   //Estados
-  const [isVisible, setIsVisible] = useState(visibility);
-  const [isDisplayable, setIsDisplayable] = useState(visibility);
+  const [isOpen, setIsOpen] = useState(overrideOpenState);
+  const [isDisplayable, setIsDisplayable] = useState(overrideOpenState);
   //UseEffect
   useEffect(() => {
-    if (visibility) {
-      setIsVisible(true);
+    if (overrideOpenState) {
+      setIsOpen(true);
       if (onOpen) onOpen();
-    } else if (!visibility) {
-      setIsVisible(false);
+    } else if (!overrideOpenState) {
+      setIsOpen(false);
       if (onClose) onClose();
     }
-  }, [visibility, onOpen, onClose]);
+  }, [overrideOpenState, onOpen, onClose]);
   useEffect(() => {
-    if (isVisible) {
+    if (isOpen) {
       setIsDisplayable(true);
-    } else if (!isVisible) {
+    } else if (!isOpen) {
       setTimeout(() => {
         setIsDisplayable(false);
       }, 500);
     }
-  }, [isVisible])
+  }, [isOpen]);
   //Render
   if (!isDisplayable) return <></>;
   return ReactDOM.createPortal(
     <div
       className={styles["blured-background"]}
-      data-is-visible={isVisible}
+      data-is-visible={isOpen}
       onClick={() => {
         if (forced) return;
-        setIsVisible(false);
+        setIsOpen(false);
         if (onClose) onClose();
       }}
     >
       <div>
         <div
           className={styles["modal"]}
-          data-closed={!visibility}
+          data-closed={!overrideOpenState}
           onClick={(e) => {
             e.stopPropagation();
           }}
