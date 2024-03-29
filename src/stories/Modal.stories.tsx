@@ -14,7 +14,7 @@ type Story = StoryObj<typeof Modal>;
 
 export const Default: Story = {
   args: {
-    visibility: true,
+    overrideOpenState: true,
     children: (
       <div
         style={{
@@ -48,7 +48,7 @@ export const Forced: Story = {
           </button>
           <Story
             args={{
-              visibility,
+              overrideOpenState: visibility,
               forced: true,
               children: (
                 <div
