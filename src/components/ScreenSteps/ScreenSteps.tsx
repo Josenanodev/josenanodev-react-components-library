@@ -42,7 +42,10 @@ const ScreenSteps = ({
   };
   useEffect(() => {
     const isValidStep =
-      overrideStep !== undefined && overrideStep < steps.length && overrideStep >= 0;
+      overrideStep !== undefined &&
+      overrideStep < steps.length &&
+      overrideStep >= 0 &&
+      overrideStep !== currentStep;
     if (isValidStep) setCurrentStep(overrideStep);
   }, [overrideStep]);
   return (
