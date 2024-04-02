@@ -4,9 +4,10 @@ import {
   formatValueToCVV,
   formatValueToCreditCard,
   formatValueToExpirationDate,
+  formatValueToPhone,
 } from "./valueFormatters";
 
-type SpecialType = "credit-card-number" | "expiration-date" | "cvv";
+type SpecialType = "credit-card-number" | "expiration-date" | "cvv" | "phone";
 
 type LabeledInputProps = {
   label: string;
@@ -49,6 +50,8 @@ const LabeledInput = ({
       case "cvv":
         value = formatValueToCVV(value);
         break;
+      case "phone":
+        value = formatValueToPhone(value);
       default:
         break;
     }
