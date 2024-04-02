@@ -39,3 +39,15 @@ export const formatValueToCVV = (value: string) => {
   const slicedDigits = digitsOnly.slice(0, 4);
   return slicedDigits;
 };
+
+/**
+ * Formats a value to a phone number format, including the country code, max length of 15
+ * @param value - The value to be formatted
+ * @returns  The formatted value i.e. "+1 234-567-8901"
+ */
+export const formatValueToPhone = (value: string) => {
+  const plusSign = value.startsWith('+') ? '+' : '';
+  const digitsOnly = value.replace(/\D/g, "");
+  const slicedDigits = digitsOnly.slice(0, 15);
+  return plusSign + slicedDigits;
+};
