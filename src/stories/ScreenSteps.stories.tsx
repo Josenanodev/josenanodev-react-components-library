@@ -8,7 +8,7 @@ const meta: Meta<typeof ScreenSteps> = {
   tags: ["autodocs"],
   decorators: [
     (Story) => (
-      <div style={{ width: 390, height: 500 }}>
+      <div style={{ width: 390 }}>
         <Story />
       </div>
     ),
@@ -18,7 +18,7 @@ const meta: Meta<typeof ScreenSteps> = {
 export default meta;
 type Story = StoryObj<typeof ScreenSteps>;
 
-const style: React.CSSProperties = {
+const styleOne: React.CSSProperties = {
   border: "dashed 2px dimgray",
   borderRadius: 6,
   width: "100%",
@@ -27,23 +27,48 @@ const style: React.CSSProperties = {
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
+  backgroundColor: "lightblue",
+};
+
+const styleTwo: React.CSSProperties = {
+  border: "dashed 2px dimgray",
+  borderRadius: 6,
+  width: "100%",
+  height: 100,
+  boxSizing: "border-box",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  backgroundColor: "lightcoral",
+};
+
+const styleThree: React.CSSProperties = {
+  border: "dashed 2px dimgray",
+  borderRadius: 6,
+  width: "100%",
+  height: 200,
+  boxSizing: "border-box",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  backgroundColor: "lightgreen",
 };
 
 export const Default: Story = {
   args: {
     steps: [
       {
-        component: <div style={style}>Step 1</div>,
+        component: <div style={styleOne}>Step 1</div>,
         innerText: "1",
         outterText: "Step 1 of 3",
       },
       {
-        component: <div style={style}>Step 2</div>,
+        component: <div style={styleTwo}>Step 2</div>,
         innerText: "2",
         outterText: "Step 2 of 3",
       },
       {
-        component: <div style={style}>Step 3</div>,
+        component: <div style={styleThree}>Step 3</div>,
         innerText: "3",
         outterText: "Step 3 of 3",
       },
