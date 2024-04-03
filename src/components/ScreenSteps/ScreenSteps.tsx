@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./ScreenSteps.module.scss";
+import { useResizeObserver } from "../../hooks";
 
 type Step = {
   component: React.ReactNode;
@@ -11,7 +12,6 @@ type ScreenStepsProps = {
   steps: Step[];
   defaultStep?: number;
   onStepChange?: (step: number) => void;
-  overrideStep?: number;
   canNavigate?: boolean;
 };
 
@@ -19,12 +19,12 @@ const ScreenSteps = ({
   steps,
   defaultStep = 0,
   onStepChange = () => {},
-  overrideStep,
   canNavigate,
 }: ScreenStepsProps) => {
   const stepsContentRef = useRef<HTMLDivElement>(null);
   const [currentStep, setCurrentStep] = useState(defaultStep);
-  const [currentStepComponentHeight, setCurrentStepComponentHeight] = useState(0);
+  const [_stepsContentWidth, stepsContentHeight] = useResizeObserver(stepsContentRef);
+
   const stepContentStyle = (): React.CSSProperties => {
     const translatePercentage = 100 / steps.length;
     return {
@@ -32,24 +32,6 @@ const ScreenSteps = ({
       transform: `translateX(-${translatePercentage * currentStep}%)`,
     };
   };
-  useEffect(() => {
-    const isValidStep =
-      overrideStep !== undefined &&
-      overrideStep < steps.length &&
-      overrideStep >= 0 &&
-      overrideStep !== currentStep;
-    if (isValidStep) setCurrentStep(overrideStep);
-  }, [overrideStep]);
-  useEffect(() => {
-    if (stepsContentRef.current) {
-      const currentStepComponent = stepsContentRef.current.children[
-        currentStep
-      ] as HTMLDivElement;
-      const currentStepComponentFirstChild = currentStepComponent
-        .children[0] as HTMLDivElement;
-      setCurrentStepComponentHeight(currentStepComponentFirstChild.offsetHeight);
-    }
-  }, [currentStep]);
   return (
     <section className={styles["screen-steps"]}>
       <nav className={styles["steps"]}>
@@ -74,7 +56,7 @@ const ScreenSteps = ({
       <div
         className={styles["frame"]}
         style={{
-          height: currentStepComponentHeight ? currentStepComponentHeight : "100%",
+          height: stepsContentHeight ? stepsContentHeight : "100%",
         }}
       >
         <div
@@ -82,10 +64,11 @@ const ScreenSteps = ({
           className={styles["steps-content"]}
           style={stepContentStyle()}
         >
-          {steps.map((step) => (
+          {steps.map((step, index) => (
             <div
               key={step.innerText}
               className={styles["step-component"]}
+              data-is-current={index === currentStep}
               style={{ width: `${100 / steps.length}%` }}
             >
               {step.component}
