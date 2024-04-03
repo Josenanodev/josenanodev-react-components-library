@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styles from "./LabeledInput.module.scss";
 import {
   formatValueToCVV,
@@ -37,7 +37,7 @@ const LabeledInput = ({
   specialType,
 }: LabeledInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [shrinkLabel, setShrinkLabel] = useState(defaultValue ? true : false);
+  const [shrinkLabel, setShrinkLabel] = useState(false);
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     let value = event.target.value;
     switch (specialType) {
@@ -58,6 +58,11 @@ const LabeledInput = ({
     event.target.value = value;
     onChange(value);
   };
+  useEffect(() => {
+    if (defaultValue) {
+      setShrinkLabel(true);
+    }
+  }, [defaultValue]);
   return (
     <div
       className={styles["labeled-input"]}
