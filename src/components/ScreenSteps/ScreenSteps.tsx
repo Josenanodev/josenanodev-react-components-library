@@ -13,6 +13,7 @@ type ScreenStepsProps = {
   defaultStep?: number;
   onStepChange?: (step: number) => void;
   canNavigate?: boolean;
+  overrideStep?: number;
 };
 
 const ScreenSteps = ({
@@ -20,11 +21,19 @@ const ScreenSteps = ({
   defaultStep = 0,
   onStepChange = () => {},
   canNavigate,
+  overrideStep,
 }: ScreenStepsProps) => {
   const stepsContentRef = useRef<HTMLDivElement>(null);
   const [currentStep, setCurrentStep] = useState(defaultStep);
   const [_stepsContentWidth, stepsContentHeight] = useResizeObserver(stepsContentRef);
-
+  useEffect(() => {
+    const isValidStep =
+      overrideStep !== undefined &&
+      overrideStep < steps.length &&
+      overrideStep >= 0 &&
+      overrideStep !== currentStep;
+    if (isValidStep) setCurrentStep(overrideStep);
+  }, [overrideStep]);
   const stepContentStyle = (): React.CSSProperties => {
     const translatePercentage = 100 / steps.length;
     return {
