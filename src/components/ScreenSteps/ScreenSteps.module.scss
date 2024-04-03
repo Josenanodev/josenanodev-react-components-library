@@ -1,6 +1,5 @@
 .screen-steps {
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -27,11 +26,11 @@
       line-height: normal;
       cursor: pointer;
       transition: all 300ms ease-in-out;
-      &.completed {
+      &[data-is-complete="true"] {
         background-color: rgba(112, 90, 0, 0.4);
         color: rgba(65, 65, 65, 0.4);
       }
-      &.current {
+      &[data-is-current="true"] {
         background-color: rgba(112, 90, 0, 0.6);
         color: rgba(65, 65, 65, 1);
       }
@@ -48,17 +47,13 @@
     margin: 0;
   }
   .frame {
-    height: calc(100% - 82px);
     width: 100%;
     overflow: hidden;
+    transition: height 300ms ease-in-out;
     .steps-content {
-      height: 100%;
       display: flex;
       justify-content: flex-start;
       transition: all 300ms ease-in-out;
-      .step-component {
-        height: 100%;
-      }
     }
   }
 }

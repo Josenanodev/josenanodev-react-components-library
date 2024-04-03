@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./ScreenSteps.module.scss";
 
 type Step = {
@@ -12,6 +12,7 @@ type ScreenStepsProps = {
   defaultStep?: number;
   onStepChange?: (step: number) => void;
   overrideStep?: number;
+  canNavigate?: boolean;
 };
 
 const ScreenSteps = ({
@@ -19,20 +20,11 @@ const ScreenSteps = ({
   defaultStep = 0,
   onStepChange = () => {},
   overrideStep,
+  canNavigate,
 }: ScreenStepsProps) => {
+  const stepsContentRef = useRef<HTMLDivElement>(null);
   const [currentStep, setCurrentStep] = useState(defaultStep);
-  const stepClassName = (index: number) => {
-    let className = styles["step"];
-    const isCompleted = index < currentStep;
-    if (isCompleted) {
-      className += ` ${styles["completed"]}`;
-    }
-    const isCurrent = index === currentStep;
-    if (isCurrent) {
-      className += ` ${styles["current"]}`;
-    }
-    return className;
-  };
+  const [currentStepComponentHeight, setCurrentStepComponentHeight] = useState(0);
   const stepContentStyle = (): React.CSSProperties => {
     const translatePercentage = 100 / steps.length;
     return {
@@ -48,14 +40,28 @@ const ScreenSteps = ({
       overrideStep !== currentStep;
     if (isValidStep) setCurrentStep(overrideStep);
   }, [overrideStep]);
+  useEffect(() => {
+    if (stepsContentRef.current) {
+      const currentStepComponent = stepsContentRef.current.children[
+        currentStep
+      ] as HTMLDivElement;
+      const currentStepComponentFirstChild = currentStepComponent
+        .children[0] as HTMLDivElement;
+      setCurrentStepComponentHeight(currentStepComponentFirstChild.offsetHeight);
+    }
+  }, [currentStep]);
   return (
     <section className={styles["screen-steps"]}>
       <nav className={styles["steps"]}>
         {steps.map((step, index) => (
           <div
             key={step.innerText}
-            className={stepClassName(index)}
+            className={styles["step"]}
+            data-is-completed={index < currentStep}
+            data-is-current={index === currentStep}
+            data-can-navigate={canNavigate}
             onClick={() => {
+              if (!canNavigate) return;
               setCurrentStep(index);
               onStepChange(index);
             }}
@@ -65,8 +71,17 @@ const ScreenSteps = ({
         ))}
       </nav>
       <p className={styles["outer-text"]}>{steps[currentStep].outterText}</p>
-      <div className={styles["frame"]}>
-        <div className={styles["steps-content"]} style={stepContentStyle()}>
+      <div
+        className={styles["frame"]}
+        style={{
+          height: currentStepComponentHeight ? currentStepComponentHeight : "100%",
+        }}
+      >
+        <div
+          ref={stepsContentRef}
+          className={styles["steps-content"]}
+          style={stepContentStyle()}
+        >
           {steps.map((step) => (
             <div
               key={step.innerText}
