@@ -8,7 +8,8 @@ type ScreenStepsProps = {
     steps: Step[];
     defaultStep?: number;
     onStepChange?: (step: number) => void;
+    canNavigate?: boolean;
     overrideStep?: number;
 };
-declare const ScreenSteps: ({ steps, defaultStep, onStepChange, overrideStep, }: ScreenStepsProps) => React.JSX.Element;
+declare const ScreenSteps: ({ steps, defaultStep, onStepChange, canNavigate, overrideStep, }: ScreenStepsProps) => React.JSX.Element;
 export default ScreenSteps;

@@ -202,10 +202,13 @@ const CalendarScrollableSection = ({
       if (
         customDate.dates.some(
           (includedDate) => includedDate.valueOf() === date.valueOf()
-        ) &&
-        customDate.clickSideEffect
+        ) 
       ) {
-        customDate.clickSideEffect(date);
+        if (customDate.clickSideEffect) customDate.clickSideEffect(date);
+        if (customDate.clearSelectionIfClicked) {
+          onSelectedDatesChange([]);
+          return;
+        }
       }
     });
     const isSelectable = isDateSelectable(date);
