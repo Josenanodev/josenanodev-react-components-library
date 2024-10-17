@@ -1,4 +1,3 @@
-/// <reference types="react" />
 /**
  * Hook that alerts clicks outside of the passed ref
  * @param elementRef ref of the element that will be checked

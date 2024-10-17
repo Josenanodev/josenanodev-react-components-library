@@ -1,4 +1,5 @@
 import React from "react";
+type SpecialType = "credit-card-number" | "expiration-date" | "cvv" | "phone";
 type LabeledInputProps = {
     label: string;
     defaultValue?: string;
@@ -10,6 +11,7 @@ type LabeledInputProps = {
     highlightError?: boolean;
     errorMessage?: string;
     inputProps?: React.ComponentProps<"input">;
+    specialType?: SpecialType;
 };
-declare const LabeledInput: ({ label, defaultValue, onChange, width, height, backgroundColor, textAlign, highlightError, errorMessage, inputProps, }: LabeledInputProps) => React.JSX.Element;
+declare const LabeledInput: ({ label, defaultValue, onChange, width, height, backgroundColor, textAlign, highlightError, errorMessage, inputProps, specialType, }: LabeledInputProps) => React.JSX.Element;
 export default LabeledInput;

@@ -90,6 +90,7 @@ export type CalendarDatePickerProps = {
     dates: Date[];
     selectable: boolean;
     crossed?: boolean;
+    clearSelectionIfClicked?: boolean;
     clickSideEffect?: (date: Date) => void;
   }[];
   minimumDate?: Date;
