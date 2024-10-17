@@ -20,15 +20,16 @@ export const Default: Story = {
     customDates: [
       {
         color: "#C9C9C9",
-        dates: [new Date(2023, 6, 23), new Date(2023, 6, 26)],
+        dates: [new Date(2024, 9, 23), new Date(2024, 9, 26)],
         selectable: false,
         crossed: true,
       },
       {
         color: "#FFCACA",
-        dates: [new Date(2023, 6, 24), new Date(2023, 6, 25)],
+        dates: [new Date(2024, 10, 24), new Date(2024, 10, 25)],
         selectable: false,
         crossed: false,
+        clearSelectionIfClicked: true,
         clickSideEffect: (date) => {
           alert(`You clicked on ${date.toDateString()}`);
         },
@@ -38,7 +39,7 @@ export const Default: Story = {
     maximumDate: new Date(new Date().getFullYear() + 5, 3, 25),
     customStyle: {
       width: "100%",
-    }
+    },
   },
 };
 
@@ -56,7 +57,7 @@ export const Range: Story = {
     mode: "range",
     onSelectedDatesChange(dates) {
       console.log(dates);
-    }
+    },
   },
 };
 
@@ -65,7 +66,7 @@ export const Multiple: Story = {
     mode: "multiple",
     onSelectedDatesChange(dates) {
       console.log(dates);
-    }
+    },
   },
 };
 
