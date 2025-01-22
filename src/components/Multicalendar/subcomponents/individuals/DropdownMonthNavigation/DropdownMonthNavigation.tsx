@@ -8,7 +8,7 @@ type DropdownMonthNavigationProps = {
   visibleMonth: number;
   visibleYear: number;
   onChangeAction: Function;
-  options: JSX.Element[];
+  options: React.ReactNode[];
 };
 
 const DropdownMonthNavigation = ({

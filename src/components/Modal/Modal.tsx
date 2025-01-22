@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import styles from "./Modal.module.scss";
 
 type ModalProps = {
-  children: JSX.Element;
+  children: React.ReactNode;
   overrideOpenState?: boolean;
   forced?: boolean;
   onOpen?: Function;

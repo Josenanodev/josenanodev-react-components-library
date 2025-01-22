@@ -15,7 +15,7 @@ import { jsToSqlDate, monthYearString } from "josenanodev-generic-utils";
  */
 export function scrollByDate(
   dateObject: Date,
-  elementRef: React.RefObject<HTMLDivElement>,
+  elementRef: React.RefObject<HTMLDivElement | null>,
   leftPagination: number,
   cellsWidth: number
 ) {
@@ -23,8 +23,7 @@ export function scrollByDate(
   if (elementRef.current !== null) {
     elementRef.current.scrollLeft =
       ((Date.parse(dateObject.toString()) -
-        (Date.parse(new Date().toString()) -
-          (leftPagination) * millisecondsOfOneDay)) /
+        (Date.parse(new Date().toString()) - leftPagination * millisecondsOfOneDay)) /
         millisecondsOfOneDay) *
       cellsWidth;
   }
@@ -154,7 +153,7 @@ export function defineMonthsArray(
     Date.parse(new Date().toString()) - leftPagination * millisecondsOfOneDay;
   let maximumDateMilliseconds =
     Date.parse(new Date().toString()) + rightPagination * millisecondsOfOneDay;
-  let array: JSX.Element[] = [];
+  let array: React.ReactNode[] = [];
   let sideArray: string[] = [];
   for (
     let index = 0;
@@ -198,7 +197,7 @@ export function startAuthomaticScrollInGrid(
   yClientPosition: number,
   widthHorizontalBorder: number,
   widthVerticalBorder: number,
-  gridRef: React.RefObject<HTMLDivElement>
+  gridRef: React.RefObject<HTMLDivElement | null>
 ) {
   if (holdingClic && gridRef.current !== null) {
     if (xClientPosition < widthHorizontalBorder) gridRef.current.scrollLeft -= 10;
@@ -244,7 +243,3 @@ export function authomaticScrollInGrid(
     }
   }
 }
-
-
-
-

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import style from "./StackedCards.module.scss";
 
 type Card = {
-  title: JSX.Element;
-  content: JSX.Element;
+  title: React.ReactNode;
+  content: React.ReactNode;
 };
 
 type StackedCardsProps = {
