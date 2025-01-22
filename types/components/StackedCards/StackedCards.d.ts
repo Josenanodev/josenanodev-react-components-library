@@ -1,7 +1,7 @@
 import React from "react";
 type Card = {
-    title: JSX.Element;
-    content: JSX.Element;
+    title: React.ReactNode;
+    content: React.ReactNode;
 };
 type StackedCardsProps = {
     cards: Card[];

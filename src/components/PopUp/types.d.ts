@@ -1,5 +1,5 @@
 export interface PopUpPropsType {
-  children: JSX.Element | JSX.Element[];
+  children: React.ReactNode | React.ReactNode[];
   open: boolean;
   closeAction?: Function;
   outBoundClickClosesPopUp?: boolean;

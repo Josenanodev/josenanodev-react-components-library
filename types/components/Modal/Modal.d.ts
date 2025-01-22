@@ -1,6 +1,6 @@
 import React from "react";
 type ModalProps = {
-    children: JSX.Element;
+    children: React.ReactNode;
     overrideOpenState?: boolean;
     forced?: boolean;
     onOpen?: Function;

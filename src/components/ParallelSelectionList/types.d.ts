@@ -18,5 +18,5 @@ export type ListDatumType = {
   _id: string;
   searchValue: string;
   visibleDefaultName: string;
-  customComponent?: JSX.Element;
+  customComponent?: React.ReactNode;
 };
