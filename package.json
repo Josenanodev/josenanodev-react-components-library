@@ -11,7 +11,7 @@
   "files": [
     "dist"
   ],
-  "types": "dist/types/index.d.ts",
+  "types": "types/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Josenanodev/josenanodev-react-components-library.git"
