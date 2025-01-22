@@ -6,7 +6,7 @@ import React from "react";
  * @param leftPagination number of cells to the left
  * @param cellsWidth width of cells
  */
-export declare function scrollByDate(dateObject: Date, elementRef: React.RefObject<HTMLDivElement>, leftPagination: number, cellsWidth: number): void;
+export declare function scrollByDate(dateObject: Date, elementRef: React.RefObject<HTMLDivElement | null>, leftPagination: number, cellsWidth: number): void;
 /**
  *
  * @param xPosition position X of grid
@@ -62,7 +62,7 @@ export declare function defineListElementsArrayVisibleList(paginationHeight: num
  * @param language language object for traductions
  * @returns string of the date, month followed by year
  */
-export declare function defineMonthsArray(leftPagination: number, rightPagination: number, language: "es_ES" | "en_EN"): JSX.Element[];
+export declare function defineMonthsArray(leftPagination: number, rightPagination: number, language: "es_ES" | "en_EN"): React.ReactNode[];
 /**
  *
  * @param holdingClic boolean to know if mouse id down
@@ -72,7 +72,7 @@ export declare function defineMonthsArray(leftPagination: number, rightPaginatio
  * @param widthVerticalBorder vertical border of activation
  * @param gridRef ref ofthe grid container
  */
-export declare function startAuthomaticScrollInGrid(holdingClic: boolean, xClientPosition: number, yClientPosition: number, widthHorizontalBorder: number, widthVerticalBorder: number, gridRef: React.RefObject<HTMLDivElement>): void;
+export declare function startAuthomaticScrollInGrid(holdingClic: boolean, xClientPosition: number, yClientPosition: number, widthHorizontalBorder: number, widthVerticalBorder: number, gridRef: React.RefObject<HTMLDivElement | null>): void;
 /**
  *
  * @param holdingClic boolean to know if mouse id down

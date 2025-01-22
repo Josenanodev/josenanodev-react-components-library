@@ -1,7 +1,7 @@
 import React from "react";
 type BubbleMenuProps = {
     options: {
-        icon: JSX.Element;
+        icon: React.ReactNode;
         text: string;
         visible: boolean;
         optionCallback: () => void;
