@@ -1,6 +1,6 @@
 {
   "name": "josenanodev-react-components-library",
-  "version": "1.10.2",
+  "version": "1.10.3",
   "author": {
     "name": "Jose Carlos Cardenas Martinez"
   },
@@ -11,7 +11,7 @@
   "files": [
     "dist"
   ],
-  "types": "types/index.d.ts",
+  "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Josenanodev/josenanodev-react-components-library.git"
