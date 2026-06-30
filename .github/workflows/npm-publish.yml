@@ -13,13 +13,13 @@ jobs:
   publish-npm:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 24
           registry-url: https://registry.npmjs.org/
+          cache: npm
       - run: npm ci
-      - run: npm i rollup rollup-plugin-dts rollup-plugin-peer-deps-external rollup-plugin-postcss tslib @rollup/plugin-commonjs @rollup/plugin-node-resolve @rollup/plugin-terser @rollup/plugin-typescript
       - run: npm run rollup-build-lib
       - run: npm publish
         env:
