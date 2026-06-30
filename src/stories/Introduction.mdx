@@ -2,115 +2,84 @@ import { Meta } from "@storybook/addon-docs/blocks";
 
 <Meta title="Introduction" />
 
-<style>
-  {`
-    .subheading {
-      --mediumdark: '#999999';
-      font-weight: 700;
-      font-size: 13px;
-      color: #999;
-      letter-spacing: 6px;
-      line-height: 24px;
-      text-transform: uppercase;
-      margin-bottom: 12px;
-      margin-top: 40px;
-    }
+# Josenanodev React Components Library
 
-    .link-list {
-      display: grid;
-      grid-template-columns: 1fr;
-      grid-template-rows: 1fr 1fr;
-      row-gap: 10px;
-    }
+Reusable React components and hooks for booking flows, property-management tools, forms, modal interactions, galleries, and compact product UI.
 
-    @media (min-width: 620px) {
-      .link-list {
-        row-gap: 20px;
-        column-gap: 20px;
-        grid-template-columns: 1fr 1fr;
-      }
-    }
+## Install
 
-    @media all and (-ms-high-contrast:none) {
-    .link-list {
-        display: -ms-grid;
-        -ms-grid-columns: 1fr 1fr;
-        -ms-grid-rows: 1fr 1fr;
-      }
-    }
+```bash
+npm install josenanodev-react-components-library
+```
 
-    .link-item {
-      display: block;
-      padding: 20px;
-      border: 1px solid #00000010;
-      border-radius: 5px;
-      transition: background 150ms ease-out, border 150ms ease-out, transform 150ms ease-out;
-      color: #333333;
-      display: flex;
-      align-items: flex-start;
-    }
+Peer dependencies:
 
-    .link-item:hover {
-      border-color: #1EA7FD50;
-      transform: translate3d(0, -3px, 0);
-      box-shadow: rgba(0, 0, 0, 0.08) 0 3px 10px 0;
-    }
+```bash
+npm install react react-dom react-icons
+```
 
-    .link-item:active {
-      border-color: #1EA7FD;
-      transform: translate3d(0, 0, 0);
-    }
+## Basic Usage
 
-    .link-item strong {
-      font-weight: 700;
-      display: block;
-      margin-bottom: 2px;
-    }
+```tsx
+import {
+  CalendarDatePicker,
+  IntegerControl,
+  LabeledInput,
+} from "josenanodev-react-components-library";
 
-    .link-item img {
-      height: 40px;
-      width: 40px;
-      margin-right: 15px;
-      flex: none;
-    }
+export function BookingControls() {
+  return (
+    <>
+      <LabeledInput label="Guest name" onChange={console.log} />
+      <IntegerControl defaultValue={2} minimumValue={1} onChange={console.log} />
+      <CalendarDatePicker mode="range" onSelectedDatesChange={console.log} />
+    </>
+  );
+}
+```
 
-    .link-item span,
-    .link-item p {
-      margin: 0;
-      font-size: 14px;
-      line-height: 20px;
-    }
+## Component Groups
 
-    .tip {
-      display: inline-block;
-      border-radius: 1em;
-      font-size: 11px;
-      line-height: 12px;
-      font-weight: 700;
-      background: #E7FDD8;
-      color: #66BF3C;
-      padding: 4px 12px;
-      margin-right: 10px;
-      vertical-align: top;
-    }
+### Booking And Availability
 
-    .tip-wrapper {
-      font-size: 13px;
-      line-height: 20px;
-      margin-top: 40px;
-      margin-bottom: 40px;
-    }
+- `CalendarDatePicker`: single, multiple, range, and booking date selection.
+- `Multicalendar`: virtualized resource/date availability grid.
 
-    .tip-wrapper code {
-      font-size: 12px;
-      display: inline-block;
-    }
-  `}
-</style>
+### Forms And Inputs
 
-# Welcome to Josenanodev React Components Library
+- `LabeledInput`: floating-label input with optional formatting and validation state.
+- `InputBoxWithConfirmation`: edit-and-confirm text or number input.
+- `IntegerControl`: compact numeric stepper.
 
-This is an open source React components library, mainly focused on property management tools, such as booking calendars, availability calendars, etc.
+### Overlays And Navigation
 
-I hope you find this library very useful for your projects.
+- `Modal`: controlled portal overlay.
+- `AlertModal`: status and confirmation dialog.
+- `BubbleMenu`: floating action menu.
+- `ScreenSteps`: animated multi-step flow.
 
+### Media And Layout
+
+- `ScrollSnapGallery`: native scroll-snap image gallery.
+- `StackedCards`: interactive stacked card selector.
+
+## Documentation Standards
+
+Each component page includes:
+
+- A short description of the intended use case.
+- A live example.
+- An autodocs arg table with prop descriptions.
+- Controls where the prop can be safely edited in Storybook.
+
+For advanced components like `Multicalendar`, prefer reading the prop table before changing examples. Several props affect virtualization, scroll persistence, and callback timing.
+
+## Local Development
+
+```bash
+npm install
+npm run storybook
+npm run build-storybook
+npm run tsc
+npm run rollup-build-lib
+```

@@ -7,16 +7,27 @@ import { IconType } from "react-icons/lib";
 import { BsArrowLeftCircle, BsArrowRightCircle } from "react-icons/bs";
 
 type ScrollSnapGalleryProps = {
+  /** Image URLs rendered as slides. */
   urls: string[];
+  /** Optional alt text array matched by slide index. */
   alts?: string[];
+  /** CSS width applied to the scroll frame. */
   width?: string;
+  /** CSS height applied to the scroll frame. */
   height?: string;
+  /** Icon component used for position indicators. */
   IndicatorIcon?: IconType;
+  /** Number of indicator icons emphasized at one time. */
   positionIndicatorSize?: number;
+  /** Indicator icon size in pixels. */
   iconSize?: number;
+  /** Shows previous and next arrow controls. */
   showArrows?: boolean;
+  /** Inline styles applied to the image frame. */
   frameStyle?: React.CSSProperties;
+  /** Called with the active slide index after scrolling. */
   onSlideChange?: (index: number) => void;
+  /** Automatically advances the gallery every 3 seconds. */
   autoChange?: boolean;
 };
 

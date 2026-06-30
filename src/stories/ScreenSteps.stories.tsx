@@ -1,11 +1,25 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react-webpack5";
 import ScreenSteps from "../components/ScreenSteps/ScreenSteps";
+import {
+  componentDescriptions,
+  screenStepsArgTypes,
+  storyDescription,
+  storyDescriptions,
+} from "./documentation";
 
 const meta: Meta<typeof ScreenSteps> = {
   title: "ScreenSteps",
   component: ScreenSteps,
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component: componentDescriptions.ScreenSteps,
+      },
+    },
+  },
+  argTypes: screenStepsArgTypes,
   decorators: [
     (Story) => (
       <div style={{ width: 390 }}>
@@ -55,6 +69,7 @@ const styleThree: React.CSSProperties = {
 };
 
 export const Default: Story = {
+  parameters: storyDescription(storyDescriptions.ScreenStepsDefault),
   args: {
     steps: [
       {

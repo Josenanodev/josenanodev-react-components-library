@@ -62,7 +62,7 @@
     "react-icons": "^5.0.0"
   },
   "scripts": {
-    "rollup-build-lib": "rollup -c",
+    "rollup-build-lib": "node -e \"require('fs').rmSync('dist', { recursive: true, force: true })\" && rollup -c",
     "tsc": "tsc",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
@@ -87,7 +87,6 @@
   "bugs": {
     "url": "https://github.com/Josenanodev/josenanodev-react-components-library/issues"
   },
-  "readme": "ERROR: No README data found!",
   "homepage": "https://github.com/Josenanodev/josenanodev-react-components-library#readme",
   "dependencies": {
     "xlsx-js-style": "^1.2.0"

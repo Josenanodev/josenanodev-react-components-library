@@ -1,16 +1,31 @@
 import type { Meta, StoryObj } from "@storybook/react-webpack5";
 import CalendarDatePickerMask from "./CalendarDatePickerMask";
+import {
+  calendarDatePickerArgTypes,
+  componentDescriptions,
+  storyDescription,
+  storyDescriptions,
+} from "./documentation";
 
 const meta: Meta<typeof CalendarDatePickerMask> = {
   title: "CalendarDatePicker",
   component: CalendarDatePickerMask,
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component: componentDescriptions.CalendarDatePicker,
+      },
+    },
+  },
+  argTypes: calendarDatePickerArgTypes,
 };
 
 export default meta;
 type Story = StoryObj<typeof CalendarDatePickerMask>;
 
 export const Default: Story = {
+  parameters: storyDescription(storyDescriptions.CalendarDatePickerDefault),
   args: {
     mode: "single",
     language: "en",
@@ -44,6 +59,7 @@ export const Default: Story = {
 };
 
 export const Single: Story = {
+  parameters: storyDescription(storyDescriptions.CalendarDatePickerSingle),
   args: {
     mode: "single",
     onSelectedDatesChange(dates) {
@@ -53,6 +69,7 @@ export const Single: Story = {
 };
 
 export const Range: Story = {
+  parameters: storyDescription(storyDescriptions.CalendarDatePickerRange),
   args: {
     mode: "range",
     onSelectedDatesChange(dates) {
@@ -62,6 +79,7 @@ export const Range: Story = {
 };
 
 export const Multiple: Story = {
+  parameters: storyDescription(storyDescriptions.CalendarDatePickerMultiple),
   args: {
     mode: "multiple",
     onSelectedDatesChange(dates) {
@@ -71,6 +89,7 @@ export const Multiple: Story = {
 };
 
 export const Booking: Story = {
+  parameters: storyDescription(storyDescriptions.CalendarDatePickerBooking),
   args: {
     mode: "booking",
     onSelectedDatesChange(dates) {

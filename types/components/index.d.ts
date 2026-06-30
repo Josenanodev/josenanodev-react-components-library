@@ -1,3 +1,4 @@
+export { default as AlertModal } from "./AlertModal";
 export { default as BubbleMenu } from "./BubbleMenu";
 export { default as CalendarDatePicker } from "./CalendarDatePicker";
 export { default as InputBoxWithConfirmation } from "./InputBoxWithConfirmation";

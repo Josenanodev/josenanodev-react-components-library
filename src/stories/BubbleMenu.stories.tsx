@@ -3,11 +3,25 @@ import type { Meta, StoryObj } from "@storybook/react-webpack5";
 import BubbleMenu from "../components/BubbleMenu/BubbleMenu";
 import CalendarDatePicker from "../components/CalendarDatePicker/CalendarDatePicker";
 import { BsHouse, BsPerson, BsSearch } from "react-icons/bs";
+import {
+  bubbleMenuArgTypes,
+  componentDescriptions,
+  storyDescription,
+  storyDescriptions,
+} from "./documentation";
 
 const meta: Meta<typeof BubbleMenu> = {
   title: "BubbleMenu",
   component: BubbleMenu,
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component: componentDescriptions.BubbleMenu,
+      },
+    },
+  },
+  argTypes: bubbleMenuArgTypes,
   decorators: [
     (Story) => (
       <div style={{ minHeight: 400, minWidth: 360 }}>
@@ -21,6 +35,7 @@ export default meta;
 type Story = StoryObj<typeof BubbleMenu>;
 
 export const Default: Story = {
+  parameters: storyDescription(storyDescriptions.BubbleMenuDefault),
   args: {
     options: [
       {
@@ -46,6 +61,7 @@ export const Default: Story = {
 };
 
 export const AEP: Story = {
+  parameters: storyDescription(storyDescriptions.BubbleMenuAEP),
   args: {
     options: [
       {

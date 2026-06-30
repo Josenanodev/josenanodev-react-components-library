@@ -1,18 +1,34 @@
 import type { Meta, StoryObj } from "@storybook/react-webpack5";
+import { fn } from "storybook/test";
 import ScrollSnapGallery from "../components/ScrollSnapGallery/ScrollSnapGallery";
 
 import { BsHouseFill } from "react-icons/bs";
+import {
+  componentDescriptions,
+  scrollSnapGalleryArgTypes,
+  storyDescription,
+  storyDescriptions,
+} from "./documentation";
 
 const meta: Meta<typeof ScrollSnapGallery> = {
   title: "ScrollSnapGallery",
   component: ScrollSnapGallery,
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component: componentDescriptions.ScrollSnapGallery,
+      },
+    },
+  },
+  argTypes: scrollSnapGalleryArgTypes,
 };
 
 export default meta;
 type Story = StoryObj<typeof ScrollSnapGallery>;
 
 export const Default: Story = {
+  parameters: storyDescription(storyDescriptions.ScrollSnapGalleryDefault),
   args: {
     urls: [
       "https://ithemes.com/wp-content/uploads/2019/08/What-is-Your-Website-Design-Process-Blog-Post-Feature-Image-36119-01.png",
@@ -24,10 +40,12 @@ export const Default: Story = {
       "https://www.ed2go.com/common/images/1/16302/web-design-classes/jpg.jpg",
       "https://kinsta.com/wp-content/uploads/2020/02/web-design-best-practices-1024x512.jpg",
     ],
+    onSlideChange: fn(),
   },
 };
 
 export const CabinsGallery: Story = {
+  parameters: storyDescription(storyDescriptions.ScrollSnapGalleryCabinsGallery),
   args: {
     urls: [
       "https://cimacalidez.mx/recursos/inicio/portadaCab1.png",
@@ -46,5 +64,6 @@ export const CabinsGallery: Story = {
     },
     IndicatorIcon: BsHouseFill,
     showArrows: true,
+    onSlideChange: fn(),
   },
 };

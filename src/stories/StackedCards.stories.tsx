@@ -1,17 +1,32 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react-webpack5";
 import StackedCards from "../components/StackedCards/StackedCards";
+import {
+  componentDescriptions,
+  stackedCardsArgTypes,
+  storyDescription,
+  storyDescriptions,
+} from "./documentation";
 
 const meta: Meta<typeof StackedCards> = {
   title: "StackedCards",
   component: StackedCards,
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component: componentDescriptions.StackedCards,
+      },
+    },
+  },
+  argTypes: stackedCardsArgTypes,
 };
 
 export default meta;
 type Story = StoryObj<typeof StackedCards>;
 
 export const Default: Story = {
+  parameters: storyDescription(storyDescriptions.StackedCardsDefault),
   args: {
     cards: [
       { title: <strong>Card One</strong>, content: <p>Card one content</p> },
@@ -42,6 +57,7 @@ export const Default: Story = {
 };
 
 export const TwoCards: Story = {
+  parameters: storyDescription(storyDescriptions.StackedCardsTwoCards),
   args: {
     cards: [
       { title: <strong>Card One</strong>, content: <p>Card one content</p> },

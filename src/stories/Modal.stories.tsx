@@ -1,11 +1,25 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-webpack5";
 import Modal from "../components/Modal/Modal";
+import {
+  componentDescriptions,
+  modalArgTypes,
+  storyDescription,
+  storyDescriptions,
+} from "./documentation";
 
 const meta: Meta<typeof Modal> = {
   title: "Modal",
   component: Modal,
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component: componentDescriptions.Modal,
+      },
+    },
+  },
+  argTypes: modalArgTypes,
 };
 
 export default meta;
@@ -13,6 +27,7 @@ export default meta;
 type Story = StoryObj<typeof Modal>;
 
 export const Default: Story = {
+  parameters: storyDescription(storyDescriptions.ModalDefault),
   args: {
     overrideOpenState: true,
     children: (
@@ -38,6 +53,7 @@ export const Default: Story = {
 };
 
 export const Forced: Story = {
+  parameters: storyDescription(storyDescriptions.ModalForced),
   decorators: [
     (Story) => {
       const [visibility, setVisibility] = useState(false);
