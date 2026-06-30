@@ -5,12 +5,35 @@ const require = createRequire(import.meta.url);
 const config: StorybookConfig = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
   addons: ["@storybook/addon-links", {
-    name: "@storybook/addon-styling",
+    name: "@storybook/addon-styling-webpack",
     options: {
-      sass: {
-        // Require your preprocessor
-        implementation: require("sass"),
-      },
+      rules: [
+        {
+          test: /\.css$/i,
+          use: [require.resolve("style-loader"), require.resolve("css-loader")],
+        },
+        {
+          test: /\.s[ac]ss$/i,
+          use: [
+            require.resolve("style-loader"),
+            {
+              loader: require.resolve("css-loader"),
+              options: {
+                modules: {
+                  auto: /\.module\.s[ac]ss$/i,
+                  localIdentName: "[name]__[local]--[hash:base64:5]",
+                },
+              },
+            },
+            {
+              loader: require.resolve("sass-loader"),
+              options: {
+                implementation: require("sass"),
+              },
+            },
+          ],
+        },
+      ],
     },
   }, "@storybook/addon-webpack5-compiler-babel", "@storybook/addon-docs"],
   framework: {
