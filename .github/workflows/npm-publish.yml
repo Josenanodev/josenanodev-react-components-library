@@ -27,4 +27,15 @@ jobs:
       - run: npm install -g npm@latest
       - run: npm --version
       - run: npm run rollup-build-lib
+      - name: Show trusted publisher identity
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const token = await core.getIDToken("npm:registry.npmjs.org");
+            const payload = JSON.parse(Buffer.from(token.split(".")[1], "base64url").toString("utf8"));
+            core.info(`repository: ${payload.repository}`);
+            core.info(`repository_owner: ${payload.repository_owner}`);
+            core.info(`workflow_ref: ${payload.workflow_ref}`);
+            core.info(`job_workflow_ref: ${payload.job_workflow_ref || ""}`);
+            core.info(`ref: ${payload.ref}`);
       - run: npm publish --access public --provenance --registry=https://registry.npmjs.org/
