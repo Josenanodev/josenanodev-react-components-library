@@ -1,5 +1,5 @@
 import React from "react";
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-webpack5";
 import LabeledInput from "../components/LabeledInput/LabeledInput";
 
 const meta: Meta<typeof LabeledInput> = {

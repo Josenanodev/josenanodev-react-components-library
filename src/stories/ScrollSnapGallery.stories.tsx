@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-webpack5";
 import ScrollSnapGallery from "../components/ScrollSnapGallery/ScrollSnapGallery";
 
 import { BsHouseFill } from "react-icons/bs";

@@ -1,5 +1,5 @@
 import React from "react";
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-webpack5";
 import BubbleMenu from "../components/BubbleMenu/BubbleMenu";
 import CalendarDatePicker from "../components/CalendarDatePicker/CalendarDatePicker";
 import { BsHouse, BsPerson, BsSearch } from "react-icons/bs";

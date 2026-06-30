@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-webpack5";
 import IntegerControl from "../components/IntegerControl/IntegerControl";
 
 const meta: Meta<typeof IntegerControl> = {

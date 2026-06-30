@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-webpack5";
 import InputBoxWithConfirmation from "../components/InputBoxWithConfirmation/InputBoxWithConfirmation";
 
 const meta: Meta<typeof InputBoxWithConfirmation> = {
