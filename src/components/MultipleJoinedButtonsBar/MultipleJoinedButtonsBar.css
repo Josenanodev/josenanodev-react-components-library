@@ -5,36 +5,37 @@
 }
 
 .trc-multiple-joined-buttons-bar button {
-  border: var(--primary-color) solid 2px;
+  border: var(--trc-color-primary, var(--primary-color)) solid var(--trc-control-border-width, 2px);
   border-left-width: 1px;
   border-right-width: 1px;
-  color: var(--primary-color);
-  background-color: rgb(255, 255, 255);
+  color: var(--trc-color-primary, var(--primary-color));
+  background-color: var(--trc-color-surface, rgb(255, 255, 255));
   padding: 5px 15px;
   box-sizing: border-box;
-  font-weight: 600;
-  font-size: 16px;
+  font-family: var(--trc-font-family, Arial, Helvetica, sans-serif);
+  font-weight: var(--trc-font-weight-semibold, 600);
+  font-size: var(--trc-font-size-md, 16px);
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all var(--trc-transition-slow, 0.3s);
 }
 
 .trc-multiple-joined-buttons-bar button:hover {
-  background-color: rgb(240, 240, 240);
+  background-color: var(--trc-color-surface-hover, rgb(240, 240, 240));
 }
 
 .trc-multiple-joined-buttons-bar button.selected {
-  background-color: var(--primary-color);
-  color: white;
+  background-color: var(--trc-color-primary, var(--primary-color));
+  color: var(--trc-color-primary-contrast, white);
 }
 
 .trc-multiple-joined-buttons-bar button.left-side-button {
   border-left-width: 2px;
-  border-top-left-radius: 6px;
-  border-bottom-left-radius: 6px;
+  border-top-left-radius: var(--trc-radius-sm, 6px);
+  border-bottom-left-radius: var(--trc-radius-sm, 6px);
 }
 
 .trc-multiple-joined-buttons-bar button.right-side-button {
   border-right-width: 2px;
-  border-top-right-radius: 6px;
-  border-bottom-right-radius: 6px;
+  border-top-right-radius: var(--trc-radius-sm, 6px);
+  border-bottom-right-radius: var(--trc-radius-sm, 6px);
 }

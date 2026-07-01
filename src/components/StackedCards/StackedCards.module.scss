@@ -8,9 +8,9 @@
     justify-content: center;
     width: 80%;
     height: 80%;
-    background-color: #fff;
-    border-radius: 10px;
-    border: 2px solid #e2e2e2;
+    background-color: var(--trc-color-surface, #fff);
+    border-radius: var(--trc-radius-lg, 10px);
+    border: var(--trc-control-border-width, 2px) solid var(--trc-color-border-subtle, #e2e2e2);
     transition: all 0.4s ease-out;
     .title {
       width: 100%;

@@ -41,15 +41,15 @@
       button {
         border-width: 3px;
         border-style: solid;
-        border-color: #959595;
-        box-shadow: 3px 3px 4px 1px rgba(90, 90, 90, 0.3);
-        color: #959595;
-        background-color: rgba(255, 255, 255, 0.9);
+        border-color: var(--trc-color-text-subtle, #959595);
+        box-shadow: var(--trc-shadow-md, 3px 3px 4px 1px rgba(90, 90, 90, 0.3));
+        color: var(--trc-color-text-subtle, #959595);
+        background-color: var(--trc-color-surface-raised, rgba(255, 255, 255, 0.9));
         -webkit-tap-highlight-color: transparent;
         -webkit-user-select: none;
         user-select: none;
         cursor: pointer;
-        transition: all 100ms ease-in-out;
+        transition: all var(--trc-transition-fast, 100ms ease-in-out);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -57,18 +57,19 @@
         width: 100px;
         height: 100px;
         margin: 15px 0px;
-        border-radius: 50px;
-        font-size: 14px;
+        border-radius: var(--trc-radius-pill, 50px);
+        font-family: var(--trc-font-family, Arial, Helvetica, sans-serif);
+        font-size: var(--trc-font-size-sm, 14px);
         font-style: normal;
-        font-weight: 500;
-        line-height: normal;
+        font-weight: var(--trc-font-weight-medium, 500);
+        line-height: var(--trc-line-height-tight, normal);
         svg {
           min-width: 40px;
           min-height: 40px;
         }
         &:active {
           transform: translate(1px, 1px);
-          box-shadow: 1px 1px 2px rgba(90, 90, 90, 0.3);
+          box-shadow: var(--trc-shadow-sm, 1px 1px 2px rgba(90, 90, 90, 0.3));
         }
       }
     }
@@ -82,26 +83,26 @@
   left: 10px;
   width: 50px;
   height: 50px;
-  background-color: rgba(255, 255, 255, 0.7);
-  border-radius: 25px;
+  background-color: var(--trc-color-surface-raised, rgba(255, 255, 255, 0.7));
+  border-radius: var(--trc-radius-pill, 25px);
   border-width: 3px;
   border-style: solid;
-  border-color: #959595;
-  box-shadow: 3px 3px 4px 1px rgba(90, 90, 90, 0.3);
-  color: #959595;
-  background-color: rgba(255, 255, 255, 0.9);
+  border-color: var(--trc-color-text-subtle, #959595);
+  box-shadow: var(--trc-shadow-md, 3px 3px 4px 1px rgba(90, 90, 90, 0.3));
+  color: var(--trc-color-text-subtle, #959595);
+  background-color: var(--trc-color-surface-raised, rgba(255, 255, 255, 0.9));
   -webkit-tap-highlight-color: transparent;
   -webkit-user-select: none;
   user-select: none;
   cursor: pointer;
-  transition: all 100ms ease-in-out;
+  transition: all var(--trc-transition-fast, 100ms ease-in-out);
   svg {
     position: absolute;
     top: 2px;
     left: 0;
     width: 100%;
     height: 34px;
-    color: #0d280b;
+    color: var(--trc-color-text, #0d280b);
     path {
       transition: all 0.3s ease-in-out;
     }
@@ -113,15 +114,16 @@
     width: 100%;
     margin: 0;
     text-align: center;
-    color: #0d280b;
+    color: var(--trc-color-text, #0d280b);
+    font-family: var(--trc-font-family, Arial, Helvetica, sans-serif);
     font-size: 10px;
     font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+    font-weight: var(--trc-font-weight-semibold, 600);
+    line-height: var(--trc-line-height-tight, normal);
   }
   &:active {
     transform: translate(1px, 1px);
-    box-shadow: 1px 1px 2px rgba(90, 90, 90, 0.3);
+    box-shadow: var(--trc-shadow-sm, 1px 1px 2px rgba(90, 90, 90, 0.3));
   }
 }
 
@@ -135,14 +137,14 @@
     min-width: 100vw;
   }
   100% {
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: var(--trc-color-overlay, rgba(0, 0, 0, 0.3));
     min-width: 100vw;
   }
 }
 
 @keyframes hide-background {
   0% {
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: var(--trc-color-overlay, rgba(0, 0, 0, 0.3));
     min-width: 100vw;
   }
   99% {

@@ -40,7 +40,7 @@ const LabeledInput = ({
   onChange = () => {},
   width = "328px",
   height = "66px",
-  backgroundColor = "white",
+  backgroundColor = "var(--trc-color-surface, white)",
   textAlign = "left",
   highlightError = false,
   errorMessage,

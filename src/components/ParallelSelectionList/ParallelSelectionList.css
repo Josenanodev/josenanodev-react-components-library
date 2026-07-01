@@ -50,9 +50,10 @@
 }
 
 .trc-parallel-selection-list .list-title {
-  font-size: 20px;
-  font-weight: 600;
-  color: dimgray;
+  font-family: var(--trc-font-family, Arial, Helvetica, sans-serif);
+  font-size: var(--trc-font-size-lg, 20px);
+  font-weight: var(--trc-font-weight-semibold, 600);
+  color: var(--trc-color-text-muted, dimgray);
   height: 30px;
   display: flex;
   align-items: center;
@@ -61,13 +62,13 @@
 
 .trc-parallel-selection-list .div-search-bar {
   width: 100%;
-  border: 1px solid rgb(185, 185, 185);
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
+  border: var(--trc-border-width, 1px) solid var(--trc-color-border, rgb(185, 185, 185));
+  border-top-left-radius: var(--trc-radius-sm, 6px);
+  border-top-right-radius: var(--trc-radius-sm, 6px);
   padding: 6px;
   height: 30px;
   box-sizing: border-box;
-  color: dimgray;
+  color: var(--trc-color-text-muted, dimgray);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -88,9 +89,9 @@
   display: flex;
   flex-flow: column;
   box-sizing: border-box;
-  border: 1px solid rgb(169, 169, 169);
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
+  border: var(--trc-border-width, 1px) solid var(--trc-color-border, rgb(169, 169, 169));
+  border-bottom-left-radius: var(--trc-radius-sm, 6px);
+  border-bottom-right-radius: var(--trc-radius-sm, 6px);
   border-top: none;
   height: calc(100% - 60px);
 }
@@ -103,9 +104,9 @@
   height: 30px;
   border: none;
   background-color: transparent;
-  color: dimgray;
-  font-weight: 700;
-  border-bottom: 1px solid rgb(169, 169, 169);
+  color: var(--trc-color-text-muted, dimgray);
+  font-weight: var(--trc-font-weight-bold, 700);
+  border-bottom: var(--trc-border-width, 1px) solid var(--trc-color-border, rgb(169, 169, 169));
   box-sizing: border-box;
   padding: 5px 0;
   transition: all 0.3s;
@@ -118,7 +119,7 @@
 }
 
 .trc-parallel-selection-list .list-container .apply-all-button:hover {
-  background-color: rgb(238, 238, 238);
+  background-color: var(--trc-color-surface-hover, rgb(238, 238, 238));
 }
 
 .trc-parallel-selection-list .list-container .scrollable-section {
@@ -143,7 +144,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid rgb(169, 169, 169);
+  border-bottom: var(--trc-border-width, 1px) solid var(--trc-color-border, rgb(169, 169, 169));
 }
 
 .trc-parallel-selection-list
@@ -169,9 +170,10 @@
   .visible-default-name {
   box-sizing: border-box;
   padding: 17px 10px;
-  font-size: 16px;
-  font-weight: 600;
-  color: dimgray;
+  font-family: var(--trc-font-family, Arial, Helvetica, sans-serif);
+  font-size: var(--trc-font-size-md, 16px);
+  font-weight: var(--trc-font-weight-semibold, 600);
+  color: var(--trc-color-text-muted, dimgray);
   height: 50px;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -194,7 +196,7 @@
   margin: 10px;
   background-color: transparent;
   border: none;
-  border-radius: 15px;
+  border-radius: var(--trc-radius-pill, 15px);
   transition: all 0.3s;
   cursor: pointer;
 }
@@ -205,7 +207,7 @@
   .resizable-div-for-scroll
   .div-datum-wrapper
   .apply-to-one-button:hover {
-  background-color: rgb(238, 238, 238);
+  background-color: var(--trc-color-surface-hover, rgb(238, 238, 238));
 }
 
 .trc-parallel-selection-list .div-action-buttons button {
@@ -216,29 +218,30 @@
   justify-content: center;
   background-color: transparent;
   border: solid 2px;
-  border-radius: 6px;
-  font-size: 16px;
-  font-weight: 600;
+  border-radius: var(--trc-radius-sm, 6px);
+  font-family: var(--trc-font-family, Arial, Helvetica, sans-serif);
+  font-size: var(--trc-font-size-md, 16px);
+  font-weight: var(--trc-font-weight-semibold, 600);
   transition: all 0.3s;
   cursor: pointer;
 }
 
 .trc-parallel-selection-list .div-action-buttons .cancel-button {
-  border-color: dimgray;
-  color: dimgray;
+  border-color: var(--trc-color-text-muted, dimgray);
+  color: var(--trc-color-text-muted, dimgray);
 }
 
 .trc-parallel-selection-list .div-action-buttons .cancel-button:hover {
-  background-color: dimgray;
-  color: white;
+  background-color: var(--trc-color-text-muted, dimgray);
+  color: var(--trc-color-primary-contrast, white);
 }
 
 .trc-parallel-selection-list .div-action-buttons .apply-button {
-  border-color: var(--primary-color);
-  color: var(--primary-color);
+  border-color: var(--trc-color-primary, var(--primary-color));
+  color: var(--trc-color-primary, var(--primary-color));
 }
 
 .trc-parallel-selection-list .div-action-buttons .apply-button:hover {
-  background-color: var(--primary-color);
-  color: white;
+  background-color: var(--trc-color-primary, var(--primary-color));
+  color: var(--trc-color-primary-contrast, white);
 }

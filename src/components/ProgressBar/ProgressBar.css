@@ -10,8 +10,8 @@
   position: relative;
   height: 100%;
   width: 100%;
-  background-color: dimgray;
-  border-radius: 100px;
+  background-color: var(--trc-color-text-muted, dimgray);
+  border-radius: var(--trc-radius-pill, 100px);
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -22,7 +22,7 @@
   height: 100%;
   box-sizing: border-box;
   transition: all 0.2s;
-  border-radius: 100px;
+  border-radius: var(--trc-radius-pill, 100px);
 }
 
 .trc-progress-bar .fillable-body p {
@@ -33,7 +33,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
-  font-weight: 600;
-  color: white;
+  font-family: var(--trc-font-family, Arial, Helvetica, sans-serif);
+  font-size: var(--trc-font-size-md, 16px);
+  font-weight: var(--trc-font-weight-semibold, 600);
+  color: var(--trc-color-primary-contrast, white);
 }

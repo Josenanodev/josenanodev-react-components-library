@@ -10,7 +10,7 @@ import {
 } from "./documentation";
 
 const meta: Meta<typeof Multicalendar> = {
-  title: "Multicalendar",
+  title: "Booking And Availability/Multicalendar",
   component: Multicalendar,
   tags: ["autodocs"],
   parameters: {

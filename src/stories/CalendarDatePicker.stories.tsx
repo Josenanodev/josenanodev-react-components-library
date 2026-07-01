@@ -8,7 +8,7 @@ import {
 } from "./documentation";
 
 const meta: Meta<typeof CalendarDatePickerMask> = {
-  title: "CalendarDatePicker",
+  title: "Booking And Availability/CalendarDatePicker",
   component: CalendarDatePickerMask,
   tags: ["autodocs"],
   parameters: {

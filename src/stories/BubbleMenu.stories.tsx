@@ -11,7 +11,7 @@ import {
 } from "./documentation";
 
 const meta: Meta<typeof BubbleMenu> = {
-  title: "BubbleMenu",
+  title: "Overlays And Navigation/BubbleMenu",
   component: BubbleMenu,
   tags: ["autodocs"],
   parameters: {

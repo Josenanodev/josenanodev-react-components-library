@@ -8,7 +8,7 @@ import {
 } from "./documentation";
 
 const meta: Meta<typeof InputBoxWithConfirmation> = {
-  title: "InputBoxWithConfirmation",
+  title: "Forms And Inputs/InputBoxWithConfirmation",
   component: InputBoxWithConfirmation,
   tags: ["autodocs"],
   parameters: {

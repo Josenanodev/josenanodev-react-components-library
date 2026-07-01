@@ -30,10 +30,10 @@
 
 .calendar-date-picker {
   position: relative;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--trc-font-family, Arial, Helvetica, sans-serif);
   width: 390px;
-  color: #959595;
-  font-weight: 600;
+  color: var(--trc-color-text-subtle, #959595);
+  font-weight: var(--trc-font-weight-semibold, 600);
   font-style: normal;
   line-height: normal;
   -webkit-tap-highlight-color: transparent;
@@ -41,19 +41,19 @@
     position: absolute;
     top: 0px;
     right: 5px;
-    border: solid 2px #787878;
-    border-radius: 6px;
+    border: solid var(--trc-control-border-width, 2px) var(--trc-color-text-muted, #787878);
+    border-radius: var(--trc-radius-sm, 6px);
     padding: 4px 8px;
     font-size: 18px;
-    background-color: white;
-    color: #787878;
-    transition: all 0.1s ease-in-out;
+    background-color: var(--trc-color-surface, white);
+    color: var(--trc-color-text-muted, #787878);
+    transition: all var(--trc-transition-fast, 0.1s ease-in-out);
     cursor: pointer;
     &:hover {
-      background-color: #f3f3f3;
+      background-color: var(--trc-color-surface-hover, #f3f3f3);
     }
     &:active {
-      background-color: #cfcfcf;
+      background-color: var(--trc-color-surface-active, #cfcfcf);
     }
   }
   .month-and-year {
@@ -71,16 +71,16 @@
       text-align: right;
       font-size: 24px;
       margin-right: 10px;
-      color: #959595;
+      color: var(--trc-color-text-subtle, #959595);
       cursor: pointer;
       &:focus {
         outline: transparent;
       }
       option {
-        background-color: white;
-        color: #959595;
+        background-color: var(--trc-color-surface, white);
+        color: var(--trc-color-text-subtle, #959595);
         &:disabled {
-          color: #cfcfcf;
+          color: var(--trc-color-text-disabled, #cfcfcf);
         }
       }
     }
@@ -88,7 +88,7 @@
   .week-days {
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #ebebeb;
+    border-bottom: var(--trc-border-width, 1px) solid var(--trc-color-border-subtle, #ebebeb);
     p {
       width: calc(100% / 7);
       margin: 0px;

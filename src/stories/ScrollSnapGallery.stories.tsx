@@ -11,7 +11,7 @@ import {
 } from "./documentation";
 
 const meta: Meta<typeof ScrollSnapGallery> = {
-  title: "ScrollSnapGallery",
+  title: "Media And Layout/ScrollSnapGallery",
   component: ScrollSnapGallery,
   tags: ["autodocs"],
   parameters: {

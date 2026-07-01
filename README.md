@@ -68,6 +68,28 @@ export function BookingForm() {
 }
 ```
 
+## Design System Theme
+
+The library ships a shared CSS token layer from `src/index.css`, imported by the package entry point. Components use `--trc-*` custom properties for their basic theme: typography, surfaces, borders, radii, shadows, transitions, and semantic colors.
+
+Override tokens globally, or scope them to any wrapper with `data-trc-theme`:
+
+```css
+:root {
+  --trc-color-primary: #ec6321;
+  --trc-color-secondary: #46ba0d;
+  --trc-color-focus: #19448d;
+  --trc-color-text: #333333;
+  --trc-color-text-muted: #787878;
+  --trc-color-surface: #ffffff;
+  --trc-color-border: #d8d8d8;
+  --trc-radius-md: 8px;
+  --trc-shadow-modal: 0px 0px 16px rgba(0, 0, 0, 0.15);
+}
+```
+
+Legacy variables such as `--primary-color`, `--secondary-color`, `--light-gray`, and `--medium-gray` remain as aliases for compatibility.
+
 ## Components
 
 All public components are documented in Storybook with usage guidance, prop descriptions, and live examples.

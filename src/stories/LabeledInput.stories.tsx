@@ -9,7 +9,7 @@ import {
 } from "./documentation";
 
 const meta: Meta<typeof LabeledInput> = {
-  title: "LabeledInput",
+  title: "Forms And Inputs/LabeledInput",
   component: LabeledInput,
   tags: ["autodocs"],
   parameters: {

@@ -8,7 +8,7 @@ import {
 } from "./documentation";
 
 const meta: Meta<typeof AlertModal> = {
-  title: "AlertModal",
+  title: "Overlays And Navigation/AlertModal",
   component: AlertModal,
   tags: ["autodocs"],
   parameters: {

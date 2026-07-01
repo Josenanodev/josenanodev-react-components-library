@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-webpack5";
+import { fn } from "storybook/test";
 import Modal from "../components/Modal/Modal";
 import {
   componentDescriptions,
@@ -9,7 +10,7 @@ import {
 } from "./documentation";
 
 const meta: Meta<typeof Modal> = {
-  title: "Modal",
+  title: "Overlays And Navigation/Modal",
   component: Modal,
   tags: ["autodocs"],
   parameters: {
@@ -20,6 +21,10 @@ const meta: Meta<typeof Modal> = {
     },
   },
   argTypes: modalArgTypes,
+  args: {
+    onOpen: fn(),
+    onClose: fn(),
+  },
 };
 
 export default meta;

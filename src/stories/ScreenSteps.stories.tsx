@@ -9,7 +9,7 @@ import {
 } from "./documentation";
 
 const meta: Meta<typeof ScreenSteps> = {
-  title: "ScreenSteps",
+  title: "Overlays And Navigation/ScreenSteps",
   component: ScreenSteps,
   tags: ["autodocs"],
   parameters: {

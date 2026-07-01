@@ -1,12 +1,12 @@
 .list-element {
   position: relative;
-  border-bottom: 1px solid rgb(235, 235, 235);
+  border-bottom: var(--trc-border-width, 1px) solid var(--trc-color-border-subtle, rgb(235, 235, 235));
   box-sizing: border-box;
-  background-color: white;
+  background-color: var(--trc-color-surface, white);
   cursor: pointer;
   overflow: hidden;
   &:hover {
-    background-color: rgb(240, 240, 240);
+    background-color: var(--trc-color-surface-hover, rgb(240, 240, 240));
   }
 }
 

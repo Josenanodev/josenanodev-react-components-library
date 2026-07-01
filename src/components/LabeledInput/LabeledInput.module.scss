@@ -1,21 +1,21 @@
 .labeled-input {
   position: relative;
-  border-radius: 8px;
-  border: 2px solid #959595;
+  border-radius: var(--trc-radius-md, 8px);
+  border: var(--trc-control-border-width, 2px) solid var(--trc-color-text-subtle, #959595);
   padding: 0px 28px;
-  background: #fff;
+  background: var(--trc-color-surface, #fff);
   box-sizing: border-box;
-  transition: all 200ms ease-in-out;
+  transition: all var(--trc-transition-base, 200ms ease-in-out);
   cursor: pointer;
   label {
     z-index: 1;
     position: absolute;
-    color: #959595;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;
+    color: var(--trc-color-text-subtle, #959595);
+    font-family: var(--trc-font-family, Arial, Helvetica, sans-serif);
+    font-size: var(--trc-font-size-lg, 20px);
     font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+    font-weight: var(--trc-font-weight-regular, 400);
+    line-height: var(--trc-line-height-tight, normal);
     top: calc(50%);
     left: 28px;
     padding: 0;
@@ -28,8 +28,8 @@
     &[data-is-shrinked='true'] {
       top: -2px;
       left: 10px;
-      font-weight: 600;
-      font-size: 12px;
+      font-weight: var(--trc-font-weight-semibold, 600);
+      font-size: var(--trc-font-size-xs, 12px);
       padding: 0px 5px;
     }
   }
@@ -42,12 +42,12 @@
     border: none;
     outline: transparent;
     background: transparent;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;
+    font-family: var(--trc-font-family, Arial, Helvetica, sans-serif);
+    font-size: var(--trc-font-size-lg, 20px);
     font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    color: #959595;
+    font-weight: var(--trc-font-weight-regular, 400);
+    line-height: var(--trc-line-height-tight, normal);
+    color: var(--trc-color-text-subtle, #959595);
     padding: 0;
     cursor: pointer;
     &:focus {
@@ -56,9 +56,9 @@
     }
   }
   &[data-has-error='true'] {
-    border-color: #f34d1b;
+    border-color: var(--trc-color-danger, #f34d1b);
     label {
-      color: #e17959;
+      color: var(--trc-color-danger-soft, #e17959);
     }
   }
   .error-message {
@@ -66,13 +66,13 @@
     margin: 0;
     top: calc(100% + 5px);
     left: 5px;
-    color: #f34d1b;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 12px;
+    color: var(--trc-color-danger, #f34d1b);
+    font-family: var(--trc-font-family, Arial, Helvetica, sans-serif);
+    font-size: var(--trc-font-size-xs, 12px);
     font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+    font-weight: var(--trc-font-weight-regular, 400);
+    line-height: var(--trc-line-height-tight, normal);
     padding: 0;
-    transition: all 200ms ease-in-out;
+    transition: all var(--trc-transition-base, 200ms ease-in-out);
   }
 }

@@ -9,7 +9,7 @@ import {
 } from "./documentation";
 
 const meta: Meta<typeof StackedCards> = {
-  title: "StackedCards",
+  title: "Media And Layout/StackedCards",
   component: StackedCards,
   tags: ["autodocs"],
   parameters: {

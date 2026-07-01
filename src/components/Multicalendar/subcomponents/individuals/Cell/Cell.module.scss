@@ -1,6 +1,6 @@
 .cell {
   position: relative;
-  border: 1px solid rgb(200, 200, 200);
-  border-radius: 6px;
+  border: var(--trc-border-width, 1px) solid var(--trc-color-border, rgb(200, 200, 200));
+  border-radius: var(--trc-radius-sm, 6px);
 }
 

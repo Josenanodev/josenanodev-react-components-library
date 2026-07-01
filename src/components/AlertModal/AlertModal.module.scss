@@ -1,49 +1,52 @@
 .alert-modal {
-  background-color: white;
-  box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.15);
-  padding: 16px;
-  border-radius: 8px;
+  background-color: var(--trc-color-surface, white);
+  box-shadow: var(--trc-shadow-modal, 0px 0px 16px rgba(0, 0, 0, 0.15));
+  padding: var(--trc-space-4, 16px);
+  border-radius: var(--trc-radius-md, 8px);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: var(--trc-space-4, 16px);
   .icon-section{
     svg{
         opacity: 0.8;
     }
   }
   .title {
-    font-size: 32px;
-    font-weight: 600;
-    color: #333333;
+    font-family: var(--trc-font-family, Arial, Helvetica, sans-serif);
+    font-size: var(--trc-font-size-2xl, 32px);
+    font-weight: var(--trc-font-weight-semibold, 600);
+    color: var(--trc-color-text, #333333);
     margin: 0;
   }
   .message {
-    font-size: 16px;
-    color: #333333;
+    font-family: var(--trc-font-family, Arial, Helvetica, sans-serif);
+    font-size: var(--trc-font-size-md, 16px);
+    color: var(--trc-color-text, #333333);
     margin: 0;
   }
   .button-section {
     display: flex;
-    gap: 16px;
+    gap: var(--trc-space-4, 16px);
   }
   button{
     min-width: 90px;
     border-width: 3px;
     border-style: solid;
-    border-color: #959595;
-    box-shadow: -3px 3px 4px rgba(90, 90, 90, 0.3);
-    color: #959595;
-    background-color: white;
-    border-radius: 8px;
-    padding: 8px 16px;
+    border-color: var(--trc-color-text-subtle, #959595);
+    box-shadow: var(--trc-shadow-md-inverse, -3px 3px 4px rgba(90, 90, 90, 0.3));
+    color: var(--trc-color-text-subtle, #959595);
+    background-color: var(--trc-color-surface, white);
+    border-radius: var(--trc-radius-md, 8px);
+    padding: var(--trc-space-2, 8px) var(--trc-space-4, 16px);
     box-sizing: border-box;
     text-align: center;
-    font-size: 16px;
+    font-family: var(--trc-font-family, Arial, Helvetica, sans-serif);
+    font-size: var(--trc-font-size-md, 16px);
     font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+    font-weight: var(--trc-font-weight-semibold, 600);
+    line-height: var(--trc-line-height-tight, normal);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -52,15 +55,15 @@
     -webkit-user-select: none;
     user-select: none;
     &.confirm-button {
-      border-color: #19448d;
-      background-color: #19448d;
-      color: white;
+      border-color: var(--trc-color-focus, #19448d);
+      background-color: var(--trc-color-focus, #19448d);
+      color: var(--trc-color-primary-contrast, white);
     }
     cursor: pointer;
-    transition: all 100ms ease-in-out;
+    transition: all var(--trc-transition-fast, 100ms ease-in-out);
     &:active {
       transform: translate(-1px, 1px);
-      box-shadow: -1px 1px 2px rgba(90, 90, 90, 0.3);
+      box-shadow: var(--trc-shadow-sm, -1px 1px 2px rgba(90, 90, 90, 0.3));
     }
   }
 }

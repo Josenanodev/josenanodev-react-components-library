@@ -62,17 +62,17 @@ const AlertModal = ({
       <div className={styles["alert-modal"]}>
         <section className={styles["icon-section"]}>
           {type === "success" && (
-            <BsCheckCircle size={iconSize} color={iconColor ?? "green"} />
+            <BsCheckCircle size={iconSize} color={iconColor ?? "var(--trc-color-success)"} />
           )}
-          {type === "error" && <BsXCircle size={iconSize} color={iconColor ?? "red"} />}
+          {type === "error" && <BsXCircle size={iconSize} color={iconColor ?? "var(--trc-color-danger)"} />}
           {type === "warning" && (
-            <IoWarningOutline size={iconSize} color={iconColor ?? "orange"} />
+            <IoWarningOutline size={iconSize} color={iconColor ?? "var(--trc-color-warning)"} />
           )}
           {type === "info" && (
-            <PiWarningCircle size={iconSize} color={iconColor ?? "blue"} />
+            <PiWarningCircle size={iconSize} color={iconColor ?? "var(--trc-color-info)"} />
           )}
           {type === "question" && (
-            <GoQuestion size={iconSize} color={iconColor ?? "gray"} />
+            <GoQuestion size={iconSize} color={iconColor ?? "var(--trc-color-text-subtle)"} />
           )}
         </section>
         {title && <h1 className={styles["title"]}>{title}</h1>}

@@ -34,7 +34,7 @@
   overflow-y: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
-  border-bottom: 1px solid #ebebeb;
+  border-bottom: var(--trc-border-width, 1px) solid var(--trc-color-border-subtle, #ebebeb);
   &::-webkit-scrollbar {
     display: none;
   }
@@ -55,8 +55,8 @@
         .day {
           position: relative;
           --angle: 270deg;
-          --color-default: #f3f3f3;
-          --color-selected: #b7d4b6;
+          --color-default: var(--trc-color-surface-hover, #f3f3f3);
+          --color-selected: var(--trc-color-secondary-soft, #b7d4b6);
           --percentage-default: 100%;
           --percentage-selected: 0%;
           display: flex;
@@ -99,10 +99,10 @@
             }
           }
           &.today {
-            outline: solid 2px #787878;
+            outline: solid var(--trc-control-border-width, 2px) var(--trc-color-text-muted, #787878);
           }
           &.in-month {
-            color: var(--medium-gray, #787878);
+            color: var(--trc-color-text-muted, var(--medium-gray, #787878));
           }
           &.not-in-month {
             opacity: 0.35;
@@ -113,13 +113,13 @@
           }
           &.check-in {
             --angle: 405deg;
-            --color-default: #f3f3f3;
+            --color-default: var(--trc-color-surface-hover, #f3f3f3);
             --percentage-default: 50%;
             --percentage-selected: 50%;
           }
           &.check-out {
             --angle: 225deg;
-            --color-default: #f3f3f3;
+            --color-default: var(--trc-color-surface-hover, #f3f3f3);
             --percentage-default: 50%;
             --percentage-selected: 50%;
           }
@@ -136,7 +136,7 @@
           position: absolute;
           width: 120%;
           height: 3px;
-          background-color: #bbb;
+          background-color: var(--trc-color-text-subtle, #bbb);
           transform: rotate(-45deg);
           display: none;
         }

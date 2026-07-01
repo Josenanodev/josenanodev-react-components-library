@@ -10,11 +10,11 @@
     svg {
       height: 44px;
       width: 44px;
-      fill: #c9c9c9;
-      transition: fill 100ms ease-in-out;
+      fill: var(--trc-color-text-disabled, #c9c9c9);
+      transition: fill var(--trc-transition-fast, 100ms ease-in-out);
       cursor: pointer;
       &:active {
-        fill: #787878;
+        fill: var(--trc-color-text-muted, #787878);
       }
     }
   }
@@ -22,13 +22,13 @@
     border: none;
     background: none;
     padding: 0;
-    color: #414141;
+    color: var(--trc-color-text, #414141);
     text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 32px;
+    font-family: var(--trc-font-family, Arial, Helvetica, sans-serif);
+    font-size: var(--trc-font-size-2xl, 32px);
     font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+    font-weight: var(--trc-font-weight-semibold, 600);
+    line-height: var(--trc-line-height-tight, normal);
     min-width: 50px;
     transition: color 300ms ease-in-out;
     &::-webkit-inner-spin-button {
@@ -41,7 +41,7 @@
   }
   &.default {
     input {
-      color: #787878;
+      color: var(--trc-color-text-muted, #787878);
     }
   }
 }

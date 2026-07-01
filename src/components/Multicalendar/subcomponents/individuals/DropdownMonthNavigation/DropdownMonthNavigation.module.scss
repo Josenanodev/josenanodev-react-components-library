@@ -3,12 +3,12 @@
     display: flex;
     width: 200px;
     margin: 0px 10px;
-    border: 1px solid rgb(216, 216, 216);
-    color: black;
-    background-color: white;
-    border-radius: 6px;
+    border: var(--trc-border-width, 1px) solid var(--trc-color-border, rgb(216, 216, 216));
+    color: var(--trc-color-text, black);
+    background-color: var(--trc-color-surface, white);
+    border-radius: var(--trc-radius-sm, 6px);
     white-space: nowrap;
-    font-size: 14px;
+    font-size: var(--trc-font-size-sm, 14px);
     line-height: 18px;
     height: 28px;
   }

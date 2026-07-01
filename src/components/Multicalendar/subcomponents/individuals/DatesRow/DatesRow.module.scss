@@ -24,10 +24,10 @@
         justify-content: center;
         align-items: center;
         div {
-          border-radius: 4px;
-          background: var(--primary-color, dimgray);
-          color: rgb(255, 255, 255);
-          font-size: 14px;
+          border-radius: var(--trc-radius-xs, 4px);
+          background: var(--trc-color-primary, var(--primary-color, dimgray));
+          color: var(--trc-color-primary-contrast, rgb(255, 255, 255));
+          font-size: var(--trc-font-size-sm, 14px);
           line-height: 18px;
           font-weight: 800;
           width: 40px;
@@ -37,7 +37,7 @@
       }
       p {
         margin: 0;
-        font-size: 14px;
+        font-size: var(--trc-font-size-sm, 14px);
         line-height: 18px;
       }
     }
@@ -46,12 +46,12 @@
       top: 0;
       height: 100%;
       box-sizing: border-box;
-      border-left: 1px solid rgb(235, 235, 235);
+      border-left: var(--trc-border-width, 1px) solid var(--trc-color-border-subtle, rgb(235, 235, 235));
       p {
         margin: 0;
-        font-size: 16px;
+        font-size: var(--trc-font-size-md, 16px);
         line-height: 20px;
-        font-weight: 600;
+        font-weight: var(--trc-font-weight-semibold, 600);
         white-space: nowrap;
         padding-left: 8px;
         padding-top: 8px;

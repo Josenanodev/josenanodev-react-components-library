@@ -35,12 +35,12 @@
     .arrow {
       width: 24px;
       height: 24px;
-      fill: #959595;
-      transition: all 100ms ease-in-out;
+      fill: var(--trc-color-text-subtle, #959595);
+      transition: all var(--trc-transition-fast, 100ms ease-in-out);
       z-index: 2;
       cursor: pointer;
       &:active {
-        fill: #0d280b;
+        fill: var(--trc-color-text, #0d280b);
       }
     }
     .position-indicator {
@@ -49,10 +49,10 @@
       align-items: center;
       transition: all 0.3s ease-in-out;
       .indicator-icon {
-        fill: #959595;
+        fill: var(--trc-color-text-subtle, #959595);
         transition: all 0.3s ease-in-out;
         &.current {
-          fill: #0d280b;
+          fill: var(--trc-color-text, #0d280b);
         }
         &.medium-shrunken {
           transform: scale(0.75);

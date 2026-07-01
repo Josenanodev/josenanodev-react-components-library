@@ -3,13 +3,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: solid 1px rgb(184, 184, 184);
-  background-color: rgb(250, 250, 250);
-  border-radius: 8px;
+  border: solid var(--trc-border-width, 1px) var(--trc-color-border, rgb(184, 184, 184));
+  background-color: var(--trc-color-surface-muted, rgb(250, 250, 250));
+  border-radius: var(--trc-radius-md, 8px);
   transition: border 0.3s;
   cursor: text;
   &.focused {
-    border-color: #218dec;
+    border-color: var(--trc-color-focus, #218dec);
   }
   .input-box-with-confirmation {
     box-sizing: border-box;
@@ -18,9 +18,10 @@
     text-align: center;
     border: none;
     background-color: transparent;
-    font-size: 16px;
-    font-weight: 600;
-    color: dimgray;
+    font-family: var(--trc-font-family, Arial, Helvetica, sans-serif);
+    font-size: var(--trc-font-size-md, 16px);
+    font-weight: var(--trc-font-weight-semibold, 600);
+    color: var(--trc-color-text-muted, dimgray);
     transition: all 0.2s;
     &::-webkit-inner-spin-button {
       display: none;
@@ -33,11 +34,11 @@
     position: absolute;
     right: 0px;
     background-color: transparent;
-    color: rgb(158, 158, 158);
+    color: var(--trc-color-text-subtle, rgb(158, 158, 158));
     width: 32px;
     height: 32px;
-    border-radius: 16px;
-    font-size: 16px;
+    border-radius: var(--trc-radius-pill, 16px);
+    font-size: var(--trc-font-size-md, 16px);
     border: none;
     cursor: pointer;
     transition: all 0.2s;
@@ -45,8 +46,8 @@
       outline: none;
     }
     &:hover {
-      background-color: rgb(241, 241, 241);
-      color: var(--primary-color);
+      background-color: var(--trc-color-surface-hover, rgb(241, 241, 241));
+      color: var(--trc-color-primary, var(--primary-color));
     }
   }
 }

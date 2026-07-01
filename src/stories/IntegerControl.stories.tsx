@@ -8,7 +8,7 @@ import {
 } from "./documentation";
 
 const meta: Meta<typeof IntegerControl> = {
-  title: "IntegerControl",
+  title: "Forms And Inputs/IntegerControl",
   component: IntegerControl,
   tags: ["autodocs"],
   parameters: {

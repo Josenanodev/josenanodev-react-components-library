@@ -1,6 +1,6 @@
 import { Meta } from "@storybook/addon-docs/blocks";
 
-<Meta title="Introduction" />
+<Meta title="Documentation/Introduction" />
 
 # Josenanodev React Components Library
 
@@ -62,6 +62,21 @@ export function BookingControls() {
 
 - `ScrollSnapGallery`: native scroll-snap image gallery.
 - `StackedCards`: interactive stacked card selector.
+
+## Theme Tokens
+
+Components share a basic visual system through `--trc-*` CSS custom properties. Override them on `:root` for the whole app, or on a wrapper with `data-trc-theme` for a scoped theme.
+
+```css
+[data-trc-theme="brand"] {
+  --trc-color-primary: #ec6321;
+  --trc-color-secondary: #46ba0d;
+  --trc-color-text: #333333;
+  --trc-color-surface: #ffffff;
+  --trc-color-border: #d8d8d8;
+  --trc-radius-md: 8px;
+}
+```
 
 ## Documentation Standards
 
